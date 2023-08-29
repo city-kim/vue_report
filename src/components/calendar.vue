@@ -58,14 +58,14 @@ setCalendar(DateTime.now().toFormat('yyyy-MM-dd'))
       <section class="calendar-title">
         <Icon
           name="left_double_arrow"
-          :width="16"
-          :height="16"
+          width="1rem"
+          height="1rem"
         ></Icon>
         <h2>{{key}}</h2>
         <Icon
           name="right_double_arrow"
-          :width="16"
-          :height="16"
+          width="1rem"
+          height="1rem"
         ></Icon>
       </section>
       <div class="calendar-body">
