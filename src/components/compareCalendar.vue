@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { DateTime } from 'luxon'
 
-import Icon from '@/components/icon.vue'
+import SvgIcon from '@/components/svgIcon.vue'
 // 1. luxon을 활용하여 달력을 생성한다
 // 2. 달력은 지난달 현재 다음달 총 3개가 출력된다
 // 3. 달력은 지난7일, 14일, 21일, 28일, 91일을 선택할 수 있고 자유선택도 가능하다
@@ -15,7 +15,7 @@ import Icon from '@/components/icon.vue'
 
 interface DayObject {
   // key는 yyyy-mm 형태의 week Date는 이중배열로 첫 배열은 주차, 두번째 배열은 일자
-  [key: string]: Array<Array<DateTime|null>>
+  [key: string]: Array<Array<DateTime|undefined>>
 }
 
 const dayObject = ref<DayObject>({})
@@ -31,15 +31,15 @@ function setCalendar (base: string) {
       const firstDay = baseDate.startOf('month') // 해당 월의 firstday
       const lastDay = baseDate.endOf('month') // 해당 월의 lastDay
 
-      const dayArray:Array<Array<DateTime>> = Array.from(Array(6), () => new Array(7).fill(null)) // 달력은 총 6주 7일로 구성된다
+      const dayArray:Array<Array<DateTime>> = Array.from(Array(6), () => new Array(7).fill(undefined)) // 달력은 총 6주 7일로 구성된다
         
       const start = Number(firstDay.toFormat('c')) - 1 // 시작일의 요일번호 1 ~ 7이므로 -1해준다
       for (let i=0; i<Number(lastDay.toFormat('d')); i++) {
         // 시작일부터 마지막일까지 loop를 돌면서 해당 날짜를 dayArray에 넣어준다
-        const s = start + i // 시작일 이전의 요일은 null로 유지하기 위해 start와 index를 더해준다
+        const s = start + i // 시작일 이전의 요일은 undefined로 유지하기 위해 start와 index를 더해준다
         const w = Math.floor(s/7) // 일자 / 7로 주차를 구한다
         const d = s%7 // 7로 나눈 나머지 값이 해당 주차의 요일이다
-        dayArray[w][d] = firstDay.plus({ days: i }) // null이 아닌곳에 날자를 채워준다
+        dayArray[w][d] = firstDay.plus({ days: i }) // undefined이 아닌곳에 날자를 채워준다
       }
       dayObject.value[thisMonth] = dayArray
     }
@@ -54,29 +54,32 @@ setCalendar(DateTime.now().toFormat('yyyy-MM-dd'))
     <div
       class="calendar-month"
       v-for="(month, key) in dayObject"
+      :key="key"
     >
       <section class="calendar-title">
-        <Icon
+        <SvgIcon
           name="left_double_arrow"
           width="1rem"
           height="1rem"
-        ></Icon>
+        ></SvgIcon>
         <h2>{{key}}</h2>
-        <Icon
+        <SvgIcon
           name="right_double_arrow"
           width="1rem"
           height="1rem"
-        ></Icon>
+        ></SvgIcon>
       </section>
       <div class="calendar-body">
         <article
           class="calendar-week"
-          v-for="week in month"
+          v-for="(week, i) in month"
+          :key="i"
         >
           <p
             class="calendar-day"
             :class="{disabled: !days}"
             v-for="(days, index) in week"
+            :key="index"
           >{{ days && days.toFormat('d') }}
           </p>
         </article>

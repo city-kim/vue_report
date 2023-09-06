@@ -3,7 +3,7 @@
 import { computed } from 'vue'
 import { getPercent } from '@/util/number_converter'
 
-import iconVue from '@/components/icon.vue'
+import SvgIcon from '@/components/svgIcon.vue'
 const props = defineProps({
   base: Number,
   compare: Number,
@@ -17,11 +17,11 @@ const percent = computed(() => getPercent(props.compare, props.base)) // 비율�
     class="component-percentage"
     :class="[percent > 0 ? 'up' : 'down']"
   >
-    <iconVue
+    <SvgIcon
       :name="percent > 0 ? 'caret_up_fill' : 'caret_down_fill'"
       width="1rem"
       height="1rem"
-    ></iconVue>
+    ></SvgIcon>
     <p>{{ Math.abs(percent) }}</p>
   </div>
 </template>
