@@ -8,9 +8,10 @@ const props = defineProps({
   base: Number,
   compare: Number,
   percent: Number,
+  toFixed: Number
 })
 
-const percent = computed(() => getPercent(props.compare, props.base)) // 비율계산하기
+const percent = computed(() => props.percent ? props.percent : getPercent(props.compare, props.base)) // 비율계산하기
 </script>
 <template>
   <div
@@ -22,7 +23,7 @@ const percent = computed(() => getPercent(props.compare, props.base)) // 비율�
       width="1rem"
       height="1rem"
     ></SvgIcon>
-    <p>{{ Math.abs(percent) }}</p>
+    <p>{{ props.toFixed ? Math.abs(percent).toFixed(props.toFixed) : Math.abs(percent) }}%</p>
   </div>
 </template>
 <style lang="scss">
