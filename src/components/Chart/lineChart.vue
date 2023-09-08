@@ -49,7 +49,7 @@ const props = defineProps({
   }
 })
 
-const active = Object.assign(
+const activeOption = Object.assign(
 {
   interaction: {
     mode: 'index' as InteractionMode,
@@ -57,7 +57,7 @@ const active = Object.assign(
   },
 }, structuredClone(chartActive))
 
-const inactive = Object.assign({}, structuredClone(chartInactive))
+const inactiveOption = Object.assign({}, structuredClone(chartInactive))
 
 const chartRef = ref<ChartComponentRef|null>(null) // chart component의 ref
 const canvas = ref<HTMLCanvasElement|undefined>(undefined) // canvas element
@@ -108,7 +108,7 @@ const data = computed(() => {
 })
 
 const chartOptions = computed(() => {
-  const result = props.active ? active : inactive
+  const result = props.active ? activeOption : inactiveOption
   if (props.active) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부

@@ -47,7 +47,7 @@ const props = defineProps({
 })
 
 // pie chart는 ticks, grid, border를 삭제
-const active = Object.assign(structuredClone(chartActive),
+const activeOption = Object.assign(structuredClone(chartActive),
 {
   scales: {
     x: {
@@ -68,11 +68,11 @@ const active = Object.assign(structuredClone(chartActive),
   },
 })
 
-const inactive = Object.assign({}, structuredClone(chartInactive))
+const inactiveOption = Object.assign({}, structuredClone(chartInactive))
 
 const data = computed(() => props.data)
 const chartOptions = computed(() => {
-  const result = props.active ? active : inactive
+  const result = props.active ? activeOption : inactiveOption
   if (props.active) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
