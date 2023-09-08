@@ -65,12 +65,12 @@ const barchartOption = { // barchart 공통 옵션
   }
 }
 
-const active = Object.assign(structuredClone(barchartOption), structuredClone(chartActive))
-const inactive = Object.assign(structuredClone(barchartOption), structuredClone(chartInactive))
+const activeOption = Object.assign(structuredClone(barchartOption), structuredClone(chartActive))
+const inactiveOption = Object.assign(structuredClone(barchartOption), structuredClone(chartInactive))
 
 const data = computed(() => props.data)
 const chartOptions = computed(() => {
-  const result = props.active ? active : inactive
+  const result = props.active ? activeOption : inactiveOption
   if (props.active) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
