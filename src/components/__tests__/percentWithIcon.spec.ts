@@ -34,4 +34,23 @@ describe('percentWithIcon', () => {
     expect(wrapper.text()).toContain('50') // 50은 100보다 50%가 더 작음
   })
 
+  it('퍼센트가 소수점이 있는경우 소수점이 표시되는지 확인', async () => {
+    const wrapper = mount(percentWithIcon, {
+      props: {
+        percent: 25.123
+      }
+    })
+    expect(wrapper.text()).toContain('25.12') // 소수점일경우 기본값인 fixed(2)로 표시
+  })
+  
+  it('toFixed가 전달되면 해당 값 만큼만 표시하는지 확인', async () => {
+    const wrapper = mount(percentWithIcon, {
+      props: {
+        percent: 33.3333333,
+        toFixed: 1,
+      }
+    })
+    expect(wrapper.text()).toContain('33.3') // 전달된 toFixed값 만큼만 표시
+  })
+
 })
