@@ -53,7 +53,7 @@ onMounted(() => {
 <style lang="scss">
 .component-progress {
   width: 100%;
-  background: var(--color-background-mute);
+  background: var(--color-bg-mute);
   .component-progress-size {
     width: 0%;
     transition: width 0.5s ease-in-out;
