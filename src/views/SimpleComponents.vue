@@ -1,10 +1,13 @@
 <script setup lang="ts">
 // simple-component 브랜치에 추가될 내용들을 단순 출력하는 용도
-import compareCalendar from '@/components/compareCalendar.vue'
-import titleWithSubtitle from '@/components/titleWithSubtitle.vue'
+import { ref, computed } from 'vue'
+
+import CompareCalendar from '@/components/compareCalendar.vue'
+import TitleWithSubtitle from '@/components/titleWithSubtitle.vue'
 import ProgressFill from '@/components/progressFill.vue'
 import PercentWithIcon from '@/components/percentWithIcon.vue'
 import DataTable from '@/components/dataTable.vue'
+import ContentsPagination from '@/components/contentsPagination.vue'
 
 const random = [
   {image: '/image/character/astronaut_cat.jpeg', text: ['Lorem ipsum dolor sit amet','consectetur adipiscing elit'], word: 'lorem'},
@@ -39,12 +42,22 @@ const data = {
     }
   }),
 }
+
+const page = ref(1)
+function changePage (n: number) {
+  // pageing에서 페이지 변경
+  page.value = n
+}
+
+const pageSize = 10
+const pageRows = computed(() => data.rows.slice((page.value-1)*pageSize, page.value*pageSize))
+
 </script>
 
 <template>
   <div>
-    <compareCalendar></compareCalendar>
-    <titleWithSubtitle
+    <CompareCalendar></CompareCalendar>
+    <TitleWithSubtitle
       title="title"
       subtitle="subtitle"
     />
@@ -59,6 +72,19 @@ const data = {
       :base="Math.floor(Math.random() * 100)"
       :compare="Math.floor(Math.random() * 100)"
     />
-    <DataTable :data="data"></DataTable>
+    <DataTable
+      :data="{
+        title: data.title,
+        columns: data.columns,
+        rows: pageRows
+      }"
+    ></DataTable>
+    <ContentsPagination
+      :totalItems="data.rows.length"
+      :currentPage="page"
+      :pageSize="pageSize"
+      :maxPages="5"
+      @paging="changePage"
+    />
   </div>
 </template>
