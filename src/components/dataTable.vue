@@ -93,6 +93,7 @@ const sortBy = ref('')
               <component
                 :is="item.component"
                 :percent="Number(item.text[0])"
+                :toFixed="1"
               />
             </div>
             <div v-else>
