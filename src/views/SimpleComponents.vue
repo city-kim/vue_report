@@ -4,7 +4,8 @@ import { ref, computed } from 'vue'
 
 import CompareCalendar from '@/components/compareCalendar.vue'
 import TitleWithSubtitle from '@/components/titleWithSubtitle.vue'
-import ProgressFill from '@/components/progressFill.vue'
+import progressLine from '@/components/progressLine.vue'
+import progressCircle from '@/components/progressCircle.vue'
 import PercentWithIcon from '@/components/percentWithIcon.vue'
 import DataTable from '@/components/dataTable.vue'
 import ContentsPagination from '@/components/contentsPagination.vue'
@@ -61,11 +62,18 @@ const pageRows = computed(() => data.rows.slice((page.value-1)*pageSize, page.va
       title="title"
       subtitle="subtitle"
     />
-    <ProgressFill
+    <progressLine
       :base="100"
       :compare="Math.floor(Math.random() * 100)"
     />
-    <ProgressFill
+    <progressLine
+      :percent="50"
+    />
+    <progressCircle
+      :base="100"
+      :compare="Math.floor(Math.random() * 100)"
+    />
+    <progressCircle
       :percent="50"
     />
     <PercentWithIcon

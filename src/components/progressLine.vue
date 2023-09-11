@@ -39,9 +39,9 @@ onMounted(() => {
 
 </script>
 <template>
-  <div class="component-progress">
+  <div class="progress-line">
     <div
-      class="component-progress-size"
+      class="progress-line-size"
       :style="{
         height: height,
         width: size + '%',
@@ -51,10 +51,10 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss">
-.component-progress {
+.progress-line {
   width: 100%;
   background: var(--color-bg-mute);
-  .component-progress-size {
+  .progress-line-size {
     width: 0%;
     transition: width 0.5s ease-in-out;
     min-height: 1rem;
