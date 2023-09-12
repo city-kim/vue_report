@@ -1,0 +1,44 @@
+name: UNIT TEST
+
+on:
+  pull_request:
+    branches: 
+      -main
+
+jobs:
+  Run_vitest:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - uses: actions/checkout@v3
+    - name: pnpm install
+      run: pnpm install
+    - name: vitest 실행
+      run: pnpm test:unit
+    - name: fail
+      uses: actions/github-script@0.2.0
+      with:
+         github-token: ${{github.token}}
+         script: |
+           const ref = "${{github.ref}}"
+           const pull_number = Number(ref.split("/")[2])
+           await github.pulls.createReview({
+             ...context.repo,
+             pull_number,
+             body: "unit test fail",
+             event: "REQUEST_CHANGES"
+           })
+           await github.pulls.update({
+             ...context.repo,
+             pull_number,
+             state: "closed"
+           })
+    if: failure()
