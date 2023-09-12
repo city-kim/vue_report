@@ -22,8 +22,10 @@ const height = computed(() => { // 높이는 값이 있을경우 해당값을 �
 
 const size = computed(() => { // progressbar width size 계산
   if (!block.value) {
-    if (props.percent) return props.percent // 퍼센트가 전달된경우 퍼센트에 맞는값을 출력
-    return getRate(props.compare, props.base) // 퍼센트가 전달되지 않은경우 비율을 계산하여 출력
+    // 퍼센트가 전달된경우 퍼센트에 맞는값을 출력, 전달되지 않은경우 비율을 계산하여 출력
+    let result = props.percent ? props.percent : getRate(props.compare, props.base)
+    // 이때 최대값은 100이다
+    return result > 100 ? 100 : result
   }
   else  {
     return 0
@@ -45,7 +47,7 @@ onMounted(() => {
       :style="{
         height: height,
         width: size + '%',
-        background: color
+        background: props.color
       }"
     ></div>
   </div>
