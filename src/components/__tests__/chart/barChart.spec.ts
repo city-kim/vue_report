@@ -1,10 +1,14 @@
 import { nextTick } from 'vue'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
 import BarChartVue from '@/components/Chart/barChart.vue'
 
 import type { ComponentPublicInstance } from 'vue'
 type ChartWrapper<T> = VueWrapper<ComponentPublicInstance & T>
+
+vi.mock('vue-chartjs', () => ({
+  Bar: () => null
+}))
 
 describe('BarChartVue', () => {
   const chartData = {

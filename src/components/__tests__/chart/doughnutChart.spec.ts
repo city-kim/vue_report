@@ -1,10 +1,14 @@
 import { nextTick } from 'vue'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
 import DoughnutChart from '@/components/Chart/doughnutChart.vue'
 
 import type { ComponentPublicInstance } from 'vue'
 type ChartWrapper<T> = VueWrapper<ComponentPublicInstance & T>
+
+vi.mock('vue-chartjs', () => ({
+  Chart: () => null
+}))
 
 describe('DoughnutChart', () => {
 
