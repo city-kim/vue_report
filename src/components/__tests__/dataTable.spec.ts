@@ -78,7 +78,8 @@ describe('DataTable.vue', () => {
     expect(percentWithIconComponent.exists()).toBe(true)
     expect(percentWithIconComponent.props('percent')).toBe(-123)
 
-    expect(percentWithIconComponent.find('.component-percentage p').text()).toBe('123%')
+    // dataTable은 항상 toFixed의 값을 1로 설정한다
+    expect(percentWithIconComponent.find('.component-percentage p').text()).toBe('123.0%')
   })
 
   it ('selectbox의 value를 변경시 정렬기능이 수행되는지 테스트', async () => {
