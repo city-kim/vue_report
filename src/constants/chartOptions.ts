@@ -18,7 +18,7 @@ const plugins: ChartPlugins = {
   }
 }
 
-const chartActive = {
+const withGuide = {
   responsive: true, // 반응형
   maintainAspectRatio: false, // 종횡비 유지여부
   plugins: plugins,
@@ -34,11 +34,10 @@ const chartActive = {
   }
 }
 
-const chartInactive = {
+const withoutGuide = {
   responsive: true, // 반응형
   maintainAspectRatio: false, // 종횡비 유지여부
   plugins: plugins,
-  events: [],  // 이벤트를 모두삭제
   scales: { //  축 삭제
     x: {
       ticks: { display: false }, // 라벨 삭제
@@ -54,6 +53,6 @@ const chartInactive = {
 }
 
 export {
-  chartActive,
-  chartInactive
+  withGuide,
+  withoutGuide
 }
