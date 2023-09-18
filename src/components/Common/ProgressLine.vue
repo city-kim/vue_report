@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 // div 영역에 색상이 들어있는 div를 출력하여 progress를 표현한다
 import { computed, ref, onMounted } from 'vue'
-import { getRate } from '@/util/number_converter'
 import { getCssVar } from '@/util/color'
 const props = defineProps({
   height: String, // 높이 전달받지 못하면 min-height: 1rem
-  base: Number, // 비율계산을 위한 기준값
-  compare: Number, // 비율계산을 위한 비교값
-  percent: Number, // 퍼센트를 전달받으면 해당 퍼센트를 출력한다
+  percent: { // 퍼센트를 전달받으면 해당 퍼센트를 출력한다
+    type: Number,
+    required: true
+  },
   color: { // 색상을 전달받지 못하면 --c-blue를 기본으로 한다
     type: String,
     required: false,
@@ -21,11 +21,9 @@ const height = computed(() => { // 높이는 값이 있을경우 해당값을 �
 })
 
 const size = computed(() => { // progressbar width size 계산
-  if (!block.value) {
-    // 퍼센트가 전달된경우 퍼센트에 맞는값을 출력, 전달되지 않은경우 비율을 계산하여 출력
-    let result = props.percent ? props.percent : getRate(props.compare, props.base)
-    // 이때 최대값은 100이다
-    return result > 100 ? 100 : result
+  if (!block.value && props.percent) {
+    // 최대값은 100이다
+    return props.percent > 100 ? 100 : props.percent
   }
   else  {
     return 0
@@ -59,7 +57,6 @@ onMounted(() => {
   .progress-line-size {
     width: 0%;
     transition: width 0.5s ease-in-out;
-    min-height: 1rem;
   }
 }
 </style>

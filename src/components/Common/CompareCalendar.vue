@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { DateTime } from 'luxon'
 
-import SvgIcon from '@/components/svgIcon.vue'
+import SvgIcon from '@/components/Common/SvgIcon.vue'
 // 1. luxon을 활용하여 달력을 생성한다
 // 2. 달력은 지난달 현재 다음달 총 3개가 출력된다
 // 3. 달력은 지난7일, 14일, 21일, 28일, 91일을 선택할 수 있고 자유선택도 가능하다

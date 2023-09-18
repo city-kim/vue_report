@@ -10,6 +10,12 @@
 
   --c-indigo: #2c3e50;
 
+  --c-blue: #009ef6;
+  --c-red: #f1416c;
+  --c-yellow: #ffc700;
+  --c-green: #50cd89;
+  --c-purple: #7239ea;
+
   --c-divider-light-1: rgba(60, 60, 60, 0.29);
   --c-divider-light-2: rgba(60, 60, 60, 0.12);
   --c-divider-dark-1: rgba(84, 84, 84, 0.65);
@@ -19,12 +25,6 @@
   --c-text-light-2: rgba(60, 60, 60, 0.66);
   --c-text-dark-1: var(--c-white);
   --c-text-dark-2: rgba(235, 235, 235, 0.64);
-
-  --c-blue: #009ef6;
-  --c-red: #f1416c;
-  --c-yellow: #ffc700;
-  --c-greed: #50cd89;
-  --c-purple: #7239ea;
 
   --color-bg: var(--c-white);
   --color-bg-soft: var(--c-white-soft);
@@ -36,11 +36,13 @@
   --color-heading: var(--c-text-light-1);
   --color-text: var(--c-text-light-1);
 
-  --color-bg-blue: color-mix(in srgb, var(--c-blue) 25%, var(--c-white));
-  --color-bg-red: color-mix(in srgb, var(--c-red) 25%, var(--c-white));
-  --color-bg-yellow: color-mix(in srgb, var(--c-yellow) 25%, var(--c-white));
-  --color-bg-greed: color-mix(in srgb, var(--c-greed) 25%, var(--c-white));
-  --color-bg-purple: color-mix(in srgb, var(--c-purple) 25%, var(--c-white));
+  --color-bg-blue: color-mix(in srgb, var(--c-blue) 15%, var(--c-white));
+  --color-bg-red: color-mix(in srgb, var(--c-red) 15%, var(--c-white));
+  --color-bg-yellow: color-mix(in srgb, var(--c-yellow) 15%, var(--c-white));
+  --color-bg-green: color-mix(in srgb, var(--c-green) 15%, var(--c-white));
+  --color-bg-purple: color-mix(in srgb, var(--c-purple) 15%, var(--c-white));
+
+  --color-shadow-soft: color-mix(in srgb, var(--c-black-soft) 25%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,6 +57,15 @@
     --color-heading: var(--c-text-dark-1);
     --color-text: var(--c-text-dark-2);
   }
+}
+
+body {
+  background: var(--c-white-soft);
+}
+
+#app {
+  max-width: 1500px;
+  margin: 0 auto;
 }
 
 /***
