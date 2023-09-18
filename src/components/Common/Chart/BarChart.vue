@@ -10,7 +10,7 @@ import {
   LinearScale
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import { chartActive, chartInactive } from '@/constants/chartOptions'
+import { withGuide, withoutGuide } from '@/constants/chartOptions'
 
 import type { PropType } from 'vue'
 import type { BarChartData } from '@/types/chart'
@@ -22,7 +22,7 @@ const props = defineProps({
     type: Object as PropType<BarChartData>,
     required: true
   },
-  active: { // 활성화 여부
+  guide: { // 활성화 여부
     type: Boolean,
     required: false,
     default: true
@@ -47,10 +47,7 @@ const props = defineProps({
     required: false,
     default: 300
   },
-  unit: {
-    type: String,
-    required: false,
-  }
+  unit: String, // 단위
 })
 
 const barchartOption = { // barchart 공통 옵션
@@ -65,13 +62,13 @@ const barchartOption = { // barchart 공통 옵션
   }
 }
 
-const activeOption = Object.assign(structuredClone(barchartOption), structuredClone(chartActive))
-const inactiveOption = Object.assign(structuredClone(barchartOption), structuredClone(chartInactive))
+const withGuideOption = Object.assign(structuredClone(barchartOption), structuredClone(withGuide))
+const withoutGuideOption = Object.assign(structuredClone(barchartOption), structuredClone(withoutGuide))
 
 const data = computed(() => props.data)
 const chartOptions = computed(() => {
-  const result = props.active ? activeOption : inactiveOption
-  if (props.active) {
+  const result = props.guide ? withGuideOption : withoutGuideOption
+  if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
       result.plugins.legend.display = true
@@ -91,7 +88,7 @@ const chartOptions = computed(() => {
 
 </script>
 <template>
-  <div class="chart-container">
+  <div>
     <Bar
       :style="`max-width: 100%; height: ${props.height}px;`"
       :options="chartOptions"

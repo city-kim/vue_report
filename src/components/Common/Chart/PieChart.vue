@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import { chartActive, chartInactive } from '@/constants/chartOptions'
+import { withGuide, withoutGuide } from '@/constants/chartOptions'
 
 import type { PropType } from 'vue'
 import type { PieChartData } from '@/types/chart'
@@ -15,7 +15,7 @@ const props = defineProps({
     type: Object as PropType<PieChartData>,
     required: true
   },
-  active: { // 활성화 여부
+  guide: { // 활성화 여부
     type: Boolean,
     required: false,
     default: true
@@ -40,14 +40,11 @@ const props = defineProps({
     required: false,
     default: 300
   },
-  unit: {
-    type: String,
-    required: false,
-  }
+  unit: String, // 단위
 })
 
 // pie chart는 ticks, grid, border를 삭제
-const activeOption = Object.assign(structuredClone(chartActive),
+const withGuideOption = Object.assign(structuredClone(withGuide),
 {
   scales: {
     x: {
@@ -68,12 +65,12 @@ const activeOption = Object.assign(structuredClone(chartActive),
   }
 })
 
-const inactiveOption = Object.assign({}, structuredClone(chartInactive))
+const withoutGuideOption = Object.assign({}, structuredClone(withoutGuide))
 
 const data = computed(() => props.data)
 const chartOptions = computed(() => {
-  const result = props.active ? activeOption : inactiveOption
-  if (props.active) {
+  const result = props.guide ? withGuideOption : withoutGuideOption
+  if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
       result.plugins.legend.position = props.legendPosition
@@ -98,7 +95,7 @@ const chartOptions = computed(() => {
 
 </script>
 <template>
-  <div class="chart-container">
+  <div>
     <Chart
       type="pie"
       :style="`max-width: 100%; height: ${props.height}px;`"

@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import { hexToRGBA } from '@/util/text_converter'
-import { chartActive, chartInactive } from '@/constants/chartOptions'
+import { withGuide, withoutGuide } from '@/constants/chartOptions'
 
 import type { PropType } from 'vue'
 import type { InteractionMode } from 'chart.js'
@@ -23,7 +23,7 @@ const props = defineProps({
     type: Object as PropType<LineChartData>,
     required: true
   },
-  active: { // 활성화 여부
+  guide: { // 활성화 여부
     type: Boolean,
     required: false,
     default: true
@@ -43,21 +43,24 @@ const props = defineProps({
     required: false,
     default: 300
   },
-  unit: {
-    type: String,
-    required: false,
-  }
+  unit: String, // 단위
 })
 
-const activeOption = Object.assign(
+const withGuideOption = Object.assign(
 {
   interaction: {
     mode: 'index' as InteractionMode,
     intersect: false,
   },
-}, structuredClone(chartActive))
+}, structuredClone(withGuide))
 
-const inactiveOption = Object.assign({}, structuredClone(chartInactive))
+const withoutGuideOption = Object.assign(
+{
+  interaction: {
+    mode: 'index' as InteractionMode,
+    intersect: false,
+  },
+}, structuredClone(withoutGuide))
 
 const chartRef = ref<ChartComponentRef|null>(null) // chart component의 ref
 const canvas = ref<HTMLCanvasElement|undefined>(undefined) // canvas element
@@ -108,8 +111,8 @@ const data = computed(() => {
 })
 
 const chartOptions = computed(() => {
-  const result = props.active ? activeOption : inactiveOption
-  if (props.active) {
+  const result = props.guide ? withGuideOption : withoutGuideOption
+  if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
       result.plugins.legend.display = true
@@ -124,7 +127,7 @@ const chartOptions = computed(() => {
 
 </script>
 <template>
-  <div class="chart-container">
+  <div>
     <Chart
       ref="chartRef"
       type="line"
