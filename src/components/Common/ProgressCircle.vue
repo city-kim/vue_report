@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { getRate, decreaseByPercent } from '@/util/number_converter'
+import { decreaseByPercent } from '@/util/number_converter'
 import { getCssVar } from '@/util/color'
 const props = defineProps({
   size: {
@@ -8,9 +8,10 @@ const props = defineProps({
     required: false,
     default: '10rem'
   },
-  base: Number,
-  compare: Number,
-  percent: Number,
+  percent: {
+    type: Number,
+    required: true
+  },
   color: {
     type: String,
     required: false,
@@ -26,7 +27,10 @@ const props = defineProps({
 const svg = ref<SVGElement|null>(null) // svg element
 
 // props.percent가 있다면 그대로 없다면 비율계산
-const percent = computed(() => props.percent ? props.percent : getRate(props.compare, props.base))
+const percent = computed(() => {
+  if (props.percent) return props.percent > 100 ? 100 : props.percent
+  return 0
+})
 // svg의 strokeDasharray 계산 svg의 크기 * 2 * Math.PI * 0.45(circle의 r값이 45%이기 때문에 0.45를 곱해준다)
 const strokeDasharray = computed(() => svg.value?.clientWidth ? Number((svg.value?.clientWidth * 0.45 * 2 * Math.PI).toFixed(2)) : 0)
 const strokeDashoffset = computed(() => {

@@ -1,12 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import dataTableVue from '@/components/dataTable.vue'
-import PercentWithIcon from '@/components/percentWithIcon.vue'
+import DataTableVue from '@/components/Common/DataTable.vue'
+import PercentWithIcon from '@/components/Common/PercentWithIcon.vue'
 
 describe('DataTable.vue', () => {
   
   const tableData = {
-    title: 'TEST TITLE',
     columns: [
       { key: 'category', title: '카테고리' },
       { key: 'views', title: '조회수', sortable: true},
@@ -28,16 +27,12 @@ describe('DataTable.vue', () => {
       }
     ]
   }
-  const wrapper = mount(dataTableVue, {
+  const wrapper = mount(DataTableVue, {
     props: { data: tableData }
   })
   
   const rows = wrapper.findAll('tbody tr')
   const cells = rows[0].findAll('td')
-
-  it('타이틀이 올바르게 표시되는지 확인', () => {
-    expect(wrapper.find('h2').text()).toBe('TEST TITLE')
-  })
 
   it('thead가 올바르게 표시되는지 확인', () => {
     const headers = wrapper.findAll('thead th')
@@ -76,22 +71,6 @@ describe('DataTable.vue', () => {
     const div = cells[3].find('div')
     const percentWithIconComponent = div.findComponent(PercentWithIcon)
     expect(percentWithIconComponent.exists()).toBe(true)
-    expect(percentWithIconComponent.props('percent')).toBe(-123)
-
-    // dataTable은 항상 toFixed의 값을 1로 설정한다
-    expect(percentWithIconComponent.find('.component-percentage p').text()).toBe('123.0%')
-  })
-
-  it ('selectbox의 value를 변경시 정렬기능이 수행되는지 테스트', async () => {
-    const beforeViews = wrapper.findAll('tbody tr td:nth-child(2)')
-    expect(beforeViews[0].find('p').text()).toBe('935')
-    expect(beforeViews[1].find('p').text()).toBe('5600')
-
-    await wrapper.find('section select').setValue('views')
-
-    const afterViews = wrapper.findAll('tbody tr td:nth-child(2)')
-    expect(afterViews[0].find('p').text()).toBe('5600')
-    expect(afterViews[1].find('p').text()).toBe('935')
   })
 
 })

@@ -2,17 +2,17 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { iconList } from '@/constants/iconList'
 
-import svgIcon from '@/components/svgIcon.vue'
+import SvgIcon from '@/components/Common/SvgIcon.vue'
 
 const singleRow = Object.entries(iconList).find(([, value]) => value.length === 1)
 const multyRow = Object.entries(iconList).find(([, value]) => value.length > 1)
 
-describe('svgIcon는 constants의 iconList가 정의된 경우에만 테스트한다', () => {
+describe('SvgIcon는 constants의 iconList가 정의된 경우에만 테스트한다', () => {
 
   if (singleRow) {
     it('아이콘이 한개의 배열을 가진경우', async () => {
       const iconName = singleRow[0] as keyof typeof iconList
-      const wrapper = mount(svgIcon, {
+      const wrapper = mount(SvgIcon, {
         props: {
           name: iconName,
           width: '1rem',
@@ -29,7 +29,7 @@ describe('svgIcon는 constants의 iconList가 정의된 경우에만 테스트�
   if (multyRow) {
     it('아이콘이 n개의 배열을 가진경우', async () => {
       const iconName = multyRow[0] as keyof typeof iconList
-      const wrapper = mount(svgIcon, {
+      const wrapper = mount(SvgIcon, {
         props: {
           name: iconName,
           width: '1rem',
@@ -49,7 +49,7 @@ describe('svgIcon는 constants의 iconList가 정의된 경우에만 테스트�
     it('넓이 속성이 있을경우 해당값을 사용한다', async () => {
       const row = singleRow || multyRow
       const width = '5rem'
-      const wrapper = mount(svgIcon, {
+      const wrapper = mount(SvgIcon, {
         props: {
           name: (row?.[0]) as keyof typeof iconList,
           width: width,
@@ -64,7 +64,7 @@ describe('svgIcon는 constants의 iconList가 정의된 경우에만 테스트�
     it('넓이 속성이 있을경우 해당값을 사용한다', async () => {
       const row = singleRow || multyRow
       const height = '5rem'
-      const wrapper = mount(svgIcon, {
+      const wrapper = mount(SvgIcon, {
         props: {
           name: (row?.[0]) as keyof typeof iconList,
           width: '1rem',

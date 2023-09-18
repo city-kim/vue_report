@@ -16,7 +16,6 @@ interface TableColumn {
 }
 
 interface DataTable {
-  title: string
   columns: Array<TableColumn>
   rows: Array<TableRow>
 }

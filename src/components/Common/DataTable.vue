@@ -3,18 +3,22 @@ import { computed, ref } from 'vue'
 import type { DataTable } from '@/types/data_table'
 import type { PropType } from 'vue'
 
-import PercentWithIcon from '@/components/percentWithIcon.vue'
+import PercentWithIcon from '@/components/Common/PercentWithIcon.vue'
 
 const props = defineProps({
   data: {
     type: Object as PropType<DataTable>,
     required: true
+  },
+  height: {
+    type: String,
+    required: false,
+    default: '300px'
   }
 })
 
 const tableData = computed(() => {
   const result = {
-    title: props.data.title,
     columns: props.data.columns,
     rows: props.data.rows.map(x => {
       return Array.from(props.data.columns, c => {
@@ -43,20 +47,10 @@ const sortBy = ref('')
 
 </script>
 <template>
-  <div class="data-table">
-    <section>
-      <h2>{{ tableData.title }}</h2>
-      <select
-        v-model="sortBy"
-      >
-        <option value="">정렬</option>
-        <option
-          v-for="option in sortTarget"
-          :key="option.key"
-          :value="option.key"
-        >{{ option.title ? option.title : option.key }}</option>
-      </select>
-    </section>
+  <div
+    class="data-table"
+    :style="`max-height: ${height};`"
+  >
     <table>
       <thead>
         <tr>
@@ -111,8 +105,6 @@ const sortBy = ref('')
 </template>
 <style lang="scss">
   .data-table {
-    width:800px;
-    max-height: 500px;
     overflow: auto;
     position: relative;
     section {

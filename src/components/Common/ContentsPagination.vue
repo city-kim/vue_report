@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import SvgIconVue from '@/components/svgIcon.vue'
+import SvgIconVue from '@/components/Common/SvgIcon.vue'
 
 const props = defineProps({
   totalItems: { // 아이템 갯수

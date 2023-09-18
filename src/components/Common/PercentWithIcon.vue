@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 // 양수, 음수에따라 caret 아이콘 및 색상이 변경되는 퍼센트값을 출력한다
 import { computed } from 'vue'
-import { getPercent } from '@/util/number_converter'
 
-import SvgIcon from '@/components/svgIcon.vue'
+import SvgIcon from '@/components/Common/SvgIcon.vue'
 const props = defineProps({
-  base: Number,
-  compare: Number,
-  percent: Number,
+  percent: {
+    type: Number,
+    required: true,
+  },
   toFixed: Number
 })
 
-const percent = computed(() => props.percent ? props.percent : getPercent(props.compare, props.base)) // 비율계산하기
+const percent = computed(() => props.percent) // 비율계산하기
 </script>
 <template>
   <div
