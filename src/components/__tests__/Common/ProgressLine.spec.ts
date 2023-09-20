@@ -25,7 +25,9 @@ describe('ProgressLine', () => {
   })
 
   it('높이 속성이 없을 경우 기본값 1rem을 사용한다', async () => {
-    const wrapper = mount(ProgressLine)
+    const wrapper = mount(ProgressLine, {
+      props: { percent: 50 }
+    })
     const div = wrapper.find('.progress-line-size')
     expect(div.attributes().style).toContain('height: 1rem')
   })

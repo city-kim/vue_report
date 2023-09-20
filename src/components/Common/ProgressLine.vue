@@ -2,6 +2,7 @@
 // div 영역에 색상이 들어있는 div를 출력하여 progress를 표현한다
 import { computed, ref, onMounted } from 'vue'
 import { getCssVar } from '@/util/color'
+
 const props = defineProps({
   height: String, // 높이 전달받지 못하면 min-height: 1rem
   percent: { // 퍼센트를 전달받으면 해당 퍼센트를 출력한다
