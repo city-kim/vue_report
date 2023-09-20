@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { getCssVar } from '@/util/color' // './yourFileName'을 실제 파일 경로로 바꿔주세요.
+import { getCssVar } from '@/util/color'
 
 describe('getCssVar', () => {
   
