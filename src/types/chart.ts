@@ -27,7 +27,7 @@ interface ChartData {
 
 interface BarChartData extends ChartData {
   datasets: Array<{
-    label: string
+    label?: string
     backgroundColor?: Color
     data: Array<number>
   }>

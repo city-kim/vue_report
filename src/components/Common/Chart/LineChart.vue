@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import { hexToRGBA } from '@/util/text_converter'
-import { withGuide, withoutGuide } from '@/constants/chartOptions'
+import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
 import type { InteractionMode } from 'chart.js'
@@ -46,21 +46,21 @@ const props = defineProps({
   unit: String, // 단위
 })
 
-const withGuideOption = Object.assign(
+const WITH_GUIDEOption = Object.assign(
 {
   interaction: {
     mode: 'index' as InteractionMode,
     intersect: false,
   },
-}, structuredClone(withGuide))
+}, structuredClone(WITH_GUIDE))
 
-const withoutGuideOption = Object.assign(
+const WITHOUT_GUIDEOption = Object.assign(
 {
   interaction: {
     mode: 'index' as InteractionMode,
     intersect: false,
   },
-}, structuredClone(withoutGuide))
+}, structuredClone(WITHOUT_GUIDE))
 
 const chartRef = ref<ChartComponentRef|null>(null) // chart component의 ref
 const canvas = ref<HTMLCanvasElement|undefined>(undefined) // canvas element
@@ -95,13 +95,11 @@ onMounted(() => {
 const data = computed(() => {
   if (props.gradient) {
     // gradient가 활성화일때만 실행
-    const dataset = props.data.datasets.map((x, i) => {
-      return {
-        ...x,
-        borderColor: gradientArray.value[i] || x.borderColor,
-        backgroundColor: gradientArray.value[i] || x.backgroundColor
-      }
-    })
+    const dataset = props.data.datasets.map((x, i) => ({
+      ...x,
+      borderColor: gradientArray.value[i] || x.borderColor,
+      backgroundColor: gradientArray.value[i] || x.backgroundColor
+    }))
     return {
       ...props.data,
       datasets: dataset
@@ -111,7 +109,7 @@ const data = computed(() => {
 })
 
 const chartOptions = computed(() => {
-  const result = props.guide ? withGuideOption : withoutGuideOption
+  const result = props.guide ? WITH_GUIDEOption : WITHOUT_GUIDEOption
   if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
@@ -120,14 +118,16 @@ const chartOptions = computed(() => {
   }
 
   result.plugins.tooltip.callbacks.label = (model) => {
-    return `${model.formattedValue}${props.unit ?? ''}`
+    let label = model.dataset.label || ''
+    if (label) label += ': '
+    return `${label}${model.formattedValue}${props.unit ?? ''}`
   }
   return result
 })
 
 </script>
 <template>
-  <div>
+  <div class="chart-container">
     <Chart
       ref="chartRef"
       type="line"
@@ -136,4 +136,4 @@ const chartOptions = computed(() => {
       :options="chartOptions"
     />
   </div>
-</template>
+</template>@/constants/CHART_OPTIONS

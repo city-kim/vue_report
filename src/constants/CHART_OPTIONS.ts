@@ -1,6 +1,6 @@
 import type { ChartPlugins } from '@/types/chart'
 
-const plugins: ChartPlugins = {
+const PLUGINS: ChartPlugins = {
   legend: {
     display: false, // 기본값은 false
     position: 'top',
@@ -18,10 +18,10 @@ const plugins: ChartPlugins = {
   }
 }
 
-const withGuide = {
+const WITH_GUIDE = {
   responsive: true, // 반응형
   maintainAspectRatio: false, // 종횡비 유지여부
-  plugins: plugins,
+  plugins: PLUGINS,
   scales: {
     x: {
       grid: { display: false },
@@ -34,10 +34,10 @@ const withGuide = {
   }
 }
 
-const withoutGuide = {
+const WITHOUT_GUIDE = {
   responsive: true, // 반응형
   maintainAspectRatio: false, // 종횡비 유지여부
-  plugins: plugins,
+  plugins: PLUGINS,
   scales: { //  축 삭제
     x: {
       ticks: { display: false }, // 라벨 삭제
@@ -53,6 +53,6 @@ const withoutGuide = {
 }
 
 export {
-  withGuide,
-  withoutGuide
+  WITH_GUIDE,
+  WITHOUT_GUIDE
 }
