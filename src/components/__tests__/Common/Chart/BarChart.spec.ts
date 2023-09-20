@@ -68,4 +68,17 @@ describe('BarChart', () => {
     // 차트 높이 설정이 올바르게 적용되는지 검사
     expect(wrapper.vm.height).toBe(400)
   })
+
+  it('barPercentage prop에 따라 차트의 categoryPercentage가 설정되는지 확인', async () => {
+    const wrapper: ChartWrapper<Partial<{ chartOptions: () => void }>> = shallowMount(BarChart, {
+      props: {
+        data: chartData
+      },
+    })
+    await nextTick()
+    const options = wrapper.vm.chartOptions
+    expect(options).toHaveProperty('categoryPercentage', 0.8)
+    await wrapper.setProps({ barPercent: 0.2 })
+    expect(options).toHaveProperty('categoryPercentage', 0.2)
+  })
 })
