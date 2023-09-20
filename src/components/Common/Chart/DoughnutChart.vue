@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import { withGuide, withoutGuide } from '@/constants/chartOptions'
+import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
 import type { PieChartData } from '@/types/chart'
@@ -44,7 +44,7 @@ const props = defineProps({
 })
 
 // pie chart는 ticks, grid, border를 삭제
-const withGuideOption = Object.assign(structuredClone(withGuide),
+const WITH_GUIDEOption = Object.assign(structuredClone(WITH_GUIDE),
 {
   scales: {
     x: {
@@ -65,11 +65,11 @@ const withGuideOption = Object.assign(structuredClone(withGuide),
   },
 })
 
-const withoutGuideOption = Object.assign({}, structuredClone(withoutGuide))
+const WITHOUT_GUIDEOption = Object.assign({}, structuredClone(WITHOUT_GUIDE))
 
 const data = computed(() => props.data)
 const chartOptions = computed(() => {
-  const result = props.guide ? withGuideOption : withoutGuideOption
+  const result = props.guide ? WITH_GUIDEOption : WITHOUT_GUIDEOption
   if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
@@ -88,14 +88,16 @@ const chartOptions = computed(() => {
   }
 
   result.plugins.tooltip.callbacks.label = (model) => {
-    return `${model.formattedValue}${props.unit ?? ''}`
+    let label = model.dataset.label || ''
+    if (label) label += ': '
+    return `${label}${model.formattedValue}${props.unit ?? ''}`
   }
   return result
 })
 
 </script>
 <template>
-  <div>
+  <div class="chart-container">
     <Chart
       type="doughnut"
       :style="`max-width: 100%; height: ${props.height}px;`"
@@ -103,4 +105,4 @@ const chartOptions = computed(() => {
       :data="data"
     />
   </div>
-</template>
+</template>@/constants/CHART_OPTIONS

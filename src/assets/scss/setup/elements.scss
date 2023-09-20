@@ -1,0 +1,7 @@
+@mixin card-container($gap: 1rem){
+  display: grid;
+  gap: $gap;
+  padding: 1rem;
+  background-color: var(--c-white);
+  border-radius: 0.5rem;
+}
