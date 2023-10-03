@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // add-chart 브랜치에 추가될 내용들을 단순 출력하는 용도
-import BarChartVue from '@/components/Chart/barChart.vue'
-import LineChartVue from '@/components/Chart/lineChart.vue'
-import PieChartVue from '@/components/Chart/pieChart.vue'
-import DoughnutChartVue from '@/components/Chart/doughnutChart.vue'
+import BarChartVue from '@/components/Common/Chart/BarChart.vue'
+import LineChartVue from '@/components/Common/Chart/LineChart.vue'
+import PieChartVue from '@/components/Common/Chart/PieChart.vue'
+import DoughnutChartVue from '@/components/Common/Chart/DoughnutChart.vue'
 
 </script>
 
@@ -15,7 +15,7 @@ import DoughnutChartVue from '@/components/Chart/doughnutChart.vue'
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
           datasets: [{label: 'Data One',borderColor: '#ffb3ba',backgroundColor: '#ffffba',fill: true,data: [Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100]}]
         }"
-        :active="false"
+        :guide="false"
         unit="%"
       ></LineChartVue>
       <LineChartVue
@@ -46,7 +46,7 @@ import DoughnutChartVue from '@/components/Chart/doughnutChart.vue'
       <BarChartVue :data="{
           labels: ['January', 'February', 'March', 'April', 'May', 'June'],
           datasets: [{label: 'Data One', backgroundColor: '#191d88', data: [Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100]},{label: 'Data Two',backgroundColor: '#ffc436',data: [Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100]},{label: 'Data Two',backgroundColor: '#aa46be',data: [Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100]}]}"
-          :active="false"
+          :guide="false"
           unit="%"
       ></BarChartVue>
       <BarChartVue :data="{
@@ -74,7 +74,7 @@ import DoughnutChartVue from '@/components/Chart/doughnutChart.vue'
           labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
           datasets: [{backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],data: [Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100]}]
         }"
-        :active="false"
+        :guide="false"
         unit="%"
       ></PieChartVue>
       <PieChartVue
@@ -109,7 +109,7 @@ import DoughnutChartVue from '@/components/Chart/doughnutChart.vue'
           labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
           datasets: [{backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],data: [Math.random()*100,Math.random()*100,Math.random()*100,Math.random()*100]}]
         }"
-        :active="false"
+        :guide="false"
         unit="%"
       ></DoughnutChartVue>
       <DoughnutChartVue

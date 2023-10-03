@@ -3,12 +3,12 @@ import { ref, onMounted, computed } from 'vue'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import { hexToRGBA } from '@/util/text_converter'
-import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/CHART_OPTIONS'
+import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
 import type { InteractionMode } from 'chart.js'
 import type { ChartComponentRef } from 'vue-chartjs'
-import type { LineChartData } from '@/types/chart'
+import type { LineChartData } from '@/types/components/chart'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 
@@ -136,4 +136,4 @@ const chartOptions = computed(() => {
       :options="chartOptions"
     />
   </div>
-</template>@/constants/CHART_OPTIONS
+</template>

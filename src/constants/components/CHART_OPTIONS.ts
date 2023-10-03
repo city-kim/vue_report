@@ -1,4 +1,4 @@
-import type { ChartPlugins } from '@/types/chart'
+import type { ChartPlugins } from '@/types/components/chart'
 
 const PLUGINS: ChartPlugins = {
   legend: {

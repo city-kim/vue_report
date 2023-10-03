@@ -88,16 +88,45 @@ setCalendar(DateTime.now().toFormat('yyyy-MM-dd'))
   </div>
 </template>
 
-<style>
-.calendar-container{display: flex; gap:5rem; justify-content: baseline; }
-.calendar-title{ display: flex; align-items: center; justify-content: space-between; }
-.calendar-title svg{ cursor: pointer; }
-.calendar-title h2{ cursor: pointer; }
-.calendar-body{ border:1px solid #ccc; }
-.calendar-week{ display: grid; grid-template-columns: repeat(7, 1fr); text-align: right; }
-.calendar-week ~ .calendar-week{ border-top:1px solid #ccc; }
-.calendar-day{ min-height:1.75rem; padding:0.25rem; }
-.calendar-day:not(.disabled){ cursor: pointer; }
-.calendar-day ~ .calendar-day{ border-left:1px solid #ccc; }
-.calendar-day.disabled{ background: #ddd; }
+<style lang="scss">
+.calendar-container{
+  display: flex;
+  gap:5rem;
+  justify-content: baseline;
+  .calendar-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & > svg{
+      cursor: pointer;
+    }
+    & > h2{
+      cursor: pointer;
+    }
+  }
+  .calendar-body{
+    border:1px solid #ccc;
+    .calendar-week{
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: right;
+      & ~ .calendar-week{
+        border-top:1px solid #ccc;
+      }
+      .calendar-day{
+        min-height:1.75rem;
+        padding:0.25rem;
+        &:not(.disabled){
+          cursor: pointer;
+        }
+        & ~ .calendar-day{
+          border-left:1px solid #ccc;
+        }
+        &.disabled{
+          background: #ddd;
+        }
+      }
+    }
+  }
+}
 </style>

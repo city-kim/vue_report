@@ -3,10 +3,10 @@ import { computed } from 'vue'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/CHART_OPTIONS'
+import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
-import type { PieChartData } from '@/types/chart'
+import type { PieChartData } from '@/types/components/chart'
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)
 
@@ -105,4 +105,4 @@ const chartOptions = computed(() => {
       :data="data"
     />
   </div>
-</template>@/constants/CHART_OPTIONS
+</template>

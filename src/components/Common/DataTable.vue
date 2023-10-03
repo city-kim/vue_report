@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import type { DataTable } from '@/types/data_table'
+import { computed } from 'vue'
+import { numberExpression } from '@/util/number_converter'
+
+import type { DataTable } from '@/types/components/data_table'
 import type { PropType } from 'vue'
 
 import PercentWithIcon from '@/components/Common/PercentWithIcon.vue'
@@ -14,36 +16,29 @@ const props = defineProps({
     type: String,
     required: false,
     default: '300px'
-  }
+  },
+  sortBy: String
 })
 
 const tableData = computed(() => {
   const result = {
     columns: props.data.columns,
-    rows: props.data.rows.map(x => {
-      return Array.from(props.data.columns, c => {
+    rows: props.data.rows.map(x => (
+      Array.from(props.data.columns, c => {
         return {
           ...x[c.key],
           component: c.component == 'PercentWithIcon' ? PercentWithIcon : null,
         }
       })
-    })
+    ))
   }
-  if (sortBy.value) {
-    const index = result.columns.findIndex(x => x.key == sortBy.value)
-    result.rows.sort((a, b) => a[index].text[0] > b[index].text[0] ? -1 : 1)
+  if (props.sortBy) {
+    // 정렬이 전달된경우 columns에서 해당 key를 찾아서 정렬
+    const index = result.columns.findIndex(x => x.key == props.sortBy)
+    if (index) result.rows.sort((a, b) => a[index].text[0] > b[index].text[0] ? -1 : 1)
   }
   return result
 })
-
-const sortTarget = computed(() => {
-  return tableData.value.columns.reduce((a, c) => {
-    if (c.sortable) a.push({ key: c.key, title: c.title})
-    return a
-  }, [] as Array<{key: string, title: string|undefined}>)
-})
-
-const sortBy = ref('')
 
 </script>
 <template>
@@ -77,7 +72,9 @@ const sortBy = ref('')
                   v-for="(text, k) in item.text"
                   :key="k"
                   :is="k == 0 ? 'p' : 'small'"
-                >{{ text }}</component>
+                >
+                  {{ text }}
+                </component>
               </figcaption>
             </figure>
             <!-- 텍스트가 1개이고 컴포넌트가 명시되어 있으면 컴포넌트로 출력 -->
@@ -95,7 +92,9 @@ const sortBy = ref('')
                 v-for="(text, k) in item.text"
                 :key="k"
                 :is="k == 0 ? 'p' : 'small'"
-              >{{ text }}</component>
+              >
+                {{ typeof text === 'number' ? numberExpression(text) : text }}
+              </component>
             </div>
           </td>
         </tr>
@@ -107,17 +106,16 @@ const sortBy = ref('')
   .data-table {
     overflow: auto;
     position: relative;
-    section {
-      display: flex;
-      padding: 1rem;
-      justify-content: space-between;
-      align-items: center;
-      h2 {
-        font-size: 1.5rem;
-      }
-      select {
-        padding: 0.25rem;
-      }
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      height: 20%;
+      background: var(--c-indigo);
+      border-radius: 0.25rem;
+    }
+    &::-webkit-scrollbar-track {
+      background: var(--c-white-mute);
     }
 
     table {
@@ -125,8 +123,8 @@ const sortBy = ref('')
       thead {
         tr {
           th {
-            padding: 1rem;
-            background: #ccc;
+            padding: 0.5rem;
+            background: var(--c-white-mute);
             position: sticky;
             top: 0;
           }
@@ -136,8 +134,8 @@ const sortBy = ref('')
       tbody {
         tr {
           td {
-            padding: 1rem;
-            border-bottom: 1px solid #ccc;
+            padding: 0.25rem 0.5rem;
+            border-bottom: 1px solid var(--c-white-mute);
             vertical-align: middle;
             figure {
               display: flex;
@@ -147,9 +145,6 @@ const sortBy = ref('')
                 max-width: 2.5rem;
                 border-radius: 50%;
               }
-            }
-            p {
-              font-size: 1.125rem;
             }
           }
         }

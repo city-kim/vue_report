@@ -17,6 +17,7 @@ const props = defineProps({
     required: false,
     default: getCssVar('--c-blue')
   },
+  toFixed: Number,
   strokeWidth: {
     type: Number,
     required: false,
@@ -26,11 +27,8 @@ const props = defineProps({
 
 const svg = ref<SVGElement|null>(null) // svg element
 
-// props.percent가 있다면 그대로 없다면 비율계산
-const percent = computed(() => {
-  if (props.percent) return props.percent > 100 ? 100 : props.percent
-  return 0
-})
+const percent = computed(() => props.percent > 100 ? 100 : props.percent)
+
 // svg의 strokeDasharray 계산 svg의 크기 * 2 * Math.PI * 0.45(circle의 r값이 45%이기 때문에 0.45를 곱해준다)
 const strokeDasharray = computed(() => svg.value?.clientWidth ? Number((svg.value?.clientWidth * 0.45 * 2 * Math.PI).toFixed(2)) : 0)
 const strokeDashoffset = computed(() => {
@@ -64,7 +62,7 @@ const strokeDashoffset = computed(() => {
         }"
       />
     </svg>
-    <p>{{ percent }}%</p>
+    <p>{{ toFixed ? percent.toFixed(toFixed) : percent }}%</p>
   </div>
 </template>
 <style lang="scss">
