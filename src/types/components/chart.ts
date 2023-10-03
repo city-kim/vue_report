@@ -1,4 +1,4 @@
-import type { Color, LayoutPosition, Align, TooltipModel, TooltipItem, ChartType, TooltipPositioner } from 'chart.js'
+import type { Color, LayoutPosition, Align, TooltipModel, TooltipItem, ChartType } from 'chart.js'
 
 interface ChartPlugins {
   legend: {

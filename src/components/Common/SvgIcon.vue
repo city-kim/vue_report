@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { ICON_LIST } from '@/constants/ICON_LIST'
+  import { ICON_LIST } from '@/constants/components/ICON_LIST'
 
   interface IconProps {
     name: keyof typeof ICON_LIST

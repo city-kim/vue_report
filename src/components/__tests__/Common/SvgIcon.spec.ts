@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { ICON_LIST } from '@/constants/ICON_LIST'
+import { ICON_LIST } from '@/constants/components/ICON_LIST'
 
 import SvgIcon from '@/components/Common/SvgIcon.vue'
 

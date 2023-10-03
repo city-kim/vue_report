@@ -10,10 +10,10 @@ import {
   LinearScale
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/CHART_OPTIONS'
+import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
-import type { BarChartData } from '@/types/chart'
+import type { BarChartData } from '@/types/components/chart'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -104,4 +104,4 @@ const chartOptions = computed(() => {
       :data="data"
     />
   </div>
-</template>@/constants/CHART_OPTIONS
+</template>
