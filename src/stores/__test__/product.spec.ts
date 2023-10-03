@@ -137,7 +137,6 @@ describe('product.salesChartData로 판매량 데이터를 생성한다', () => 
 
 describe('product.tableData로 테이블 데이터를 생성한다', () => {
   const store = setData()
-  console.log(store.product.tableData)
   it('product.tableData의 columns는 purchaseData.filters 데이터로 설정한다', () => {
     expect(store.product.tableData.columns).toEqual(purchaseData.filters)
   })
