@@ -1,21 +1,13 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-} from 'chart.js'
+import { Chart as ChartJS, registerables} from 'chart.js'
 import { Bar } from 'vue-chartjs'
 import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
 import type { BarChartData } from '@/types/components/chart'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+ChartJS.register(...registerables)
 
 const props = defineProps({
   data: {

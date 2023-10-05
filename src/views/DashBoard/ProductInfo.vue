@@ -77,8 +77,6 @@ onMounted(() => {
       </article>
       <article>
         <h3>종류별 비율</h3>
-        {{ product.categoryChart.labels }}
-        {{ PieChartDataset }}
         <PieChart
           :data="{
             labels: product.categoryChart.labels,

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue'
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js'
+import { Chart as ChartJS, registerables } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import { hexToRGBA } from '@/util/text_converter'
 import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
@@ -10,7 +10,7 @@ import type { InteractionMode } from 'chart.js'
 import type { ChartComponentRef } from 'vue-chartjs'
 import type { LineChartData } from '@/types/components/chart'
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler)
+ChartJS.register(...registerables)
 
 ChartJS.defaults.elements.point.radius = 0 // default 반지름
 ChartJS.defaults.elements.point.hoverBorderWidth = 3 // hover시 border width

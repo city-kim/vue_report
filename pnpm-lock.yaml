@@ -17,6 +17,9 @@ dependencies:
   chartjs-plugin-datalabels:
     specifier: ^2.2.0
     version: 2.2.0(chart.js@4.4.0)
+  chromatic:
+    specifier: ^7.2.2
+    version: 7.2.2
   luxon:
     specifier: ^3.4.3
     version: 3.4.3
@@ -4684,6 +4687,11 @@ packages:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
     dev: true
+
+  /chromatic@7.2.2:
+    resolution: {integrity: sha512-o9EIMV/EAe6bI7osYi4DfD1zuVovYR/vrY8CXNB5OdcT+alpHZmEZ4+ysTrvL9Bgk6zP/z/2YMVz5ZYdV/gagA==}
+    hasBin: true
+    dev: false
 
   /ci-info@3.8.0:
     resolution: {integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==}
