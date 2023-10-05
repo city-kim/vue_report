@@ -11,8 +11,6 @@ import ContainerHeading from '@/components/DashBoard/ContainerHeading.vue'
 import CardCounter from '@/components/DashBoard/CardCounter.vue'
 import CircleCounter from '@/components/DashBoard/CircleCounter.vue'
 
-import type { DateFilter } from '@/types/filter'
-
 const payment = paymentStore()
 
 const inflow = computed(() => ([
@@ -29,9 +27,9 @@ const refund = computed(() => ([
   { title: '탈퇴율', percent: payment.calculator.refund.churnRate, color: '--c-blue' },
 ]))
 
-const barChartDateType = ref<DateFilter>('day')
+const barChartDateType = ref<string>('day')
 
-function updateActive (dayType: DateFilter) {
+function updateActive (dayType: string) {
   barChartDateType.value = dayType
 }
 

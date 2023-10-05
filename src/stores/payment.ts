@@ -76,6 +76,11 @@ export const paymentStore = defineStore('payment', () => {
       day: { labels: chartData.day.map((x) => x.date), data: chartData.day},
       week: { labels: chartData.week.map((x) => x.date), data: chartData.week},
       month: { labels: chartData.month.map((x) => x.date), data: chartData.month},
+    } as {
+      [key: string]: {
+        labels: Array<string>,
+        data: Array<Payment>
+      }
     }
   })
   const compareChart = computed(() => {
@@ -84,6 +89,11 @@ export const paymentStore = defineStore('payment', () => {
       day: { labels: chartData.day.map((x) => x.date), data: chartData.day},
       week: { labels: chartData.week.map((x) => x.date), data: chartData.week},
       month: { labels: chartData.month.map((x) => x.date), data: chartData.month},
+    } as {
+      [key: string]: {
+        labels: Array<string>,
+        data: Array<Payment>
+      }
     }
   })
   

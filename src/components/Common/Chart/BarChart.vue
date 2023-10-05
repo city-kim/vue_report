@@ -75,14 +75,15 @@ const chartOptions = computed(() => {
   const result = props.guide ? WITH_GUIDEOption : WITHOUT_GUIDEOption
   if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
-    if (props.legend) { // 범례 표시여부
-      result.plugins.legend.display = true
-    }
+    props.legend ? result.plugins.legend.display = true : result.plugins.legend.display = false // 범례 표시여부
     if (props.stacked) { // 스택형태 여부
       result.scales.x.stacked = true
       result.scales.y.stacked = true
+    } else {
+      result.scales.x.stacked = false
+      result.scales.y.stacked = false
     }
-    if (props.horizontal) result.indexAxis = props.horizontal ? 'y' : 'x' // 축정렬
+    props.horizontal ? result.indexAxis = 'y' : result.indexAxis = 'x' // 축정렬
   }
 
   if (props.barPercent) result.categoryPercentage = props.barPercent // 바 너비

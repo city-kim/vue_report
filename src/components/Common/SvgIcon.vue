@@ -7,17 +7,17 @@
     height: string
   }
 
-  defineProps<IconProps>()
+  const props = defineProps<IconProps>()
 </script>
 
 <template>
   <svg
-    :width="$props.width"
-    :height="$props.height"
+    :width="props.width"
+    :height="props.height"
     viewBox="0 0 16 16"
   >
     <path
-      v-for="(icon, index) in ICON_LIST[$props.name]"
+      v-for="(icon, index) in ICON_LIST[props.name]"
       :d="icon"
       :key="index"
     />

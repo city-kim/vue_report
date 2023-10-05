@@ -4,7 +4,11 @@ import { computed, ref, onMounted } from 'vue'
 import { getCssVar } from '@/util/color'
 
 const props = defineProps({
-  height: String, // 높이 전달받지 못하면 min-height: 1rem
+  height: {
+    type: String,
+    required: false,
+    default: '1rem'
+  }, // 높이 전달받지 못하면 min-height: 1rem
   percent: { // 퍼센트를 전달받으면 해당 퍼센트를 출력한다
     type: Number,
     required: true
@@ -14,11 +18,6 @@ const props = defineProps({
     required: false,
     default: getCssVar('--c-blue')
   },
-})
-
-const height = computed(() => { // 높이는 값이 있을경우 해당값을 없다면 1rem을 기본으로 한다
-  if (props.height) return props.height
-  else return '1rem'
 })
 
 const size = computed(() => { // progressbar width size 계산

@@ -20,8 +20,7 @@ defineProps({
   progressData: {
     type: Array as PropType<Array<{ title: string, count: number, percent: number, color: string }>>,
     required: true,
-  },
-  color: String
+  }
 })
 </script>
 

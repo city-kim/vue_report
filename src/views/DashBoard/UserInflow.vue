@@ -14,8 +14,6 @@ import ButtonGroup from '@/components/Common/ButtonGroup.vue'
 import BarChart from '@/components/Common/Chart/BarChart.vue'
 import LineChart from '@/components/Common/Chart/LineChart.vue'
 
-import type { JoinType } from '@/types/store'
-
 const userFlow = userFlowStore()
 
 const inflow = computed(() => ([
@@ -73,7 +71,7 @@ const sns = computed(() => {
   ]
 })
 
-function updateActive (jointype: JoinType) {
+function updateActive (jointype: string) {
   userFlow.updateJoinTrendTarget(jointype)
 }
 

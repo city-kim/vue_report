@@ -76,6 +76,8 @@ const chartOptions = computed(() => {
       result.plugins.legend.position = props.legendPosition
       result.plugins.legend.align = 'center'
       result.plugins.legend.display = true
+    } else {
+      result.plugins.legend.display = false
     }
   }
   if (props.label) {
@@ -85,6 +87,8 @@ const chartOptions = computed(() => {
     result.plugins.datalabels.formatter = (value) => {
       return `${Math.floor(value)}${props.unit ?? ''}`
     }
+  } else {
+    result.plugins.datalabels.display = false
   }
 
   result.plugins.tooltip.callbacks.label = (model) => {

@@ -114,6 +114,8 @@ const chartOptions = computed(() => {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
       result.plugins.legend.display = true
+    } else {
+      result.plugins.legend.display = false
     }
   }
 
