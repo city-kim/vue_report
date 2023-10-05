@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Chart as ChartJS, registerables } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
@@ -8,7 +8,7 @@ import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
 import type { PropType } from 'vue'
 import type { PieChartData } from '@/types/components/chart'
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)
+ChartJS.register(...registerables, ChartDataLabels)
 
 const props = defineProps({
   data: {
@@ -76,6 +76,8 @@ const chartOptions = computed(() => {
       result.plugins.legend.position = props.legendPosition
       result.plugins.legend.align = 'center'
       result.plugins.legend.display = true
+    } else {
+      result.plugins.legend.display = false
     }
   }
   if (props.label) {
@@ -85,6 +87,8 @@ const chartOptions = computed(() => {
     result.plugins.datalabels.formatter = (value) => {
       return `${Math.floor(value)}${props.unit ?? ''}`
     }
+  } else {
+    result.plugins.datalabels.display = false
   }
 
   result.plugins.tooltip.callbacks.label = (model) => {

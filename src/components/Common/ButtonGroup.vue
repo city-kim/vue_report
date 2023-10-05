@@ -10,7 +10,9 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['updateActive'])
+const emit = defineEmits<{
+  (e: 'updateActive', key: string): void
+}>()
 
 const selected = ref('')
 

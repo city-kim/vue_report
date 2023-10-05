@@ -87,9 +87,9 @@ export const userFlowStore = defineStore('userFlow', () => {
   }))
   
   // 가입자추이 차트데이터
-  const joinTrendTarget = ref<JoinType|null>(null)
+  const joinTrendTarget = ref<string|null>(null)
 
-  function updateJoinTrendTarget (jointype: JoinType) {
+  function updateJoinTrendTarget (jointype: string) {
     // 가입자추이 차트 대상변경하기
     joinTrendTarget.value = jointype
   }
