@@ -56,6 +56,24 @@ describe('payment.baseCount, payment.compareCount는 선택된 날짜에 맞춰�
       expect(store.payment.baseCount.sum).toEqual({ date: '2023-08-04', payer: 30, refunder: 30, payment_amount: 30000, refund_amount: 30000 })
     })
   })
+  
+  describe('날짜 범위를 벗어난경우', () => {
+    const store = setData()
+    store.payment.updatePaymentData(paymentData.slice(1, 3))
+    it('payment.compareCount는 각각 유효한 데이터의 array와 sum만 반환한다', () => {
+      expect(store.payment.compareCount.array).toEqual([
+        { date: '2023-08-02', payer: 30, refunder: 30, payment_amount: 30000, refund_amount: 30000 },
+      ])
+      expect(store.payment.compareCount.sum).toEqual({ date: '2023-08-02', payer: 30, refunder: 30, payment_amount: 30000, refund_amount: 30000 })
+    })
+
+    it('payment.baseCount는 각각 유효한 데이터의 array와 sum만 반환한다', () => {
+      expect(store.payment.baseCount.array).toEqual([
+        { date: '2023-08-03', payer: 20, refunder: 20, payment_amount: 20000, refund_amount: 20000 },
+      ])
+      expect(store.payment.baseCount.sum).toEqual({ date: '2023-08-03', payer: 20, refunder: 20, payment_amount: 20000, refund_amount: 20000 })
+    })
+  })
 
   describe('값이 없는경우', () => {
     const store = setData()

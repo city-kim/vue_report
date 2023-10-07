@@ -122,6 +122,52 @@ describe('product.baseCount, product.compareCount는 선택된 날짜에 반환�
   })
 })
 
+describe('날짜 범위를 벗어난경우 product.baseCount, product.compareCount는 각각 유효한 데이터만 가져온다', () => {
+  const store = setData()
+  const product = productStore()
+  product.updateProductData([
+    {
+      date: '2023-08-03',
+      products: [
+        { name: 'pr1oduct', count: 20, price: 20000 },
+        { name: 'prod2uct', count: 30, price: 30000 },
+        { name: 'produc3t', count: 40, price: 40000 },
+        { name: 'product4', count: 50, price: 50000 },
+    ]},
+    {
+      date: '2023-08-02',
+      products: [
+        { name: 'pr1oduct', count: 30, price: 30000 },
+        { name: 'prod2uct', count: 40, price: 40000 },
+        { name: 'produc3t', count: 50, price: 50000 },
+        { name: 'product4', count: 60, price: 60000 },
+    ]}
+  ])
+  it('product.baseCount는 각각 array와 sum을 반환한다', () => {
+    expect(store.product.baseCount.array).toEqual(productData.slice(1,2))
+    expect(store.product.baseCount.sum).toEqual({
+      products: [
+        { name: 'pr1oduct', count: 20, price: 20000 },
+        { name: 'prod2uct', count: 30, price: 30000 },
+        { name: 'produc3t', count: 40, price: 40000 },
+        { name: 'product4', count: 50, price: 50000 },
+      ]
+    })
+  })
+
+  it('product.compareCount는 각각 array와 sum을 반환한다', () => {
+    expect(store.product.compareCount.array).toEqual(productData.slice(2,3))
+    expect(store.product.compareCount.sum).toEqual({
+      products: [
+        { name: 'pr1oduct', count: 30, price: 30000 },
+        { name: 'prod2uct', count: 40, price: 40000 },
+        { name: 'produc3t', count: 50, price: 50000 },
+        { name: 'product4', count: 60, price: 60000 },
+      ]
+    })
+  })
+})
+
 describe('product.salesChartData로 판매량 데이터를 생성한다', () => {
   const store = setData()
   it('product.salesChartData는 product.baseCount의 products값으로 labels와 data로 데이터를 만들어준다', () => {

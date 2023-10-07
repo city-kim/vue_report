@@ -1,6 +1,6 @@
 import { reactive, computed, toRaw } from 'vue'
 import { storeToRefs, defineStore } from 'pinia'
-import { DateTime } from 'luxon'
+import { DateTime, Interval } from 'luxon'
 
 import { PURCHASERS } from '@/constants/STORES'
 import { dateStore } from '@/stores/date'
@@ -41,9 +41,8 @@ export const productStore = defineStore('product', () => {
 
   function getDataForProductOnDate (from: DateTime, to: DateTime) {
     // 시작점과 종료점을 받아서 그 사이의 데이터를 반환
-    const diff = to.diff(from, 'days').days
-    const index = product.value.findIndex((x) => x.date === from.toFormat('yyyy-LL-dd'))
-    const result = product.value.slice(index - diff, index + 1)
+    const interval = Interval.fromDateTimes(from.startOf('day'), to.endOf('day'))
+    const result = product.value.filter((x) => interval.contains(DateTime.fromISO(x.date))).map(x => toRaw(x))
 
     // 상품별 합계
     const flat = result.map((x) => structuredClone(toRaw(x).products)).flat()
