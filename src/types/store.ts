@@ -14,6 +14,27 @@ type JoinType = 'email'|keyof JoinSns
 // USER_FLOW를 타입으로 재정의하여 사용
 type UserFlow = typeof USER_FLOW
 
+// userflow의 비율을 구하는 inflowCalculator 타입
+interface InflowCalculator {
+  inflowRate: {
+    newVisit: number
+    returnVisit: number
+  }
+  joinRate: {
+    base: number
+    compare: number
+  }
+  snsEmailSum: number
+  snsRate: {
+    email: number
+    naver: number
+    kakao: number
+    google: number
+    facebook: number
+    apple: number
+  }
+}
+
 // PAYMENT를 타입으로 재정의하여 사용
 type Payment = typeof PAYMENT
 
@@ -50,6 +71,7 @@ export type {
   JoinSns,
   JoinType,
   UserFlow,
+  InflowCalculator,
   Payment,
   Product,
   Purchase

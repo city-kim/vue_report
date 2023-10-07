@@ -11,6 +11,7 @@ const USER_FLOW = { // 일자별 유저 흐름데이터
   date: '', // DateTime 형식 (yyyy-LL-dd)
   new_visit: 0,
   return_visit: 0,
+  total_visit: 0,
   login: 0,
   join: 0,
   join_sns: {
