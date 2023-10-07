@@ -1,6 +1,6 @@
 import { ref, reactive, computed, toRaw } from 'vue'
 import { storeToRefs, defineStore } from 'pinia'
-import { DateTime } from 'luxon'
+import { DateTime, Interval } from 'luxon'
 
 import { USER_FLOW } from '@/constants/STORES'
 import { dateStore } from '@/stores/date'
@@ -30,9 +30,8 @@ export const userFlowStore = defineStore('userFlow', () => {
 
   function getDateData (from: DateTime, to: DateTime) {
     // 시작점과 종료점을 받아서 그 사이의 데이터를 반환
-    const diff = to.diff(from, 'days').days
-    const index = data.value.findIndex((x) => x.date === from.toFormat('yyyy-LL-dd'))
-    const result = data.value.slice(index - diff, index + 1).map(x => toRaw(x))
+    const interval = Interval.fromDateTimes(from.startOf('day'), to.endOf('day'))
+    const result = data.value.filter((x) => interval.contains(DateTime.fromISO(x.date))).map(x => toRaw(x))
     const sum = result.length > 0 ? sumArrayByObject(structuredClone(result)) : USER_FLOW
     return {
       array: result,
