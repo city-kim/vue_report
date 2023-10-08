@@ -96,3 +96,147 @@ export const Primary: Story = {
     
   },
 }
+
+export const OnlyText: Story = {
+  render: (args) => {
+    return {
+      components: { DataTable },
+      setup() {
+        return { args }
+      },
+      template: '<DataTable v-bind="args" />',
+    }
+  },
+  args: {
+    data: {
+      columns: [
+        { key: 'columns1', title: '텍스트 하나' },
+        { key: 'columns2', title: '텍스트 둘'},
+        { key: 'columns3', title: '텍스트 셋'},
+      ],
+      rows: Array.from(Array(20), (_, i) => {
+        return {
+          columns1: { text: ['text1'] },
+          columns2: { text: ['text1', 'text2'] },
+          columns3: { text: ['text1', 'text2', 'text3'] },
+        }
+      }),
+    },
+    height: '300px',
+    sortBy: 'columns1',
+  },
+}
+
+export const MixRows: Story = {
+  render: (args) => {
+    return {
+      components: { DataTable },
+      setup() {
+        return { args }
+      },
+      template: '<DataTable v-bind="args" />',
+    }
+  },
+  args: {
+    data: {
+      columns: [
+        { key: 'columns1', title: '텍스트 하나' },
+        { key: 'columns2', title: '텍스트 둘'},
+        { key: 'columns3', title: '컴포넌트', component: 'PercentWithIcon'},
+        { key: 'columns4', title: '텍스트 셋'},
+        { key: 'columns5', title: '컴포넌트 둘', component: 'PercentWithIcon'}
+      ],
+      rows: [
+        {
+          columns1: { text: ['row array의 object key 순서가 달라도'] },
+          columns4: { text: ['text1', 'text2', 'text3'] },
+          columns2: { text: ['columns에 따라 정렬된다'] },
+          columns3: { text: [ 10 ] },
+          columns5: { text: [ -20 ] },
+        },
+        {
+          columns4: { text: ['text1', 'text2', 'text3'] },
+          columns5: { text: [ -20 ] },
+          columns1: { text: ['row array의 object key 순서가 달라도'] },
+          columns2: { text: ['columns에 따라 정렬된다'] },
+          columns3: { text: [ 10 ] },
+        },
+        {
+          columns1: { text: ['row array의 object key 순서가 달라도'] },
+          columns5: { text: [ -20 ] },
+          columns2: { text: ['columns에 따라 정렬된다'] },
+          columns3: { text: [ 10 ] },
+          columns4: { text: ['text1', 'text2', 'text3'] },
+        },
+        {
+          columns5: { text: [ -20 ] },
+          columns3: { text: [ 10 ] },
+          columns1: { text: ['row array의 object key 순서가 달라도'] },
+          columns2: { text: ['columns에 따라 정렬된다'] },
+          columns4: { text: ['text1', 'text2', 'text3'] },
+        },
+        {
+          columns3: { text: [ 10 ] },
+          columns1: { text: ['row array의 object key 순서가 달라도'] },
+          columns2: { text: ['columns에 따라 정렬된다'] },
+          columns4: { text: ['text1', 'text2', 'text3'] },
+          columns5: { text: [ -20 ] },
+        },
+        {
+          columns1: { text: ['row array의 object key 순서가 달라도'] },
+          columns2: { text: ['columns에 따라 정렬된다'] },
+          columns4: { text: ['text1', 'text2', 'text3'] },
+          columns5: { text: [ -20 ] },
+          columns3: { text: [ 10 ] },
+        }
+      ],
+    },
+    height: '300px',
+    sortBy: 'columns1',
+  },
+}
+
+export const ManyColumns: Story = {
+  render: (args) => {
+    return {
+      components: { DataTable },
+      setup() {
+        return { args }
+      },
+      template: '<DataTable v-bind="args" />',
+    }
+  },
+  args: {
+    data: {
+      columns: Array.from(Array(20), (_, i) => {
+        return { key: 'columns' + (i + 1), title: 'columns' + (i + 1) }
+      }),
+      rows: Array.from(Array(20), (_, i) => {
+        return {
+          columns1: { text: ['text1', 'text2'] },
+          columns2: { text: ['text1'] },
+          columns3: { text: ['text1', 'text2'] },
+          columns4: { text: ['text1'] },
+          columns5: { text: ['text1', 'text2'] },
+          columns6: { text: ['text1'] },
+          columns7: { text: ['text1', 'text2'] },
+          columns8: { text: ['text1'] },
+          columns9: { text: ['text1', 'text2'] },
+          columns10: { text: ['text1'] },
+          columns11: { text: ['text1', 'text2'] },
+          columns12: { text: ['text1'] },
+          columns13: { text: ['text1', 'text2'] },
+          columns14: { text: ['text1'] },
+          columns15: { text: ['text1', 'text2'] },
+          columns16: { text: ['text1'] },
+          columns17: { text: ['text1', 'text2'] },
+          columns18: { text: ['text1'] },
+          columns19: { text: ['text1', 'text2'] },
+          columns20: { text: ['text1'] },
+        }
+      }),
+    },
+    height: '300px',
+    sortBy: 'columns1',
+  },
+}
