@@ -121,8 +121,23 @@ function sumArrayByKey<T extends unknown> (data: T[], _key: string) {
   return result
 }
 
+/**
+ * 전달된 날짜를 비교하여 from이 더 작은 날짜가 되도록 정렬한다
+ * @param from DateTime
+ * @param to DateTime
+ * @returns from < to { from: DateTime, to: DateTime }
+ */
+function dateSort (from: DateTime, to: DateTime) {
+  // 전달된 날짜를 비교하여 from이 더 작은 날짜가 되도록 정렬한다
+  if (from < to) {
+    return { from, to }
+  } else {
+    return { from: to, to: from }
+  }
+}
 export {
   dataToDateGroup,
   sumArrayByObject,
-  sumArrayByKey
+  sumArrayByKey,
+  dateSort
 }
