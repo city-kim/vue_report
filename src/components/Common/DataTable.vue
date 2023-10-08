@@ -145,6 +145,11 @@ const tableData = computed(() => {
                 max-width: 2.5rem;
                 border-radius: 50%;
               }
+              figcaption {
+                p {
+                  word-break: keep-all;
+                }
+              }
             }
           }
         }

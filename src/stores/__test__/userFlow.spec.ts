@@ -7,10 +7,10 @@ import { userFlowStore } from '@/stores/userFlow'
 import { USER_FLOW } from '@/constants/STORES'
 
 const data = [
-  { date: '2023-08-04', new_visit: 40, return_visit: 40, login: 40, join: 40, join_sns: { naver: 3, kakao: 4, google: 5, facebook: 6, apple: 7, }, withdraw: 40, dormant: 40, return: 40 },
-  { date: '2023-08-03', new_visit: 30, return_visit: 30, login: 30, join: 30, join_sns: { naver: 2, kakao: 3, google: 4, facebook: 5, apple: 6, }, withdraw: 30, dormant: 30, return: 30 },
-  { date: '2023-08-02', new_visit: 20, return_visit: 20, login: 20, join: 20, join_sns: { naver: 1, kakao: 2, google: 3, facebook: 4, apple: 5, }, withdraw: 20, dormant: 20, return: 20 },
-  { date: '2023-08-01', new_visit: 10, return_visit: 10, login: 10, join: 10, join_sns: { naver: 0, kakao: 1, google: 2, facebook: 3, apple: 4, }, withdraw: 10, dormant: 10, return: 10 },
+  { date: '2023-08-04', new_visit: 40, return_visit: 40, total_visit: 0, login: 40, join: 40, join_sns: { naver: 3, kakao: 4, google: 5, facebook: 6, apple: 7, }, withdraw: 40, dormant: 40, return: 40 },
+  { date: '2023-08-03', new_visit: 30, return_visit: 30, total_visit: 0, login: 30, join: 30, join_sns: { naver: 2, kakao: 3, google: 4, facebook: 5, apple: 6, }, withdraw: 30, dormant: 30, return: 30 },
+  { date: '2023-08-02', new_visit: 20, return_visit: 20, total_visit: 0, login: 20, join: 20, join_sns: { naver: 1, kakao: 2, google: 3, facebook: 4, apple: 5, }, withdraw: 20, dormant: 20, return: 20 },
+  { date: '2023-08-01', new_visit: 10, return_visit: 10, total_visit: 0, login: 10, join: 10, join_sns: { naver: 0, kakao: 1, google: 2, facebook: 3, apple: 4, }, withdraw: 10, dormant: 10, return: 10 },
 ]
 
 function setData () {
@@ -32,13 +32,13 @@ describe('userFlow.baseCount, userFlow.compareCount는 선택된 날짜에 맞�
     it('userFlow.compareCount는 각각 array와 sum을 반환한다', () => {
       expect(store.userFlow.compareCount.array).toEqual(data.slice(2))
       // date는 첫번째 index의 값, user는 result.length * 1000
-      expect(store.userFlow.compareCount.sum).toEqual({ user: 2000, date: '2023-08-02', new_visit: 30, return_visit: 30, login: 30, join: 30, join_sns: { naver: 1, kakao: 3, google: 5, facebook: 7, apple: 9, }, withdraw: 30, dormant: 30, return: 30 })
+      expect(store.userFlow.compareCount.sum).toEqual({ user: 2000, date: '2023-08-02', new_visit: 30, return_visit: 30, total_visit: 60, login: 30, join: 30, join_sns: { naver: 1, kakao: 3, google: 5, facebook: 7, apple: 9, }, withdraw: 30, dormant: 30, return: 30 })
     })
     
     it('userFlow.baseCount는 각각 array와 sum을 반환한다', () => {
       expect(store.userFlow.baseCount.array).toEqual(data.slice(0, 2))
       // date는 첫번째 index의 값, user는 result.length * 1000
-      expect(store.userFlow.baseCount.sum).toEqual({ user: 2000, date: '2023-08-04', new_visit: 70, return_visit: 70,  login: 70, join: 70, join_sns: { naver: 5, kakao: 7, google: 9, facebook: 11, apple: 13, }, withdraw: 70, dormant: 70, return: 70 })
+      expect(store.userFlow.baseCount.sum).toEqual({ user: 2000, date: '2023-08-04', new_visit: 70, return_visit: 70, total_visit: 140, login: 70, join: 70, join_sns: { naver: 5, kakao: 7, google: 9, facebook: 11, apple: 13, }, withdraw: 70, dormant: 70, return: 70 })
     })
   })
 
@@ -47,16 +47,16 @@ describe('userFlow.baseCount, userFlow.compareCount는 선택된 날짜에 맞�
     store.userFlow.updateUserFlowData(data.slice(1, 3))
     test('userFlow.compareCount, 범위에 포함된 값만 반환한다', () => {
       expect(store.userFlow.compareCount.array).toEqual([
-        { date: '2023-08-02', new_visit: 20, return_visit: 20, login: 20, join: 20, join_sns: { naver: 1, kakao: 2, google: 3, facebook: 4, apple: 5, }, withdraw: 20, dormant: 20, return: 20 }
+        { date: '2023-08-02', new_visit: 20, return_visit: 20, total_visit: 0, login: 20, join: 20, join_sns: { naver: 1, kakao: 2, google: 3, facebook: 4, apple: 5, }, withdraw: 20, dormant: 20, return: 20 }
       ])
-      expect(store.userFlow.compareCount.sum).toEqual({ user: 1000, date: '2023-08-02', new_visit: 20, return_visit: 20, login: 20, join: 20, join_sns: { naver: 1, kakao: 2, google: 3, facebook: 4, apple: 5, }, withdraw: 20, dormant: 20, return: 20 })
+      expect(store.userFlow.compareCount.sum).toEqual({ user: 1000, date: '2023-08-02', new_visit: 20, return_visit: 20, total_visit: 40, login: 20, join: 20, join_sns: { naver: 1, kakao: 2, google: 3, facebook: 4, apple: 5, }, withdraw: 20, dormant: 20, return: 20 })
     })
     
     test('userFlow.baseCount, 범위에 포함된 값만 반환한다', () => {
       expect(store.userFlow.baseCount.array).toEqual([
-        { date: '2023-08-03', new_visit: 30, return_visit: 30, login: 30, join: 30, join_sns: { naver: 2, kakao: 3, google: 4, facebook: 5, apple: 6, }, withdraw: 30, dormant: 30, return: 30 }
+        { date: '2023-08-03', new_visit: 30, return_visit: 30, total_visit: 0, login: 30, join: 30, join_sns: { naver: 2, kakao: 3, google: 4, facebook: 5, apple: 6, }, withdraw: 30, dormant: 30, return: 30 }
       ])
-      expect(store.userFlow.baseCount.sum).toEqual({ user: 1000, date: '2023-08-03', new_visit: 30, return_visit: 30, login: 30, join: 30, join_sns: { naver: 2, kakao: 3, google: 4, facebook: 5, apple: 6, }, withdraw: 30, dormant: 30, return: 30 })
+      expect(store.userFlow.baseCount.sum).toEqual({ user: 1000, date: '2023-08-03', new_visit: 30, return_visit: 30, total_visit: 60, login: 30, join: 30, join_sns: { naver: 2, kakao: 3, google: 4, facebook: 5, apple: 6, }, withdraw: 30, dormant: 30, return: 30 })
     })
   })
 

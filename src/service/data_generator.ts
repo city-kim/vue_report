@@ -10,6 +10,7 @@ const userFlowByDate = () => (setDate.map((x) => ({
   ...x,
   new_visit: Math.floor(Math.random() * 1000), // 신규방문
   return_visit: Math.floor(Math.random() * 1000), // 재방문
+  total_visit: 0,
   login: Math.floor(Math.random() * 1000), // 로그인
   join: Math.floor(Math.random() * 30), // 가입자
   join_sns: { // sns 가입자

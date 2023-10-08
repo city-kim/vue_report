@@ -8,7 +8,7 @@ import { userFlowByDate } from '@/service/data_generator'
 import { sumArrayByObject } from '@/util/data_converter'
 import { getRate } from '@/util/number_converter'
 
-import type { JoinType, UserFlow } from '@/types/store'
+import type { JoinType, UserFlow, InflowCalculator } from '@/types/store'
 
 export const userFlowStore = defineStore('userFlow', () => {
   const date = dateStore()
@@ -33,6 +33,9 @@ export const userFlowStore = defineStore('userFlow', () => {
     const interval = Interval.fromDateTimes(from.startOf('day'), to.endOf('day'))
     const result = data.value.filter((x) => interval.contains(DateTime.fromISO(x.date))).map(x => toRaw(x))
     const sum = result.length > 0 ? sumArrayByObject(structuredClone(result)) : USER_FLOW
+
+    // 총 방문자를 더해준다
+    sum.total_visit = sum.new_visit + sum.return_visit
     return {
       array: result,
       sum: {
@@ -47,7 +50,7 @@ export const userFlowStore = defineStore('userFlow', () => {
   const compareCount = computed(() => (getDateData(beforeDate.value.from, beforeDate.value.to)))
 
   // 비율구하기
-  const calculator = computed(() => {
+  const calculator = computed<InflowCalculator>(() => {
     const total = baseCount.value.sum.join
     const email = total - Object.values(baseCount.value.sum.join_sns).reduce((acc, cur) => acc + cur, 0)
     return {

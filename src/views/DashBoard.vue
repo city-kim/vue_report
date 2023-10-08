@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import UserInflow from '@/views/DashBoard/UserInflow.vue'
 import PaymentInfo from '@/views/DashBoard/PaymentInfo.vue'
-import ProductInfo from './DashBoard/ProductInfo.vue'
+import ProductInfo from '@/views/DashBoard/ProductInfo.vue'
 </script>
 
 <template>
