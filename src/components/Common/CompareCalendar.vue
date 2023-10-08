@@ -30,7 +30,7 @@ const emit = defineEmits<{
 }>()
 
 // luxon에서 요일의 text를 가져온다
-const DayOfWeek = Array.from(Array(7).keys()).map(x => Info.weekdays('short')[(x + 6) % 7])
+const DayOfWeek = Array.from(Array(7).keys()).map(x => Info.weekdays('short', {locale: 'ko'})[(x + 6) % 7])
 
 // 달력 생성시 기준이 되는 월은 현재월로 한다
 const baseMonth = ref(DateTime.now().toFormat('yyyy-MM-dd'))
