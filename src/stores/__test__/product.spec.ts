@@ -85,8 +85,8 @@ function setData () {
   // store의 기본 데이터 세팅용
   setActivePinia(createPinia())
   const date = dateStore()
-  date.changeDate({type: 'before' as 'before'|'after', from: DateTime.fromISO('2023-08-01'), to: DateTime.fromISO('2023-08-02')})
-  date.changeDate({type: 'after' as 'before'|'after', from: DateTime.fromISO('2023-08-03'), to: DateTime.fromISO('2023-08-04')})
+  date.dateCustomUpdate({type: 'before' as 'before'|'after', from: DateTime.fromISO('2023-08-01'), to: DateTime.fromISO('2023-08-02')})
+  date.dateCustomUpdate({type: 'after' as 'before'|'after', from: DateTime.fromISO('2023-08-03'), to: DateTime.fromISO('2023-08-04')})
   const product = productStore()
   product.updateProductData(productData)
   product.updatePurchaseData(purchaseData)
@@ -117,6 +117,52 @@ describe('product.baseCount, product.compareCount는 선택된 날짜에 반환�
         { name: 'prod2uct', count: 90, price: 90000 },
         { name: 'produc3t', count: 110, price: 110000 },
         { name: 'product4', count: 130, price: 130000 },
+      ]
+    })
+  })
+})
+
+describe('날짜 범위를 벗어난경우 product.baseCount, product.compareCount는 각각 유효한 데이터만 가져온다', () => {
+  const store = setData()
+  const product = productStore()
+  product.updateProductData([
+    {
+      date: '2023-08-03',
+      products: [
+        { name: 'pr1oduct', count: 20, price: 20000 },
+        { name: 'prod2uct', count: 30, price: 30000 },
+        { name: 'produc3t', count: 40, price: 40000 },
+        { name: 'product4', count: 50, price: 50000 },
+    ]},
+    {
+      date: '2023-08-02',
+      products: [
+        { name: 'pr1oduct', count: 30, price: 30000 },
+        { name: 'prod2uct', count: 40, price: 40000 },
+        { name: 'produc3t', count: 50, price: 50000 },
+        { name: 'product4', count: 60, price: 60000 },
+    ]}
+  ])
+  it('product.baseCount는 각각 array와 sum을 반환한다', () => {
+    expect(store.product.baseCount.array).toEqual(productData.slice(1,2))
+    expect(store.product.baseCount.sum).toEqual({
+      products: [
+        { name: 'pr1oduct', count: 20, price: 20000 },
+        { name: 'prod2uct', count: 30, price: 30000 },
+        { name: 'produc3t', count: 40, price: 40000 },
+        { name: 'product4', count: 50, price: 50000 },
+      ]
+    })
+  })
+
+  it('product.compareCount는 각각 array와 sum을 반환한다', () => {
+    expect(store.product.compareCount.array).toEqual(productData.slice(2,3))
+    expect(store.product.compareCount.sum).toEqual({
+      products: [
+        { name: 'pr1oduct', count: 30, price: 30000 },
+        { name: 'prod2uct', count: 40, price: 40000 },
+        { name: 'produc3t', count: 50, price: 50000 },
+        { name: 'product4', count: 60, price: 60000 },
       ]
     })
   })

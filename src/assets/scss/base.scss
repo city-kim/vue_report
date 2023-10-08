@@ -10,9 +10,11 @@
 
   --c-indigo: #2c3e50;
 
+  --c-gray: #dddddd;
   --c-blue: #009ef6;
   --c-red: #f1416c;
   --c-yellow: #ffc700;
+  --c-orange: #ff9a00;
   --c-green: #50cd89;
   --c-purple: #7239ea;
   --c-emerald: #00f6e1;
@@ -21,6 +23,7 @@
   --c-divider-light-2: rgba(60, 60, 60, 0.12);
   --c-divider-dark-1: rgba(84, 84, 84, 0.65);
   --c-divider-dark-2: rgba(84, 84, 84, 0.48);
+  --c-divider-gray: #cccccc;
 
   --c-text-light-1: var(--c-indigo);
   --c-text-light-2: rgba(60, 60, 60, 0.66);
@@ -62,11 +65,6 @@
 
 body {
   background: var(--c-white-soft);
-}
-
-#app {
-  max-width: 1500px;
-  margin: 0 auto;
 }
 
 /***

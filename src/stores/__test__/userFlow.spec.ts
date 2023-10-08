@@ -17,8 +17,8 @@ function setData () {
   // store의 기본 데이터 세팅용
   setActivePinia(createPinia())
   const date = dateStore()
-  date.changeDate({type: 'before' as 'before'|'after', from: DateTime.fromISO('2023-08-01'), to: DateTime.fromISO('2023-08-02')})
-  date.changeDate({type: 'after' as 'before'|'after', from: DateTime.fromISO('2023-08-03'), to: DateTime.fromISO('2023-08-04')})
+  date.dateCustomUpdate({type: 'before' as 'before'|'after', from: DateTime.fromISO('2023-08-01'), to: DateTime.fromISO('2023-08-02')})
+  date.dateCustomUpdate({type: 'after' as 'before'|'after', from: DateTime.fromISO('2023-08-03'), to: DateTime.fromISO('2023-08-04')})
   const userFlow = userFlowStore()
   return {
     userFlow
@@ -38,7 +38,25 @@ describe('userFlow.baseCount, userFlow.compareCount는 선택된 날짜에 맞�
     it('userFlow.baseCount는 각각 array와 sum을 반환한다', () => {
       expect(store.userFlow.baseCount.array).toEqual(data.slice(0, 2))
       // date는 첫번째 index의 값, user는 result.length * 1000
-      expect(store.userFlow.baseCount.sum).toEqual({ user: 2000, date: '2023-08-04', new_visit: 70, return_visit: 70, login: 70, join: 70, join_sns: { naver: 5, kakao: 7, google: 9, facebook: 11, apple: 13, }, withdraw: 70, dormant: 70, return: 70 })
+      expect(store.userFlow.baseCount.sum).toEqual({ user: 2000, date: '2023-08-04', new_visit: 70, return_visit: 70,  login: 70, join: 70, join_sns: { naver: 5, kakao: 7, google: 9, facebook: 11, apple: 13, }, withdraw: 70, dormant: 70, return: 70 })
+    })
+  })
+
+  describe('날짜 범위를 벗어난경우', async () => {
+    const store = setData()
+    store.userFlow.updateUserFlowData(data.slice(1, 3))
+    test('userFlow.compareCount, 범위에 포함된 값만 반환한다', () => {
+      expect(store.userFlow.compareCount.array).toEqual([
+        { date: '2023-08-02', new_visit: 20, return_visit: 20, login: 20, join: 20, join_sns: { naver: 1, kakao: 2, google: 3, facebook: 4, apple: 5, }, withdraw: 20, dormant: 20, return: 20 }
+      ])
+      expect(store.userFlow.compareCount.sum).toEqual({ user: 1000, date: '2023-08-02', new_visit: 20, return_visit: 20, login: 20, join: 20, join_sns: { naver: 1, kakao: 2, google: 3, facebook: 4, apple: 5, }, withdraw: 20, dormant: 20, return: 20 })
+    })
+    
+    test('userFlow.baseCount, 범위에 포함된 값만 반환한다', () => {
+      expect(store.userFlow.baseCount.array).toEqual([
+        { date: '2023-08-03', new_visit: 30, return_visit: 30, login: 30, join: 30, join_sns: { naver: 2, kakao: 3, google: 4, facebook: 5, apple: 6, }, withdraw: 30, dormant: 30, return: 30 }
+      ])
+      expect(store.userFlow.baseCount.sum).toEqual({ user: 1000, date: '2023-08-03', new_visit: 30, return_visit: 30, login: 30, join: 30, join_sns: { naver: 2, kakao: 3, google: 4, facebook: 5, apple: 6, }, withdraw: 30, dormant: 30, return: 30 })
     })
   })
 
