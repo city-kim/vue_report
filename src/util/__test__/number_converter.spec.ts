@@ -10,6 +10,7 @@ describe('getPercent', () => {
   it('from이 낮을경우 증가된 수치를 반환', () => {
     expect(getPercent(200, 100)).toBe(100) // 200에서 100으로 100% 증가
   })
+  
 })
 
 describe('getRate', () => {
