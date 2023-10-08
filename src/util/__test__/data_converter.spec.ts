@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { dataToDateGroup, sumArrayByObject, sumArrayByKey } from '@/util/data_converter'
+import { dataToDateGroup, sumArrayByObject, sumArrayByKey, dateSort } from '@/util/data_converter'
+import { DateTime } from 'luxon'
 
 describe('dataToDateGroup Object의 key값을 기준으로 합산한다', () => {
   const _onlyObject = { date: '', test: 0 }
@@ -137,5 +138,25 @@ describe('sumArrayByKey', () => {
       { key: 'test1', test: 3, foo: 3, bar: 3, obj: { test: 1, foo: 2 } },
       { key: 'test2', test: 2, foo: 2, bar: 2, obj: { test: 3, foo: 4 } },
     ])
+  })
+})
+
+describe('dateSort는 전달받은 날짜를 비교하여 from이 작고 to가 큰 날짜가 되도록 한다', () => {
+  it('from이 더 큰값으로 전달된 경우 값을 바꿔준다', () => {
+    const from = DateTime.fromISO('2023-09-30')
+    const to = DateTime.fromISO('2023-09-01')
+
+    const data = dateSort(from, to)
+    expect(data.from.toFormat('yyyy-LL-dd')).toBe('2023-09-01')
+    expect(data.to.toFormat('yyyy-LL-dd')).toBe('2023-09-30')
+  })
+
+  it('from이 작은값이라면 변동없음', () => {
+    const from = DateTime.fromISO('2023-09-01')
+    const to = DateTime.fromISO('2023-09-30')
+
+    const data = dateSort(from, to)
+    expect(data.from.toFormat('yyyy-LL-dd')).toBe(from.toFormat('yyyy-LL-dd'))
+    expect(data.to.toFormat('yyyy-LL-dd')).toBe(to.toFormat('yyyy-LL-dd'))
   })
 })

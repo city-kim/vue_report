@@ -85,8 +85,8 @@ function setData () {
   // store의 기본 데이터 세팅용
   setActivePinia(createPinia())
   const date = dateStore()
-  date.changeDate({type: 'before' as 'before'|'after', from: DateTime.fromISO('2023-08-01'), to: DateTime.fromISO('2023-08-02')})
-  date.changeDate({type: 'after' as 'before'|'after', from: DateTime.fromISO('2023-08-03'), to: DateTime.fromISO('2023-08-04')})
+  date.dateCustomUpdate({type: 'before' as 'before'|'after', from: DateTime.fromISO('2023-08-01'), to: DateTime.fromISO('2023-08-02')})
+  date.dateCustomUpdate({type: 'after' as 'before'|'after', from: DateTime.fromISO('2023-08-03'), to: DateTime.fromISO('2023-08-04')})
   const product = productStore()
   product.updateProductData(productData)
   product.updatePurchaseData(purchaseData)
