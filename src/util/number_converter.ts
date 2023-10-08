@@ -5,8 +5,7 @@
  * @returns 전달된 값에 대한 비율
  */
 const getPercent = (from: number, to: number) => {
-  if (from && to) return Math.floor(((from - to) / to) * 100)
-  return 0
+  return Math.floor(((from - to) / to) * 100)
 }
 
 /**
