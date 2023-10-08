@@ -9,7 +9,7 @@ import { paymentByDate } from '@/service/data_generator'
 import { dataToDateGroup, sumArrayByObject } from '@/util/data_converter'
 import { getRate } from '@/util/number_converter'
 
-import type { Payment } from '@/types/store'
+import type { Payment, PaymentCalculator } from '@/types/store'
 
 export const paymentStore = defineStore('payment', () => {
   const date = dateStore()
@@ -49,7 +49,7 @@ export const paymentStore = defineStore('payment', () => {
   const compareCount = computed(() => (getDateData(beforeDate.value.from, beforeDate.value.to)))
 
   // 비율을 반환
-  const calculator = computed(() => ({
+  const calculator = computed<PaymentCalculator>(() => ({
     inflow: {
       paymentRates: {
         base: getRate(baseCount.value.sum.payer, (userFlow.baseCount.sum.new_visit + userFlow.baseCount.sum.return_visit)),
@@ -69,29 +69,29 @@ export const paymentStore = defineStore('payment', () => {
   }))
 
     // 차트는 일간, 주간, 월간으로 데이터를 그룹화하여 반환
-  const baseChart = computed(() => {
+  const amountChart = computed(() => {
     const chartData = dataToDateGroup(baseCount.value.array, PAYMENT)
     return {
-      day: { labels: chartData.day.map((x) => x.date), data: chartData.day},
-      week: { labels: chartData.week.map((x) => x.date), data: chartData.week},
-      month: { labels: chartData.month.map((x) => x.date), data: chartData.month},
+      day: {
+        labels: chartData.day.map((x) => x.date),
+        payment: chartData.day.map((x) => x.payment_amount),
+        refund: chartData.day.map((x) => x.refund_amount),
+      },
+      week: {
+        labels: chartData.week.map((x) => x.date),
+        payment: chartData.week.map((x) => x.payment_amount),
+        refund: chartData.week.map((x) => x.refund_amount),
+      },
+      month: {
+        labels: chartData.month.map((x) => x.date),
+        payment: chartData.month.map((x) => x.payment_amount),
+        refund: chartData.month.map((x) => x.refund_amount),
+      },
     } as {
       [key: string]: {
         labels: Array<string>,
-        data: Array<Payment>
-      }
-    }
-  })
-  const compareChart = computed(() => {
-    const chartData = dataToDateGroup(compareCount.value.array, PAYMENT)
-    return {
-      day: { labels: chartData.day.map((x) => x.date), data: chartData.day},
-      week: { labels: chartData.week.map((x) => x.date), data: chartData.week},
-      month: { labels: chartData.month.map((x) => x.date), data: chartData.month},
-    } as {
-      [key: string]: {
-        labels: Array<string>,
-        data: Array<Payment>
+        payment: Array<number>
+        refund: Array<number>
       }
     }
   })
@@ -102,7 +102,6 @@ export const paymentStore = defineStore('payment', () => {
     baseCount,
     compareCount,
     calculator,
-    baseChart,
-    compareChart
+    amountChart,
   }
 })

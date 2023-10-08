@@ -1,5 +1,6 @@
 @mixin card-container($gap: 1rem){
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: $gap;
   padding: 1rem;
   background-color: var(--c-white);

@@ -117,19 +117,15 @@ function updateActive (jointype: string) { // 가입자 추이 lineChart 버튼 
   emit('joinTrendTargetChange', jointype)
 }
 
-const joinVisitCountChart = computed(() => { // 가입자 추이 lineChart 데이터
-  return {
-    labels: props.joinVisitCountChart.labels,
-    datasets: props.joinVisitCountChart.datasets
-  }
-})
+const joinVisitCountChart = computed(() => ({ // 가입자 추이 lineChart 데이터
+  labels: props.joinVisitCountChart.labels,
+  datasets: props.joinVisitCountChart.datasets
+}))
 
-const joinRateBarChart = computed(() => { // 방문자 가입률 barChart 데이터
-  return {
-    labels: props.joinRateBarChart.labels,
-    datasets: props.joinRateBarChart.datasets
-  }
-})
+const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데이터
+  labels: props.joinRateBarChart.labels,
+  datasets: props.joinRateBarChart.datasets
+}))
 
 </script>
 

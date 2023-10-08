@@ -38,6 +38,25 @@ interface InflowCalculator {
 // PAYMENT를 타입으로 재정의하여 사용
 type Payment = typeof PAYMENT
 
+interface PaymentCalculator {
+  inflow: {
+    paymentRates: {
+      base: number
+      compare: number
+    }
+    averagePayment: {
+      base: number
+      compare: number
+    }
+  }
+  refund: {
+    refunds: number
+    leavers: number
+    refundRate: number
+    churnRate: number
+  }
+}
+
 // PRODUCT 타입
 interface Product {
   date: string
@@ -73,6 +92,7 @@ export type {
   UserFlow,
   InflowCalculator,
   Payment,
+  PaymentCalculator,
   Product,
   Purchase
 }

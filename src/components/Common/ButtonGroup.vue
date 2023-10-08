@@ -31,7 +31,7 @@ onMounted(() => {
     <button
       v-for="(item, index) in buttons"
       :key="index"
-      :class="{active: item.key === active}"
+      :class="{active: item.key === selected}"
       @click="updateActive(item.key)"
     >
       {{ item.text }}
