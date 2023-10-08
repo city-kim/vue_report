@@ -5,7 +5,8 @@
  * @returns 전달된 값에 대한 비율
  */
 const getPercent = (from: number, to: number) => {
-  return Math.floor(((from - to) / to) * 100)
+  if (from && to) return Math.floor(((from - to) / to) * 100)
+  return 0
 }
 
 /**
@@ -29,18 +30,22 @@ const decreaseByPercent  = (totalValue: number, decrease: number) => {
 }
 
 /**
- * 숫자가 세자리를 넘기면 콤마를 추가하고 fixed가 전달되면 소수점 자리수를 반환, 그 외는 Math.floor된 숫자를 반환한다
+ * NaN이 전달된경우 0, 숫자가 세자리를 넘기면 콤마를 추가하고 fixed가 전달되면 소수점 자리수를 반환, 그 외는 Math.floor된 숫자를 반환한다
  * @param value number
  * @param fixed number 소수점 자릿수
  * @returns string 000,000,000 or 000.0 or 000.(fixed)
  */
 const numberExpression = (value: number, fixed?: number) => {
-  if (value >= 1000) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  } else if (fixed) {
-    return value.toFixed(fixed)
+  if (isNaN(value)) {
+    return 0
+  } else {
+    if (value >= 1000) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    } else if (fixed) {
+      return value.toFixed(fixed)
+    }
+    return Math.floor(value).toString()
   }
-  return Math.floor(value).toString()
 }
 
 export { getPercent, getRate, decreaseByPercent, numberExpression }

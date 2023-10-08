@@ -27,7 +27,7 @@ const props = defineProps({
 
 const svg = ref<SVGElement|null>(null) // svg element
 
-const percent = computed(() => props.percent > 100 ? 100 : props.percent)
+const percent = computed(() => props.percent > 100 || props.percent == Infinity ? 100 : props.percent || 0)
 
 // svg의 strokeDasharray 계산 svg의 크기 * 2 * Math.PI * 0.45(circle의 r값이 45%이기 때문에 0.45를 곱해준다)
 const strokeDasharray = computed(() => svg.value?.clientWidth ? Number((svg.value?.clientWidth * 0.45 * 2 * Math.PI).toFixed(2)) : 0)
