@@ -1,8 +1,9 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import ProgressLine from '@/components/Common/ProgressLine.vue'
 import { numberExpression } from '@/util/number_converter'
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     required: true
@@ -17,6 +18,8 @@ defineProps({
   },
   color: String
 })
+
+const percent = computed(() => props.percent == Infinity ? 100 : props.percent || 0)
 </script>
 
 <template>

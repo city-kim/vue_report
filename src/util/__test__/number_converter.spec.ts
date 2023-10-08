@@ -31,6 +31,10 @@ describe('decreaseByPercent', () => {
 })
 
 describe('numberExpression', () => {
+  it ('NaN이 전달되면 0을 반환한다', () => {
+    expect(numberExpression(NaN)).toBe(0)
+  })
+  
   it ('전달되는 숫자가 999 이상인경우 콤마를 찍어서 반환한다', () => {
     expect(numberExpression(1000.000)).toBe('1,000') // 1000은 콤마를 찍어서 반환
     expect(numberExpression(100000000)).toBe('100,000,000') // 3자리마다 콤마를 찍어서 반환
