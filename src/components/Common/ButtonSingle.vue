@@ -29,7 +29,6 @@ const color = computed(() => props.color ? props.color : getCssVar('--c-gray'))
     :style="{
       fontSize: fontSize
     }"
-    @mouseover=""
     @click="$emit('onClick')"
   >
   {{ title }}

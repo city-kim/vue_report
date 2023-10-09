@@ -29,6 +29,7 @@ const meta: Meta<typeof ContentsPagination> = {
       control: { type: 'number', min:5, max:10, step: 1 },
       description: '페이지네이션에 표시할 최대 페이지 갯수',
     },
+    // @ts-ignore
     paging: {
       action: 'paging',
       description: '변경된 페이지값을 부모 컴포넌트에 전달하는 이벤트',

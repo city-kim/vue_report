@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { productStore } from '@/stores/product'
 import { getCssVar } from '@/util/color'
 
