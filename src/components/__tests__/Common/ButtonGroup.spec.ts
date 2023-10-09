@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import ButtonGroup from '@/components/Common/ButtonGroup.vue'
 
 describe('ButtonGroup', () => {
@@ -10,7 +10,7 @@ describe('ButtonGroup', () => {
   ]
 
   it('buttons props에 전달된 버튼이 올바르게 표시되는지 확인', () => {
-    const wrapper = mount(ButtonGroup, {
+    const wrapper = shallowMount(ButtonGroup, {
       props: {
         buttons: buttons
       }
@@ -23,7 +23,7 @@ describe('ButtonGroup', () => {
   })
 
   it('버튼 클릭시 emit이 올바르게 동작하는지 확인', () => {
-    const wrapper = mount(ButtonGroup, {
+    const wrapper = shallowMount(ButtonGroup, {
       props: {
         buttons: buttons
       }
@@ -38,7 +38,7 @@ describe('ButtonGroup', () => {
   })
   
   it('모바일 대체용 select박스가 올바르게 생성되는지 확인 (hide된 전체 option 포함)', () => {
-    const wrapper = mount(ButtonGroup, {
+    const wrapper = shallowMount(ButtonGroup, {
       props: {
         buttons: buttons
       }

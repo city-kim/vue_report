@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import DataTableVue from '@/components/Common/DataTable.vue'
 import PercentWithIcon from '@/components/Common/PercentWithIcon.vue'
 
@@ -27,7 +27,7 @@ describe('DataTable.vue', () => {
       }
     ]
   }
-  const wrapper = mount(DataTableVue, {
+  const wrapper = shallowMount(DataTableVue, {
     props: { data: tableData }
   })
   
