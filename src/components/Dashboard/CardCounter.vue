@@ -48,7 +48,7 @@ const percent = computed(() => getPercent(props.base, props.compare))
     h3 {
       font-size: 1.125rem;
       font-weight: 600;
-      color: var(--c-text-light-2);
+      color: var(--c-text-light);
     }
   }
   & > h4 {

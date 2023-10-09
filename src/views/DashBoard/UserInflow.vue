@@ -22,7 +22,7 @@ const joinVisitCountChart = computed(() => ({ // 가입자 추이 lineChart 데�
 const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데이터
   labels: userFlow.joinRateBarChart.labels,
   datasets: [
-    { label:'가입', backgroundColor: getCssVar('--c-text-light-2'), data: userFlow.joinRateBarChart.data },
+    { label:'가입', backgroundColor: getCssVar('--c-text-light'), data: userFlow.joinRateBarChart.data },
   ]
 }))
 

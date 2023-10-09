@@ -17,8 +17,9 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import "./src/assets/scss/setup/elements.scss";
-          @import "./src/assets/scss/setup/chart.scss";
+          @import './src/assets/scss/setup/_responsive.scss';
+          @import './src/assets/scss/setup/elements.scss';
+          @import './src/assets/scss/setup/chart.scss';
         `
       }
     }

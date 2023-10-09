@@ -208,6 +208,13 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
   }
 
   .dashboard-userinflow-body-left {
+    @include mobile {
+      grid-column: span 4;
+    }
+    @include tablet {
+      grid-column: span 2;
+    }
+    grid-column: span 1;
     display: grid;
     gap: 1rem;
     & > div:last-child {
@@ -216,6 +223,13 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
   }
 
   .dashboard-userinflow-body-center {
+    @include mobile {
+      grid-column: span 4;
+    }
+    @include tablet {
+      grid-column: span 2;
+    }
+    grid-column: span 1;
     padding: 1rem;
     background: var(--c-white);
     & > div:last-child {
@@ -226,6 +240,12 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
   }
   
   .dashboard-userinflow-body-right {
+    @include mobile {
+      grid-column: span 4;
+    }
+    @include tablet {
+      grid-column: span 4;
+    }
     grid-column: span 2;
     padding: 1rem;
     background: var(--c-white);

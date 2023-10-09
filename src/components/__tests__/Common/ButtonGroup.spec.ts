@@ -36,4 +36,18 @@ describe('ButtonGroup', () => {
     button[2].trigger('click')
     expect(wrapper.emitted().updateActive[2]).toContain('3button')
   })
+  
+  it('모바일 대체용 select박스가 올바르게 생성되는지 확인 (hide된 전체 option 포함)', () => {
+    const wrapper = mount(ButtonGroup, {
+      props: {
+        buttons: buttons
+      }
+    })
+    const option = wrapper.findAll('select option')
+    expect(option.length).toBe(4)
+    expect(option[0].text()).toBe('전체')
+    expect(option[1].text()).toBe('버튼1')
+    expect(option[2].text()).toBe('버2튼')
+    expect(option[3].text()).toBe('3버튼')
+  })
 })

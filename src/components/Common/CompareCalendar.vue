@@ -187,56 +187,70 @@ function changeSelectDate (days: DateTime|undefined) {
 </template>
 
 <style lang="scss">
-.calendar-container{
+.calendar-container {
+  @include mobile {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
   display: flex;
   gap:0.5rem;
   align-items: baseline;
   .calendar-move-button {
+    @include mobile {
+      order: -1;
+      grid-column: span 1;
+      text-align: center;
+    }
     padding:0.25rem;
     background-color: var(--c-gray);
     cursor: pointer;
   }
-  .calendar-title{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--c-gray);
-  }
-  .calendar-body{
-    border:1px solid var(--c-white-soft);
-    background: var(--c-white);
-    .calendar-week{
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      text-align: right;
-      & ~ .calendar-week{
-        border-top:1px solid var(--c-white-soft);
-      }
-      .calendar-day{
-        min-height:1.5rem;
-        padding:0.125rem 0.25rem;
-        text-align: center;
-        &:not(.disabled){
-          cursor: pointer;
+  .calendar-month {
+    @include mobile {
+      grid-column: span 2;
+    }
+    .calendar-title{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--c-gray);
+    }
+    .calendar-body{
+      border:1px solid var(--c-white-soft);
+      background: var(--c-white);
+      .calendar-week{
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: right;
+        & ~ .calendar-week{
+          border-top:1px solid var(--c-white-soft);
         }
-        & ~ .calendar-day{
-          border-left:1px solid var(--c-white-soft);
+        .calendar-day{
+          min-height:1.5rem;
+          padding:0.125rem 0.25rem;
+          text-align: center;
+          &:not(.disabled){
+            cursor: pointer;
+          }
+          & ~ .calendar-day{
+            border-left:1px solid var(--c-white-soft);
+          }
+          &.before{
+            background-color: var(--c-orange);
+            color: var(--c-white);
+          }
+          &.after{
+            background-color: var(--c-blue);
+            color: var(--c-white);
+          }
+          &.overlap{
+            background-color: color-mix(in srgb, var(--c-orange), var(--c-blue));
+            color: var(--c-white);
+          }
         }
-        &.before{
-          background-color: var(--c-orange);
-          color: var(--c-white);
+        &.dayofweek{
+          border-bottom: 1px solid var(--c-divider-gray);
         }
-        &.after{
-          background-color: var(--c-blue);
-          color: var(--c-white);
-        }
-        &.overlap{
-          background-color: color-mix(in srgb, var(--c-orange), var(--c-blue));
-          color: var(--c-white);
-        }
-      }
-      &.dayofweek{
-        border-bottom: 1px solid var(--c-divider-gray);
       }
     }
   }
