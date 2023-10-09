@@ -53,7 +53,7 @@ const percent = computed(() => getPercent(props.base, props.compare))
     }
     & > p {
       font-weight: 600;
-      color: var(--c-text-light-2);
+      color: var(--c-text-light);
     }
   }
 </style>

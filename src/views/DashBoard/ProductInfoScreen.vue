@@ -96,7 +96,7 @@ const PieChartDataset = computed(() => props.categoryChart.dataset.map(x => ({
           unit="건"
         />
       </article>
-      <article>
+      <article class="dashboard-productinfo-body-table">
         <section>
           <h3>판매순위</h3>
           <select
@@ -138,6 +138,12 @@ const PieChartDataset = computed(() => props.categoryChart.dataset.map(x => ({
   .dashboard-productinfo-body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    @include mobile {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @include tablet {
+      grid-template-columns: repeat(1, 1fr);
+    }
     gap: 1rem;
     & > article {
       @include card-container;
@@ -147,6 +153,11 @@ const PieChartDataset = computed(() => props.categoryChart.dataset.map(x => ({
       }
       h3 {
         font-size: 1.125rem;
+      }
+    }
+    .dashboard-productinfo-body-table {
+      @include mobile {
+        overflow: auto;
       }
     }
   }

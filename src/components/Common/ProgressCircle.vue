@@ -73,7 +73,7 @@ const strokeDashoffset = computed(() => {
     transform: rotate(-90deg);
     fill: none;
     circle:first-child {
-      stroke: var(--color-bg-mute);
+      stroke: var(--c-white-mute);
     }
     circle:last-child {
       stroke-linecap: square;

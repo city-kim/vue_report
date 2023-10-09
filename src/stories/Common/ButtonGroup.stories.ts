@@ -62,3 +62,32 @@ export const Primary: Story = {
     ],
   },
 }
+
+export const Mobile: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs<typeof args>()
+    return {
+      components: { ButtonGroup },
+      setup() {
+        function updateActive (key: string) {
+          updateArgs({ active: key })
+        }
+        return { args, updateActive }
+      },
+      template: '<ButtonGroup v-bind="args" @updateActive="updateActive" />',
+    }
+  },
+  args: {
+    active: 'day',
+    buttons: [
+      { key: 'day', text: '일간' },
+      { key: 'week', text: '주간' },
+      { key: 'month', text: '월간' },
+    ],
+  },
+}

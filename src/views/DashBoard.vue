@@ -17,6 +17,12 @@ import ProductInfo from '@/views/DashBoard/ProductInfo.vue'
   flex-direction: column;
   min-height: 100vh;
   padding: 2rem;
-  gap: 2rem;
+  gap: var(--dashboard-section-gap);
+  @include mobile {
+    padding: 0.5rem;
+  }
+  @include tablet {
+    padding: 1rem;
+  }
 }
 </style>

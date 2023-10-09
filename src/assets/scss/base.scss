@@ -25,19 +25,11 @@
   --c-divider-dark-2: rgba(84, 84, 84, 0.48);
   --c-divider-gray: #cccccc;
 
-  --c-text-light-1: var(--c-indigo);
-  --c-text-light-2: rgba(60, 60, 60, 0.66);
-  --c-text-dark-1: var(--c-white);
-  --c-text-dark-2: rgba(235, 235, 235, 0.64);
-
-  --color-bg: var(--c-white);
-  --color-bg-soft: var(--c-white-soft);
-  --color-bg-mute: var(--c-white-mute);
+  --c-text-light: rgba(60, 60, 60, 0.66);
 
   --color-border: var(--c-divider-light-2);
   --color-border-hover: var(--c-divider-light-1);
 
-  --color-heading: var(--c-text-light-1);
   --color-text: var(--c-text-light-1);
 
   --color-bg-blue: color-mix(in srgb, var(--c-blue) 15%, var(--c-white));
@@ -46,20 +38,19 @@
   --color-bg-green: color-mix(in srgb, var(--c-green) 15%, var(--c-white));
   --color-bg-purple: color-mix(in srgb, var(--c-purple) 15%, var(--c-white));
 
-  --color-shadow-soft: color-mix(in srgb, var(--c-black-soft) 25%, transparent);
+  --color-shadow: rgba(140, 149, 159, 0.5);
+
+  --dashboard-section-gap: 5rem;
+}
+
+@include mobile {
+  :root {
+    --dashboard-section-gap: 3rem;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: var(--c-black);
-    --color-bg-soft: var(--c-black-soft);
-    --color-bg-mute: var(--c-black-mute);
-
-    --color-border: var(--c-divider-dark-2);
-    --color-border-hover: var(--c-divider-dark-1);
-
-    --color-heading: var(--c-text-dark-1);
-    --color-text: var(--c-text-dark-2);
   }
 }
 

@@ -11,7 +11,7 @@ import HeaderGnb from '@/layouts/HeaderGnb.vue'
 <style lang="scss">
 
 .appcontainer {
-  max-width: 1500px;
+  max-width: $breakpoint-wide;
   margin: 0 auto;
 }
 </style>

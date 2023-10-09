@@ -130,12 +130,28 @@ function updateActive (dayType: string) {
 
   .dashboard-paymentinfo-pay {
     grid-column: span 3;
+    @include mobile {
+      grid-column: span 4;
+    }
+    @include tablet {
+      grid-column: span 4;
+    }
+
     .dashboard-paymentinfo-pay-body {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      @include mobile {
+        grid-template-columns: repeat(1, 1fr);
+      }
+      @include tablet {
+        grid-template-columns: repeat(1, 1fr);
+      }
       & > div:first-child {
         display: grid;
+        @include mobile {
+          grid-template-columns: repeat(1, 1fr);
+        }
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
       }
@@ -154,11 +170,31 @@ function updateActive (dayType: string) {
   }
 
   .dashboard-userinfo-refund {
+    grid-column: span 1;
     & > div {
       display: grid;
+      @include mobile {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @include tablet {
+        grid-template-columns: repeat(4, 1fr);
+      }
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
+    @include mobile {
+      grid-column: span 4;
+      & > h2 {
+        margin-top: var(--dashboard-section-gap);
+      }
+    }
+    @include tablet {
+      grid-column: span 4;
+      & > h2 {
+        margin-top: var(--dashboard-section-gap);
+      }
+    }
   }
+  
 }
 </style>

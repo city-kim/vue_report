@@ -161,27 +161,43 @@ onMounted(() => {
 </template>
 <style lang="scss">
   .headergnb {
+    @include mobile {
+      padding: 1rem;
+    }
     padding: 2rem;
     background: var(--c-white);
     position: relative;
     .headergnb-container {
-      max-width: 1500px;
+      max-width: $breakpoint-wide;
       margin: 0 auto;
       .headergnb-preview {
         display: flex;
+        flex-wrap: wrap;
         gap: 1rem;
         align-items: center;
         cursor: pointer;
         p:nth-child(2) {
+          @include mobile {
+            font-size: 1rem;
+            flex: 0 0 auto;
+          }
           font-size: 1.125rem;
           font-weight: 700;
         }
         p:nth-child(3) {
-          color: var(--c-text-light-2);
+          color: var(--c-text-light);
         }
       }
 
       .headergnb-calendar {
+        @include mobile {
+          display: block;
+          padding: 0.5rem;
+        }
+        @include tablet {
+          display: grid;
+          padding: 1rem;
+        }
         display: flex;
         padding: 2rem;
         border-radius: 1rem;
@@ -189,7 +205,7 @@ onMounted(() => {
         background: var(--c-white);
         position: absolute;
         z-index: 10;
-        box-shadow: rgba(140, 149, 159, 0.15) 0px 3px 6px;
+        box-shadow: var(--color-shadow) 0px 6px 6px;
         .headergnb-calendar-selector {
           display: flex;
           flex-direction: column;

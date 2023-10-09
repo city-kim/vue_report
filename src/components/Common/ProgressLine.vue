@@ -53,7 +53,7 @@ onMounted(() => {
 <style lang="scss">
 .progress-line {
   width: 100%;
-  background: var(--color-bg-mute);
+  background: var(--c-white-mute);
   .progress-line-size {
     width: 0%;
     transition: width 0.5s ease-in-out;
