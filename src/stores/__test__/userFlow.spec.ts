@@ -82,7 +82,7 @@ describe('userFlow.calculator는 userFlow.baseCount와 userFlow.compareCount에 
   it('값이 있는경우 비율반환', () => {
     store.userFlow.updateUserFlowData(data)
     expect(store.userFlow.calculator).toEqual({
-      inflowRate: { newVisit: 42, returnVisit: 42 },
+      inflowRate: { newVisit: 50, returnVisit: 50 },
       joinRate: { base: 100, compare: 100 },
       snsEmailSum: 25,
       snsRate: {

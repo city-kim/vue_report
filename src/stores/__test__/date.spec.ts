@@ -53,4 +53,17 @@ describe('dateStore', () => {
     })
   })
 
+  describe('dateBeforeYear는 전달받은 날짜로 afterDate를 설정하고 차이만큼 before는 1년전으로 설정한다', () => {
+    it('afterDate일자가 변경된경우 반영된다', () => {
+      const store = dateStore()
+      store.dateBeforeYear({from: DateTime.fromISO('2023-09-01'), to: DateTime.fromISO('2023-09-30')})
+
+      expect(store.afterDate.from.toFormat('yyyy-LL-dd')).toBe('2023-09-01')
+      expect(store.afterDate.to.toFormat('yyyy-LL-dd')).toBe('2023-09-30')
+      
+      expect(store.beforeDate.from.toFormat('yyyy-LL-dd')).toBe('2022-09-01')
+      expect(store.beforeDate.to.toFormat('yyyy-LL-dd')).toBe('2022-09-30')
+    })
+  })
+
 })

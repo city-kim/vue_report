@@ -56,8 +56,8 @@ export const userFlowStore = defineStore('userFlow', () => {
     return {
       // 방문자 통계
       inflowRate: {
-        newVisit: getRate(compareCount.value.sum.new_visit, baseCount.value.sum.new_visit),
-        returnVisit: getRate(compareCount.value.sum.return_visit, baseCount.value.sum.return_visit),
+        newVisit: getRate(baseCount.value.sum.new_visit, baseCount.value.sum.total_visit),
+        returnVisit: getRate(baseCount.value.sum.return_visit, baseCount.value.sum.total_visit),
       },
       // 방문자 가입률(기준, 비교)
       joinRate: {
