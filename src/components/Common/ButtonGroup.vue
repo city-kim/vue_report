@@ -37,7 +37,7 @@ onMounted(() => {
     <div class="button-group-select">
       <select
         v-model="selected"
-        @change.lazy="selectUpdate"
+        @change="selectUpdate"
       >
         <option v-show="false" value="">전체</option>
         <option

@@ -114,7 +114,7 @@ export const OnlyText: Story = {
         { key: 'columns2', title: '텍스트 둘'},
         { key: 'columns3', title: '텍스트 셋'},
       ],
-      rows: Array.from(Array(20), (_, i) => {
+      rows: Array.from(Array(20), () => {
         return {
           columns1: { text: ['text1'] },
           columns2: { text: ['text1', 'text2'] },
@@ -211,7 +211,7 @@ export const ManyColumns: Story = {
       columns: Array.from(Array(20), (_, i) => {
         return { key: 'columns' + (i + 1), title: 'columns' + (i + 1) }
       }),
-      rows: Array.from(Array(20), (_, i) => {
+      rows: Array.from(Array(20), () => {
         return {
           columns1: { text: ['text1', 'text2'] },
           columns2: { text: ['text1'] },

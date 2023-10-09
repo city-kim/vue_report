@@ -154,6 +154,7 @@ function changeSelectDate (days: DateTime|undefined) {
         <article class="calendar-week dayofweek">
           <p
             v-for="text in DayOfWeek"
+            :key="text"
             class="calendar-day disabled"
           >{{ text }}</p>
         </article>

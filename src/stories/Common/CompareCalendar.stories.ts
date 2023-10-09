@@ -24,6 +24,7 @@ const meta: Meta<typeof CompareCalendar> = {
       control: 'object',
       description: '비교대상이 될 날짜',
     },
+    // @ts-ignore
     changeDate: {
       action: 'changeDate',
       description: '달력의 날짜가 두번 클릭되서 from과 to가 변경되었을 때 DateTime을 부모에 전달한다',

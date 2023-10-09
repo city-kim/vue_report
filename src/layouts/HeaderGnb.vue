@@ -108,7 +108,7 @@ onMounted(() => {
             <label>기간</label>
             <select
               v-model="comparePeriods"
-              @change.lazy="calendarUpdateToSelect()"
+              @change="calendarUpdateToSelect()"
             >
               <option :value="undefined">맞춤</option>
               <option v-for="n in dateArray"
@@ -121,19 +121,19 @@ onMounted(() => {
             <input
               v-model="afterDate.from"
               type="date"
-              @change.lazy="callUpdateDate('after')"
+              @change="callUpdateDate('after')"
             />
             <span>~</span>
             <input
               v-model="afterDate.to"
               type="date"
-              @change.lazy="callUpdateDate('after')"
+              @change="callUpdateDate('after')"
             />
           </fieldset>
           <fieldset>
             <select
               v-model="compareTarget"
-              @change.lazy="compareTargetSlect()"
+              @change="compareTargetSlect()"
             >
               <option value="periods">이전 기간</option>
               <option value="year">이전 연도</option>
@@ -145,13 +145,13 @@ onMounted(() => {
             <input
               v-model="beforeDate.from"
               type="date"
-              @change.lazy="callUpdateDate('before')"
+              @change="callUpdateDate('before')"
             />
             <span>~</span>
             <input
               v-model="beforeDate.to"
               type="date"
-              @change.lazy="callUpdateDate('before')"
+              @change="callUpdateDate('before')"
             />
           </fieldset>
         </div>
