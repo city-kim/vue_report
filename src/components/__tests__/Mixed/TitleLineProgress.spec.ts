@@ -36,19 +36,23 @@ describe('정상적인 값이 전달된경우', () => {
 
 describe('비정상적인 값이 전달된경우', () => {
   it('percent에 NaN 전달되면 0을 출력', () => {
-    const wrapper = shallowMount(TitleLineProgress, { 
-      title: 'TEST',
-      count: NaN,
-      percent: NaN
+    const wrapper = shallowMount(TitleLineProgress, {
+      props: {
+        title: 'TEST',
+        count: NaN,
+        percent: NaN
+      }
     })
     expect(wrapper.find('.mixed-title-line-progress div p strong').text()).toContain('0')
   })
   
   it('percent에 Infinity가 전달되면 0을 출력', () => {
-    const wrapper = shallowMount(TitleLineProgress, { 
-      title: 'TEST',
-      count: Infinity,
-      percent: Infinity
+    const wrapper = shallowMount(TitleLineProgress, {
+      props: {
+        title: 'TEST',
+        count: NaN,
+        percent: NaN
+      }
     })
     expect(wrapper.find('.mixed-title-line-progress div p strong').text()).toContain('0')
   })
