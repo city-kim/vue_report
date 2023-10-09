@@ -194,6 +194,10 @@ onMounted(() => {
           display: block;
           padding: 0.5rem;
         }
+        @include tablet {
+          display: grid;
+          padding: 1rem;
+        }
         display: flex;
         padding: 2rem;
         border-radius: 1rem;

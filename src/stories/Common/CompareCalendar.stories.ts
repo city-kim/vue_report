@@ -73,3 +73,43 @@ export const Primary: Story = {
     },
   },
 }
+
+export const Mobile: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+  },
+  render: (args) => {
+    const [, updateArgs] = useArgs<typeof args>()
+    return {
+      components: { CompareCalendar },
+      setup() {
+        function changeDate ({ from, to }: {from: DateTime, to: DateTime}) {
+          const { from: fromSort, to: toSort } = dateSort(from, to)
+          updateArgs({ afterDate: {
+            from: fromSort,
+            to: toSort,
+          }})
+          const diff = toSort.diff(fromSort, 'days').days
+          updateArgs({ beforeDate: {
+            from: fromSort.minus({day: diff + 1}),
+            to: fromSort.minus({day: 1}),
+          }})
+        }
+        return { args, changeDate }
+      },
+      template: '<CompareCalendar v-bind="args" @changeDate="changeDate" />',
+    }
+  },
+  args: {
+    beforeDate: {
+      from: DateTime.now().minus({day: 13}),
+      to: DateTime.now().minus({day: 7}),
+    },
+    afterDate: {
+      from: DateTime.now().minus({day: 6}),
+      to: DateTime.now(),
+    },
+  },
+}
