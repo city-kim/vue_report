@@ -143,13 +143,14 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
           target="contents"
           :isLoading="isLoading"
         >
-          <ProgressCounter
-            title="전체방문자"
-            :base="props.inflowSum.base.total_visit"
-            :compare="props.inflowSum.compare.total_visit"
-            :progressData="inflow"
-            :isLoading="isLoading"
-          />
+          <div>
+            <ProgressCounter
+              title="전체방문자"
+              :base="props.inflowSum.base.total_visit"
+              :compare="props.inflowSum.compare.total_visit"
+              :progressData="inflow"
+            />
+          </div>
         </SkeletonContainer>
         <SkeletonContainer
           target="chart"
@@ -162,7 +163,6 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
               :compare="props.inflowCalculator.joinRate.compare"
               :percent="50"
               :toFixed="1"
-              :isLoading="isLoading"
               unit="%"
             />
             <BarChart :data="{
@@ -172,7 +172,6 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
               :height="80"
               :guide="false"
               :barPercent="0.2"
-              :isLoading="isLoading"
               unit="명"
             />
           </div>
@@ -188,7 +187,6 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
             :base="props.inflowSum.base.join"
             :compare="props.inflowSum.compare.join"
             :percent="50"
-            :isLoading="isLoading"
           />
           <div class="dashboard-userinflow-body-center-lists">
             <TitleLineProgress
@@ -198,7 +196,6 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
               :count="item.count"
               :percent="item.percent"
               :color="getCssVar(item.color)"
-              :isLoading="isLoading"
             />
           </div>
         </SkeletonContainer>
@@ -212,7 +209,6 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
             <h2>가입자 추이</h2>
             <ButtonGroup
               :buttons="JOIN_SNS"
-              :isLoading="isLoading"
               @updateActive="updateActive"
             />
           </article>
@@ -223,7 +219,6 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
             }"
             :gradient="true"
             :height="300"
-            :isLoading="isLoading"
             unit="명"
           />
         </SkeletonContainer>

@@ -26,7 +26,7 @@ export const paymentStore = defineStore('payment', () => {
     isLoading.value = true
     setTimeout(() => {
       updatePaymentData(paymentByDate({beforeDate, afterDate}))
-    }, Math.random() * 2000)
+    }, Math.random() * 1000)
   }
 
   function updatePaymentData (payload: Array<Payment>) {

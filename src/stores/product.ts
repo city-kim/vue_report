@@ -24,7 +24,7 @@ export const productStore = defineStore('product', () => {
     isProductLoading.value = true
     setTimeout(() => {
       updateProductData(productByDate({beforeDate, afterDate}))
-    }, Math.random() * 2000)
+    }, Math.random() * 1000)
   }
   function updateProductData (payload: Array<Product>) {
     // 데이터 업데이트 unit 테스트에도 사용됨

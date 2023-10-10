@@ -23,7 +23,7 @@ export const userFlowStore = defineStore('userFlow', () => {
     isLoading.value = true
     setTimeout(() => {
       updateUserFlowData(userFlowByDate({beforeDate, afterDate}))
-    }, Math.random() * 2000)
+    }, Math.random() * 1000)
   }
 
   function updateUserFlowData (payload: Array<UserFlow>) {

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="skeleton-contents">
+  <div class="skeleton skeleton-contents">
     <div class="skeleton-contents-title">
       <SkeletonUi
         width="10rem"

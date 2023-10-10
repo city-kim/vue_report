@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="skeleton-chart">
+  <div class="skeleton skeleton-chart">
     <SkeletonUi
       width="10rem"
       height="1.5rem"
