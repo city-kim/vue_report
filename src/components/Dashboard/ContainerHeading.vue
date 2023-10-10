@@ -4,11 +4,12 @@ defineProps({
     type: String,
     required: true
   },
+  isLoading: Boolean
 })
 </script>
 <template>
   <section>
-    <h2>{{ h2 }}</h2>
+    <h2 v-show="!isLoading">{{ h2 }}</h2>
     <slot></slot>
   </section>
 </template>

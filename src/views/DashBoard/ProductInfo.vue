@@ -23,5 +23,7 @@ onMounted(() => {
     :categoryChart="product.categoryChart"
     :tableSortTarget="product.tableSortTarget"
     :tableData="product.tableData"
+    :isProductLoading="product.isProductLoading"
+    :isPurchaseLoading="product.isPurchaseLoading"
   ></ProductInfoScreen>
 </template>
