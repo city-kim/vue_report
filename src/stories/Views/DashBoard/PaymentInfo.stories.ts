@@ -25,6 +25,14 @@ const meta: Meta<typeof PaymentInfoScreen> = {
       control: 'object',
       description: '결제 및 환불 BarChart에 사용되는 데이터',
     },
+    userFlowLoading: {
+      control: 'boolean',
+      description: '유입 데이터가 로딩중인지',
+    },
+    paymentLoading: {
+      control: 'boolean',
+      description: '결제 데이터가 로딩중인지',
+    },
   }
 }
 export default meta

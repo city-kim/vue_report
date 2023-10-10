@@ -1,5 +1,5 @@
-import { reactive, computed, toRaw } from 'vue'
-import { storeToRefs, defineStore } from 'pinia'
+import { reactive, computed, toRaw, watch, ref } from 'vue'
+import { defineStore } from 'pinia'
 import { DateTime, Interval } from 'luxon'
 
 import { PURCHASERS } from '@/constants/STORES'
@@ -12,32 +12,45 @@ import type { Product, Purchase } from '@/types/store'
 
 export const productStore = defineStore('product', () => {
   const date = dateStore()
-  const { beforeDate, afterDate } = storeToRefs(date)
+  const { beforeDate, afterDate } = date
 
   const product = reactive<{ value: Array<Product> }>({ value: [] })
   const purchase = reactive<{ value: Purchase }>({ value: { data: [], filters: [] } })
-  
+
+  const isProductLoading = ref<boolean>(false)
   function fetechProductData () {
     // 서버 데이터를 가져온다
-    // setTimeout(() => {
-      updateProductData(productByDate())
-    // }, 1000)
+    product.value = []
+    isProductLoading.value = true
+    setTimeout(() => {
+      updateProductData(productByDate({beforeDate, afterDate}))
+    }, Math.random() * 2000)
   }
   function updateProductData (payload: Array<Product>) {
     // 데이터 업데이트 unit 테스트에도 사용됨
-    product.value = payload
+    isProductLoading.value = false
+    product.value = structuredClone(payload)
   }
   
+  const isPurchaseLoading = ref<boolean>(false)
   function fetechPurchaseData () {
     // 서버 데이터를 가져온다
-    // setTimeout(() => {
-      updatePurchaseData(purchaseByDate())
-    // }, 1000)
+    purchase.value = { data: [], filters: [] }
+    isPurchaseLoading.value = true
+    setTimeout(() => {
+      updatePurchaseData(purchaseByDate({beforeDate, afterDate}))
+    }, 1000)
   }
   function updatePurchaseData (payload: Purchase) {
     // 데이터 업데이트 unit 테스트에도 사용됨
-    purchase.value = payload
+    isPurchaseLoading.value = false
+    purchase.value = structuredClone(payload)
   }
+  watch([beforeDate, afterDate], () => {
+    // 날짜가 변경된다면 데이터를 다시요청한다
+    fetechProductData()
+    fetechPurchaseData()
+  })
 
   function getDataForProductOnDate (from: DateTime, to: DateTime) {
     // 시작점과 종료점을 받아서 그 사이의 데이터를 반환
@@ -54,8 +67,8 @@ export const productStore = defineStore('product', () => {
     }
   }
 
-  const baseCount = computed(() => (getDataForProductOnDate(afterDate.value.from, afterDate.value.to))) // 기준 데이터
-  const compareCount = computed(() => (getDataForProductOnDate(beforeDate.value.from, beforeDate.value.to))) // 비교 데이터
+  const baseCount = computed(() => (getDataForProductOnDate(afterDate.from, afterDate.to))) // 기준 데이터
+  const compareCount = computed(() => (getDataForProductOnDate(beforeDate.from, beforeDate.to))) // 비교 데이터
 
   // 일자별만 있는 차트데이터
   const salesChartData = computed(() => {
@@ -79,12 +92,12 @@ export const productStore = defineStore('product', () => {
 
   const tableData = computed(() => {
     const before = { // 이전 날짜
-      diff: beforeDate.value.to.diff(beforeDate.value.from, 'days').days,
-      index: product.value.findIndex((x) => x.date === beforeDate.value.from.toFormat('yyyy-LL-dd'))
+      diff: beforeDate.to.diff(beforeDate.from, 'days').days,
+      index: product.value.findIndex((x) => x.date === beforeDate.from.toFormat('yyyy-LL-dd'))
     }
     const after = { // 선택된 날짜
-      diff: afterDate.value.to.diff(afterDate.value.from, 'days').days,
-      index: product.value.findIndex((x) => x.date === afterDate.value.from.toFormat('yyyy-LL-dd'))
+      diff: afterDate.to.diff(afterDate.from, 'days').days,
+      index: product.value.findIndex((x) => x.date === afterDate.from.toFormat('yyyy-LL-dd'))
     }
 
     const beforeData = getPurchaseRows(before.diff, before.index)
@@ -143,6 +156,8 @@ export const productStore = defineStore('product', () => {
   }))
   
   return {
+    isProductLoading,
+    isPurchaseLoading,
     fetechProductData,
     updateProductData,
     fetechPurchaseData,

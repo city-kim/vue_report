@@ -32,6 +32,14 @@ const meta: Meta<typeof ProductInfoScreen> = {
       control: 'object',
       description: '테이블을 출력할 columns와 rows를 가진 데이터',
     },
+    isProductLoading: {
+      control: 'boolean',
+      description: '제품 데이터가 로딩중인지',
+    },
+    isPurchaseLoading: {
+      control: 'boolean',
+      description: '구매자 데이터가 로딩중인지',
+    },
   }
 }
 export default meta

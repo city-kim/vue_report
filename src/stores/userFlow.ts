@@ -1,5 +1,5 @@
-import { ref, reactive, computed, toRaw } from 'vue'
-import { storeToRefs, defineStore } from 'pinia'
+import { ref, reactive, computed, toRaw, watch } from 'vue'
+import { defineStore } from 'pinia'
 import { DateTime, Interval } from 'luxon'
 
 import { USER_FLOW } from '@/constants/STORES'
@@ -12,21 +12,30 @@ import type { JoinType, UserFlow, InflowCalculator } from '@/types/store'
 
 export const userFlowStore = defineStore('userFlow', () => {
   const date = dateStore()
-  const { beforeDate, afterDate } = storeToRefs(date)
+  const { beforeDate, afterDate } = date
 
   const data = reactive<{ value: Array<UserFlow> }>({ value: [] })
 
+  const isLoading = ref<boolean>(false)
   function fetechUserFlowData () {
     // 서버 데이터를 가져온다
-    // setTimeout(() => {
-      updateUserFlowData(userFlowByDate())
-    // }, 1000)
+    data.value = []
+    isLoading.value = true
+    setTimeout(() => {
+      updateUserFlowData(userFlowByDate({beforeDate, afterDate}))
+    }, Math.random() * 2000)
   }
 
   function updateUserFlowData (payload: Array<UserFlow>) {
     // 데이터 업데이트 unit 테스트에도 사용됨
-    data.value = payload
+    isLoading.value = false
+    data.value = structuredClone(payload)
   }
+
+  watch([beforeDate, afterDate], () => {
+    // 날짜가 변경된다면 데이터를 다시요청한다
+    fetechUserFlowData()
+  })
 
   function getDateData (from: DateTime, to: DateTime) {
     // 시작점과 종료점을 받아서 그 사이의 데이터를 반환
@@ -46,8 +55,8 @@ export const userFlowStore = defineStore('userFlow', () => {
   }
   
   // 카운터가 있는 데이터
-  const baseCount = computed(() => (getDateData(afterDate.value.from, afterDate.value.to)))
-  const compareCount = computed(() => (getDateData(beforeDate.value.from, beforeDate.value.to)))
+  const baseCount = computed(() => (getDateData(afterDate.from, afterDate.to)))
+  const compareCount = computed(() => (getDateData(beforeDate.from, beforeDate.to)))
 
   // 비율구하기
   const calculator = computed<InflowCalculator>(() => {
@@ -123,6 +132,7 @@ export const userFlowStore = defineStore('userFlow', () => {
   }))
   
   return {
+    isLoading,
     fetechUserFlowData,
     updateUserFlowData,
     baseCount,

@@ -41,6 +41,7 @@ onMounted(() => {
     :inflowCalculator="userFlow.calculator"
     :joinVisitCountChart="joinVisitCountChart"
     :joinRateBarChart="joinRateBarChart"
+    :isLoading="userFlow.isLoading"
     @joinTrendTargetChange="changeTrendTarget"
   />
 </template>

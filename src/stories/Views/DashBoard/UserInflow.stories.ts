@@ -28,7 +28,11 @@ const meta: Meta<typeof UserInflowScreen> = {
     joinRateBarChart: {
       control: 'object',
       description: '방문자 가입률에 사용되는 barChart 데이터',
-    }
+    },
+    isLoading: {
+      control: 'boolean',
+      description: '데이터가 로딩중인지',
+    },
   }
 }
 export default meta

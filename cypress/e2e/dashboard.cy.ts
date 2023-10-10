@@ -160,7 +160,7 @@ describe('UserInflow', () => {
     })
 
     it('전체방문자 컴포넌트 확인', () => {
-      cy.get('.dashboard-userinflow-body-left .dashboard-progress-counter')
+      cy.get('.dashboard-userinflow-body-left > div:first')
         .should('exist')
         .within(() => {
           // 전체방문자 데이터가 존재하는지 확인

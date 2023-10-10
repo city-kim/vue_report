@@ -16,6 +16,8 @@ import ButtonGroup from '@/components/Common/ButtonGroup.vue'
 import BarChart from '@/components/Common/Chart/BarChart.vue'
 import LineChart from '@/components/Common/Chart/LineChart.vue'
 
+import SkeletonContainer from '@/components/Common/Skeleton/SkeletonContainer.vue'
+
 const props = defineProps({
   inflowSum: {
     type: Object as PropType<{
@@ -51,7 +53,8 @@ const props = defineProps({
       }>
     }>,
     required: true
-  }
+  },
+  isLoading: Boolean
 })
 
 const emit = defineEmits<{
@@ -132,70 +135,98 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
 <template>
   <ContainerHeading
     h2="유입"
+    :isLoading="isLoading"
   >
     <div class="dashboard-userinflow-body">
       <div class="dashboard-userinflow-body-left">
-        <ProgressCounter
-          title="전체방문자"
-          :base="props.inflowSum.base.total_visit"
-          :compare="props.inflowSum.compare.total_visit"
-          :progressData="inflow"
-        />
-        <div>
-          <TitlePercent
-            title="방문자 가입률"
-            :base="props.inflowCalculator.joinRate.base"
-            :compare="props.inflowCalculator.joinRate.compare"
-            :percent="50"
-            :toFixed="1"
-            unit="%"
+        <SkeletonContainer
+          target="contents"
+          :isLoading="isLoading"
+        >
+          <ProgressCounter
+            title="전체방문자"
+            :base="props.inflowSum.base.total_visit"
+            :compare="props.inflowSum.compare.total_visit"
+            :progressData="inflow"
+            :isLoading="isLoading"
           />
-          <BarChart :data="{
-              labels: joinRateBarChart.labels,
-              datasets: joinRateBarChart.datasets
-            }"
-            :height="80"
-            :guide="false"
-            :barPercent="0.2"
-            unit="명"
-          />
-        </div>
+        </SkeletonContainer>
+        <SkeletonContainer
+          target="chart"
+          :isLoading="isLoading"
+        >
+          <div>
+            <TitlePercent
+              title="방문자 가입률"
+              :base="props.inflowCalculator.joinRate.base"
+              :compare="props.inflowCalculator.joinRate.compare"
+              :percent="50"
+              :toFixed="1"
+              :isLoading="isLoading"
+              unit="%"
+            />
+            <BarChart :data="{
+                labels: joinRateBarChart.labels,
+                datasets: joinRateBarChart.datasets
+              }"
+              :height="80"
+              :guide="false"
+              :barPercent="0.2"
+              :isLoading="isLoading"
+              unit="명"
+            />
+          </div>
+        </SkeletonContainer>
       </div>
       <div class="dashboard-userinflow-body-center">
-        <TitlePercent
-          title="신규가입자"
-          :base="props.inflowSum.base.join"
-          :compare="props.inflowSum.compare.join"
-          :percent="50"
-        />
-        <div>
-          <TitleLineProgress
-            v-for="(item, index) in sns"
-            :key="index"
-            :title="item.title"
-            :count="item.count"
-            :percent="item.percent"
-            :color="getCssVar(item.color)"
+        <SkeletonContainer
+          target="contents"
+          :isLoading="isLoading"
+        >
+          <TitlePercent
+            title="신규가입자"
+            :base="props.inflowSum.base.join"
+            :compare="props.inflowSum.compare.join"
+            :percent="50"
+            :isLoading="isLoading"
           />
-        </div>
+          <div class="dashboard-userinflow-body-center-lists">
+            <TitleLineProgress
+              v-for="(item, index) in sns"
+              :key="index"
+              :title="item.title"
+              :count="item.count"
+              :percent="item.percent"
+              :color="getCssVar(item.color)"
+              :isLoading="isLoading"
+            />
+          </div>
+        </SkeletonContainer>
       </div>
       <div class="dashboard-userinflow-body-right">
-        <article>
-          <h2>가입자 추이</h2>
-          <ButtonGroup
-            :buttons="JOIN_SNS"
-            @updateActive="updateActive"
+        <SkeletonContainer
+          target="chart"
+          :isLoading="isLoading"
+        >
+          <article>
+            <h2>가입자 추이</h2>
+            <ButtonGroup
+              :buttons="JOIN_SNS"
+              :isLoading="isLoading"
+              @updateActive="updateActive"
+            />
+          </article>
+          <LineChart
+            :data="{
+              labels: joinVisitCountChart.labels,
+              datasets: joinVisitCountChart.datasets
+            }"
+            :gradient="true"
+            :height="300"
+            :isLoading="isLoading"
+            unit="명"
           />
-        </article>
-        <LineChart
-          :data="{
-            labels: joinVisitCountChart.labels,
-            datasets: joinVisitCountChart.datasets
-          }"
-          :gradient="true"
-          :height="300"
-          unit="명"
-        />
+        </SkeletonContainer>
       </div>
     </div>
   </ContainerHeading>
@@ -205,57 +236,57 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(4, 1fr);
-  }
 
-  .dashboard-userinflow-body-left {
-    @include mobile {
-      grid-column: span 4;
-    }
-    @include tablet {
-      grid-column: span 2;
-    }
-    grid-column: span 1;
-    display: grid;
-    gap: 1rem;
-    & > div:last-child {
-      @include card-container(0.5rem);
-    }
-  }
-
-  .dashboard-userinflow-body-center {
-    @include mobile {
-      grid-column: span 4;
-    }
-    @include tablet {
-      grid-column: span 2;
-    }
-    grid-column: span 1;
-    padding: 1rem;
-    background: var(--c-white);
-    & > div:last-child {
+    .dashboard-userinflow-body-left {
+      @include mobile {
+        grid-column: span 4;
+      }
+      @include tablet {
+        grid-column: span 2;
+      }
+      grid-column: span 1;
       display: grid;
       gap: 1rem;
-      margin-top: 2rem;
+      & > div {
+        @include card-container(0.5rem);
+      }
     }
-  }
-  
-  .dashboard-userinflow-body-right {
-    @include mobile {
-      grid-column: span 4;
+
+    .dashboard-userinflow-body-center {
+      @include mobile {
+        grid-column: span 4;
+      }
+      @include tablet {
+        grid-column: span 2;
+      }
+      grid-column: span 1;
+      padding: 1rem;
+      background: var(--c-white);
+      .dashboard-userinflow-body-center-lists {
+        display: grid;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
     }
-    @include tablet {
-      grid-column: span 4;
-    }
-    grid-column: span 2;
-    padding: 1rem;
-    background: var(--c-white);
-    article {
-      display: flex;
-      padding-bottom: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      h2 {
-        font-size: 1.125rem;
+    
+    .dashboard-userinflow-body-right {
+      @include mobile {
+        grid-column: span 4;
+      }
+      @include tablet {
+        grid-column: span 4;
+      }
+      grid-column: span 2;
+      padding: 1rem;
+      background: var(--c-white);
+      article {
+        display: flex;
+        padding-bottom: 1rem;
+        align-items: center;
+        justify-content: space-between;
+        h2 {
+          font-size: 1.125rem;
+        }
       }
     }
   }
