@@ -30,6 +30,7 @@ const meta: Meta<typeof ButtonSingle> = {
         }
       }
     },
+    // @ts-ignore
     onClick: {
       action: 'onClick',
       description: '버튼이 클릭되면 부모에 이벤트를 전달한다',
@@ -96,7 +97,7 @@ export const Gray: Story = {
   },
 }
 
-export const red: Story = {
+export const Red: Story = {
   render: (args) => {
     return {
       components: { ButtonSingle },

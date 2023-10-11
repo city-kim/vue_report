@@ -18,3 +18,17 @@
     }
   }
 }
+
+@mixin skeleton () {
+  display: inline-block;
+  overflow: hidden;
+  background: linear-gradient(90deg,#0000 32%,rgba(255,255,255,0.6) 50%,#0000 63%) rgba(238, 238, 238);
+  background-size: 300% 100%;
+  animation: shine 1s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: right;
+  }
+}

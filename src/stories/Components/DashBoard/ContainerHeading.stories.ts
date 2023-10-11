@@ -23,6 +23,10 @@ const meta: Meta<typeof ContainerHeading> = {
       control: 'text',
       description: '제목영역',
     },
+    isLoading: {
+      control: 'boolean',
+      description: '로딩중일때는 header를 숨긴다',
+    },
   }
 }
 export default meta

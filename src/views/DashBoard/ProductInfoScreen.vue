@@ -7,6 +7,8 @@ import DataTable from '@/components/Common/DataTable.vue'
 import BarChart from '@/components/Common/Chart/BarChart.vue'
 import PieChart from '@/components/Common/Chart/PieChart.vue'
 
+import SkeletonContainer from '@/components/Common/Skeleton/SkeletonContainer.vue'
+
 import type { PropType } from 'vue'
 
 const props = defineProps({
@@ -58,7 +60,9 @@ const props = defineProps({
       }>
     }>,
     required: true
-  }
+  },
+  isProductLoading: Boolean,
+  isPurchaseLoading: Boolean,
 })
 
 // 정렬대상
@@ -76,60 +80,78 @@ const PieChartDataset = computed(() => props.categoryChart.dataset.map(x => ({
   backgroundColor: props.colors
 })))
 
+const isLoading = computed(() => props.isProductLoading || props.isPurchaseLoading)
+
 </script>
 
 <template>
   <ContainerHeading
     h2="제품"
+    :isLoading="isLoading"
   >
     <div class="dashboard-productinfo-body">
       <article>
-        <h3>판매량</h3>
-        <BarChart
-          :data="{
-            labels: props.salesChartData.labels,
-            datasets: BarChartDataset
-          }"
-          :stacked="true"
-          :horizontal="true"
-          :gradient="true"
-          unit="건"
-        />
+        <SkeletonContainer
+          target="chart"
+          :isLoading="isProductLoading"
+        >
+          <h3>판매량</h3>
+          <BarChart
+            :data="{
+              labels: props.salesChartData.labels,
+              datasets: BarChartDataset
+            }"
+            :stacked="true"
+            :horizontal="true"
+            :gradient="true"
+            unit="건"
+          />
+        </SkeletonContainer>
       </article>
       <article class="dashboard-productinfo-body-table">
-        <section>
-          <h3>판매순위</h3>
-          <select
-            v-model="sortBy"
-          >
-            <option value="">정렬</option>
-            <option
-              v-for="option in props.tableSortTarget"
-              :key="option.key"
-              :value="option.key"
+        <SkeletonContainer
+          target="chart"
+          :isLoading="isLoading"
+        >
+          <section>
+            <h3>판매순위</h3>
+            <select
+              v-model="sortBy"
             >
-              {{ option.title ? option.title : option.key }}
-            </option>
-          </select>
-        </section>
-        <DataTable
-          :data="props.tableData"
-          :sortBy="sortBy"
-          height="300px"
-        />
+              <option value="">정렬</option>
+              <option
+                v-for="option in props.tableSortTarget"
+                :key="option.key"
+                :value="option.key"
+              >
+                {{ option.title ? option.title : option.key }}
+              </option>
+            </select>
+          </section>
+          <DataTable
+            :data="props.tableData"
+            :sortBy="sortBy"
+            height="300px"
+          />
+        </SkeletonContainer>
       </article>
       <article>
-        <h3>종류별 비율</h3>
-        <PieChart
-          :data="{
-            labels: props.categoryChart.labels,
-            datasets: PieChartDataset
-          }"
-          :label="true"
-          :legend="true"
-          legendPosition="right"
-          unit="원"
-        />
+        <SkeletonContainer
+          target="chart"
+          :isLoading="isProductLoading"
+        >
+          <h3>종류별 비율</h3>
+          <PieChart
+            :data="{
+              labels: props.categoryChart.labels,
+              datasets: PieChartDataset
+            }"
+            :label="true"
+            :legend="true"
+            legendPosition="right"
+            unit="원"
+          />
+        </SkeletonContainer>
       </article>
     </div>
   </ContainerHeading>

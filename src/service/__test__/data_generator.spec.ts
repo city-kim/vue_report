@@ -1,22 +1,36 @@
 import { describe, it, expect } from 'vitest'
-import { setDate, userFlowByDate, paymentByDate, productByDate, purchaseByDate } from '@/service/data_generator'
+import { setDates, userFlowByDate, paymentByDate, productByDate, purchaseByDate } from '@/service/data_generator'
 import { DateTime } from 'luxon'
 
 const now = DateTime.now()
+const date = {
+  beforeDate: { from: now.minus({day: 13}), to: now.minus({day: 7}) },
+  afterDate: { from: now.minus({day: 6}), to: now }
+}
 
-describe('data_generator setDate', () => {
-  it('더미데이터는 현재날짜 기준으로 730개(2년전)까지 생성된다', () => {
-    expect(setDate).toHaveLength(730)
+describe('data_generator setDates', () => {
+  it('중복된 날짜가 있다면 제거된다', () => {
+    const setDate = setDates({
+      beforeDate: { from: now.minus({day: 10}), to: now.minus({day: 5}) },
+      afterDate: { from: now.minus({day: 5}), to: now }
+    })
+    expect(setDate).toHaveLength(11)
+  })
+
+  it('중복된 날짜가 없다면 전달된 날짜 기준으로 데이터가 생성된다', () => {
+    const setDate = setDates(date)
+    expect(setDate).toHaveLength(14)
   })
   
   it('각각 날짜에 맞게 생성된다', () => {
-    expect(setDate.at(0)?.date).toBe(now.toFormat('yyyy-LL-dd'))
-    expect(setDate.at(-1)?.date).toBe(now.minus({days: 729}).toFormat('yyyy-LL-dd'))
+    const setDate = setDates(date)
+    expect(setDate.at(-1)?.date).toBe(now.toFormat('yyyy-LL-dd'))
+    expect(setDate.at(0)?.date).toBe(now.minus({days: 13}).toFormat('yyyy-LL-dd'))
   })
 })
 
 describe('data_generator userFlowByDate', () => {
-  const userFlow = userFlowByDate()
+  const userFlow = userFlowByDate(date)
   
   it('필요한 각 항목이 모두 생성되는지 확인', () => {
     const first = userFlow[0]
@@ -38,7 +52,7 @@ describe('data_generator userFlowByDate', () => {
 })
 
 describe('data_generator paymentByDate', () => {
-  const payment = paymentByDate()
+  const payment = paymentByDate(date)
   
   it('필요한 각 항목이 모두 생성되는지 확인', () => {
     const first = payment[0]
@@ -51,7 +65,7 @@ describe('data_generator paymentByDate', () => {
 })
 
 describe('data_generator productByDate', () => {
-  const product = productByDate()
+  const product = productByDate(date)
   
   it('필요한 각 항목이 모두 생성되는지 확인', () => {
     const first = product[0]
@@ -63,7 +77,7 @@ describe('data_generator productByDate', () => {
 })
 
 describe('data_generator purchaseByDate', () => {
-  const purchase = purchaseByDate()
+  const purchase = purchaseByDate(date)
   
   it('필요한 각 항목이 모두 생성되는지 확인', () => {
     const first = purchase.data[0]

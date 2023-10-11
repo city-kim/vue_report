@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { productStore } from '@/stores/product'
 import { getCssVar } from '@/util/color'
 
@@ -23,5 +23,7 @@ onMounted(() => {
     :categoryChart="product.categoryChart"
     :tableSortTarget="product.tableSortTarget"
     :tableData="product.tableData"
+    :isProductLoading="product.isProductLoading"
+    :isPurchaseLoading="product.isPurchaseLoading"
   ></ProductInfoScreen>
 </template>

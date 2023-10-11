@@ -36,11 +36,22 @@ export const dateStore = defineStore('date', () => {
     beforeDate.value.to = fromSort.minus({day: 1})
     beforeDate.value.from = beforeDate.value.to.minus({day: diff})
   }
+
+  function dateBeforeYear ({from, to}: {from: DateTime, to: DateTime}) {
+    // beforeDate의 시작점이 1년전으로 변경된다
+    const { from: fromSort, to: toSort } = dateSort(from, to)
+    afterDate.value.from = fromSort
+    afterDate.value.to = toSort
+
+    beforeDate.value.from = afterDate.value.from.minus({year: 1})
+    beforeDate.value.to = afterDate.value.to.minus({year: 1})
+  }
   
   return {
     beforeDate,
     afterDate,
     dateCustomUpdate,
-    dateDiffUpdate
+    dateDiffUpdate,
+    dateBeforeYear
   }
 })

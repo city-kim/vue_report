@@ -1,5 +1,5 @@
-import { reactive, computed, toRaw } from 'vue'
-import { storeToRefs, defineStore } from 'pinia'
+import { reactive, computed, toRaw, watch, ref } from 'vue'
+import { defineStore } from 'pinia'
 import { DateTime, Interval } from 'luxon'
 
 import { PAYMENT } from '@/constants/STORES'
@@ -15,21 +15,30 @@ export const paymentStore = defineStore('payment', () => {
   const date = dateStore()
   const userFlow = userFlowStore()
 
-  const { beforeDate, afterDate } = storeToRefs(date)
+  const { beforeDate, afterDate } = date
 
   const data = reactive<{ value: Array<Payment> }>({ value: [] })
 
+  const isLoading = ref<boolean>(false)
   function fetechPaymentData () {
     // 서버 데이터를 가져온다
-    // setTimeout(() => {
-      updatePaymentData(paymentByDate())
-    // }, 1000)
+    data.value = []
+    isLoading.value = true
+    setTimeout(() => {
+      updatePaymentData(paymentByDate({beforeDate, afterDate}))
+    }, Math.random() * 1000)
   }
 
   function updatePaymentData (payload: Array<Payment>) {
     // 데이터 업데이트 unit 테스트에도 사용됨
-    data.value = payload
+    isLoading.value = false
+    data.value = structuredClone(payload)
   }
+  
+  watch([beforeDate, afterDate], () => {
+    // 날짜가 변경된다면 데이터를 다시요청한다
+    fetechPaymentData()
+  })
 
   function getDateData (from: DateTime, to: DateTime) {
     // 시작점과 종료점을 받아서 그 사이의 데이터를 반환
@@ -45,8 +54,8 @@ export const paymentStore = defineStore('payment', () => {
   }
 
   // 카운터가 있는 데이터
-  const baseCount = computed(() => (getDateData(afterDate.value.from, afterDate.value.to)))
-  const compareCount = computed(() => (getDateData(beforeDate.value.from, beforeDate.value.to)))
+  const baseCount = computed(() => (getDateData(afterDate.from, afterDate.to)))
+  const compareCount = computed(() => (getDateData(beforeDate.from, beforeDate.to)))
 
   // 비율을 반환
   const calculator = computed<PaymentCalculator>(() => ({
@@ -97,6 +106,7 @@ export const paymentStore = defineStore('payment', () => {
   })
   
   return {
+    isLoading,
     fetechPaymentData,
     updatePaymentData,
     baseCount,

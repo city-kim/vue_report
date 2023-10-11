@@ -10,9 +10,9 @@ const hexToRGBA = (hex: string, a?: number) => {
         b = parseInt(hex.slice(5, 7), 16)
 
   if (a != undefined) {
-      return `rgba(${r}, ${g}, ${b}, ${a})`
+      return `rgba(${r || 0}, ${g || 0}, ${b || 0}, ${a})`
   } else {
-      return `rgba(${r}, ${g}, ${b}, 1)`
+      return `rgba(${r || 0}, ${g || 0}, ${b || 0}, 1)`
   }
 }
 

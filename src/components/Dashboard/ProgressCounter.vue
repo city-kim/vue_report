@@ -25,28 +25,17 @@ defineProps({
 </script>
 
 <template>
-  <div class="dashboard-progress-counter">
-    <TitlePercent
-      :title="title"
-      :base="base"
-      :compare="compare"
-    />
-    <TitleLineProgress
-      v-for="(list, index) in progressData"
-      :key="index"
-      :title="list.title"
-      :count="list.count"
-      :percent="list.percent"
-      :color="list.color"
-    />
-  </div>
+  <TitlePercent
+    :title="title"
+    :base="base"
+    :compare="compare"
+  />
+  <TitleLineProgress
+    v-for="(list, index) in progressData"
+    :key="index"
+    :title="list.title"
+    :count="list.count"
+    :percent="list.percent"
+    :color="list.color"
+  />
 </template>
-<style lang="scss">
-  .dashboard-progress-counter {
-    @include card-container(0.5rem);
-    & > h4 {
-      font-size: 1.125rem;
-      padding-bottom: 1rem;
-    }
-  }
-</style>

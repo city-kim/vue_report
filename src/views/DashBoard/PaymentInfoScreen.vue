@@ -10,6 +10,8 @@ import ContainerHeading from '@/components/DashBoard/ContainerHeading.vue'
 import CardCounter from '@/components/DashBoard/CardCounter.vue'
 import CircleCounter from '@/components/DashBoard/CircleCounter.vue'
 
+import SkeletonContainer from '@/components/Common/Skeleton/SkeletonContainer.vue'
+
 import type { PropType } from 'vue'
 import type { Payment, PaymentCalculator } from '@/types/store'
 
@@ -34,7 +36,9 @@ const props = defineProps({
       }
     }>,
     required: true
-  }
+  },
+  userFlowLoading: Boolean,
+  paymentLoading: Boolean
 })
 
 const inflow = computed(() => ([
@@ -57,6 +61,8 @@ function updateActive (dayType: string) {
   barChartDateType.value = dayType
 }
 
+const isLoading = computed(() => props.userFlowLoading || props.paymentLoading)
+
 </script>
 
 <template>
@@ -64,39 +70,50 @@ function updateActive (dayType: string) {
     <ContainerHeading
       class="dashboard-paymentinfo-pay"
       h2="결제"
+      :isLoading="isLoading"
     >
       <div class="dashboard-paymentinfo-pay-body">
         <div>
-          <CardCounter
+          <SkeletonContainer
             v-for="(item, index) in inflow"
             :key="index"
-            :title="item.title"
-            :base="item.base"
-            :compare="item.compare"
-            :unit="item.unit"
-          />
+            target="chart"
+            :isLoading="isLoading"
+          >
+            <CardCounter
+              :title="item.title"
+              :base="item.base"
+              :compare="item.compare"
+              :unit="item.unit"
+            />
+          </SkeletonContainer>
         </div>
         <div class="dashboard-paymentinfo-pay-chart">
-          <article>
-            <h2>결제 및 환불</h2>
-            <ButtonGroup
-              :active="barChartDateType"
-              :buttons="DATE_TYPE"
-              @updateActive="updateActive"
+          <SkeletonContainer
+            target="chart"
+            :isLoading="paymentLoading"
+          >
+            <article>
+              <h2>결제 및 환불</h2>
+              <ButtonGroup
+                :active="barChartDateType"
+                :buttons="DATE_TYPE"
+                @updateActive="updateActive"
+              />
+            </article>
+            <BarChart
+              :data="{
+                labels: props.amountChart[barChartDateType].labels,
+                datasets: [
+                  { label: '결제', backgroundColor: getCssVar('--c-green'), data: props.amountChart[barChartDateType].payment },
+                  { label: '환불', backgroundColor: getCssVar('--c-divider-dark-2'), data: props.amountChart[barChartDateType].refund }
+                ]
+              }"
+              :gradient="true"
+              :height="220"
+              unit="원"
             />
-          </article>
-          <BarChart
-            :data="{
-              labels: props.amountChart[barChartDateType].labels,
-              datasets: [
-                { label: '결제', backgroundColor: getCssVar('--c-green'), data: props.amountChart[barChartDateType].payment },
-                { label: '환불', backgroundColor: getCssVar('--c-divider-dark-2'), data: props.amountChart[barChartDateType].refund }
-              ]
-            }"
-            :gradient="true"
-            :height="220"
-            unit="원"
-          />
+          </SkeletonContainer>
         </div>
       </div>
     </ContainerHeading>
@@ -104,15 +121,22 @@ function updateActive (dayType: string) {
     <ContainerHeading
       class="dashboard-userinfo-refund"
       h2="환불 | 탈퇴"
+      :isLoading="isLoading"
     >
     <div>
-      <CircleCounter
+      
+      <SkeletonContainer
         v-for="(item, index) in refund"
         :key="index"
-        :title="item.title"
-        :percent="item.percent"
-        :color="getCssVar(item.color)"
-      />
+        target="chart"
+        :isLoading="isLoading"
+      >
+        <CircleCounter
+          :title="item.title"
+          :percent="item.percent"
+          :color="getCssVar(item.color)"
+        />
+      </SkeletonContainer>
     </div>
   </ContainerHeading>
   </div>

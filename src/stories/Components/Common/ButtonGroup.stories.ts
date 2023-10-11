@@ -24,6 +24,7 @@ const meta: Meta<typeof ButtonGroup> = {
       control: 'object',
       description: '버튼 그룹에 표시할 버튼들의 정보를 담은 배열\n\nkey는 버튼을 구분할 수 있는 고유한 key값, text는 버튼에 표시할 텍스트',
     },
+    // @ts-ignore
     updateActive: {
       action: 'updateActive',
       description: '변경된 active값을 부모 컴포넌트에 전달하는 이벤트',
