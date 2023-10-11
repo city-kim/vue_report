@@ -215,13 +215,13 @@ describe('ProductInfo', () => {
   
       it('판매순위', () => {
         cy.get('@product').eq(1).find('select').select(0)
-        cy.get('@product').eq(1).should('have.value', '')
+        cy.get('@product').eq(1).find('select').should('have.value', '')
         cy.get('@product').eq(1).find('select').select(1)
-        cy.get('@product').eq(1).should('have.value', 'payments')
+        cy.get('@product').eq(1).find('select').should('have.value', 'payments')
         cy.get('@product').eq(1).find('select').select(2)
-        cy.get('@product').eq(1).should('have.value', 'revenue')
+        cy.get('@product').eq(1).find('select').should('have.value', 'revenue')
         cy.get('@product').eq(1).find('select').select(3)
-        cy.get('@product').eq(1).should('have.value', 'sales')
+        cy.get('@product').eq(1).find('select').should('have.value', 'sales')
   
         cy.get('@product').eq(1).find('.data-table table').should('exist')
       })

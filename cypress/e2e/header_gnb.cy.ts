@@ -76,7 +76,7 @@ describe('헤더와 달력 테스트', () => {
   describe('선택 범위가 이전연도로 되어있는 경우', () => {
     it('달력의 특정 날짜를 클릭하면 해당일로 세팅되며 헤더 기준일자도 변경된다', () => {
       cy.get('.headergnb-calendar-selector select').eq(1).select('year')
-      cy.get('.headergnb-calendar-selector select').should('have.value', 'year')
+      cy.get('.headergnb-calendar-selector select').eq(1).should('have.value', 'year')
 
       cy.get('@month').eq(1).contains('.calendar-body p', 4).click()
       cy.get('@month').eq(1).contains('.calendar-body p', 6).click()
@@ -94,7 +94,7 @@ describe('헤더와 달력 테스트', () => {
     
     it('기간 selectbox를 변경하면 해당하는 기간으로 바뀌는지 확인', () => {
       cy.get('.headergnb-calendar-selector select').eq(1).select('year')
-      cy.get('.headergnb-calendar-selector select').should('have.value', 'year')
+      cy.get('.headergnb-calendar-selector select').eq(1).should('have.value', 'year')
       
       const dateArray = [7, 14, 21, 28, 91]
   
@@ -109,7 +109,7 @@ describe('헤더와 달력 테스트', () => {
       }
     })
   })
-
+  
   it('이전기간과 이전연도가 스왑되는지 확인', () => {
     // 이전기간
     cy.get('@month').eq(1).contains('.calendar-body p', 4).click()
@@ -127,7 +127,7 @@ describe('헤더와 달력 테스트', () => {
 
     // 이전연도로 바꾼다면
     cy.get('.headergnb-calendar-selector select').eq(1).select('year')
-    cy.get('.headergnb-calendar-selector select').should('have.value', 'year')
+    cy.get('.headergnb-calendar-selector select').eq(1).should('have.value', 'year')
     cy.get('@month').eq(1).contains('.calendar-body p', 4).click()
     cy.get('@month').eq(1).contains('.calendar-body p', 6).click()
     cy.get('.headergnb-preview p')
@@ -143,7 +143,7 @@ describe('헤더와 달력 테스트', () => {
 
     // 다시 이전기간으로 바꾼다면
     cy.get('.headergnb-calendar-selector select').eq(1).select('periods')
-    cy.get('.headergnb-calendar-selector select').should('have.value', 'periods')
+    cy.get('.headergnb-calendar-selector select').eq(1).should('have.value', 'periods')
     cy.get('@month').eq(1).contains('.calendar-body p', 4).click()
     cy.get('@month').eq(1).contains('.calendar-body p', 6).click()
     cy.get('.headergnb-preview p')
