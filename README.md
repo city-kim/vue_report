@@ -43,11 +43,8 @@ pnpm run test:e2e:dev
 ```
 
 # Detail
-vue_report는 CardLayout과 공통 컴포넌트들의 조합으로 구성되어 있으며,
-
-# Component
 vue_report는 카드 레이아웃과 공통 컴포넌트를 통합하고 있어, 사용자에게 깔끔한 인터페이스를 제공합니다.\
-각 컴포넌트는 3가지 종류로 구성되어 있습니다\
+각 컴포넌트는 3가지 종류로 구성되어 있습니다
 - [Common(공통 컴포넌트)](https://651c102a27756b1f8a3bf1ab-oxrlkwwuiy.chromatic.com/?path=/docs/stories-components-common-buttongroup--docs)
 - [Mixed(확장된 공통 컴포넌트)](https://651c102a27756b1f8a3bf1ab-oxrlkwwuiy.chromatic.com/?path=/docs/stories-components-mixed-titlelineprogress--docs)
 - [`Views`(View에서 사용되는 컴포넌트)](https://651c102a27756b1f8a3bf1ab-oxrlkwwuiy.chromatic.com/?path=/docs/stories-components-dashboard-cardcounter--docs)
