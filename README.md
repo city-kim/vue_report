@@ -1,107 +1,88 @@
 # vue_report
-더미데이터로 이루어진 리포트를 다음과 같은 패키지를 활용하여 구성하였다
+Vue3를 활용한 더미데이터로 이루어진 리포트 페이지
+
+![image](https://github.com/city-kim/vue_report/assets/26377698/0bdee0ac-c1a5-4b93-b162-b4d7f1d5ba2f)
+
+[프로젝트 구성 자세히보기](#detail)
 
 # used
 - pnpm
 - TypeScript
-- Vue3
-- Vite
+- Vite + Vue3 + pinia
 - Vitest
+- Cypress
+- storybook(with chromatic)
 - Eslint
 - prettier
-- pinia
 - luxon
 - sass
 - chart.js
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript는 기본적으로 '.vue` 가져오기에 대한 유형 정보를 처리할 수 없으므로 유형 검사를 위해 `tsc` CLI를 `vue-tsc`로 대체합니다.
-
-편집기에서는 TypeScript 언어 서비스가 '.vue' 유형을 인식하도록 하기 위해 [TypeScript Vue 플러그인 (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)이 필요합니다.
-
-독립형 타입스크립트 플러그인이 충분히 빠르지 않다고 느껴진다면, Volar는 더 빠른 성능의 [인수 모드](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669)도 구현했습니다. 다음 단계에 따라 활성화할 수 있습니다:
-
-1. 내장된 타입스크립트 확장 기능 비활성화하기
-  1) `확장 프로그램`을 실행합니다: `내장 확장 프로그램 표시`를 실행합니다
-  2) `타입스크립트 및 자바스크립트 언어 기능`을 찾아 마우스 오른쪽 버튼으로 클릭한 후 `비활성화(작업 영역)`를 선택합니다
-
-2. 개발자`를 실행하여 VSCode 창을 다시 로드합니다:
-명령 팔레트에서 `개발자: 창 새로고침`을 실행하여 창을 다시 로드합니다.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
 ```sh
 pnpm install
-
-yarn install
-npm install
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
 pnpm run dev
-
-yarn run dev
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm run build
-
-yarn run build
-npm run build
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
 pnpm run test:unit
-
-yarn run test:unit
-npm run test:unit
 ```
 
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
 pnpm run test:e2e:dev
-
-yarn run test:e2e:dev
-npm run test:e2e:dev
 ```
 
-다음은 Vite 개발 서버에 대한 엔드투엔드 테스트가 실행됩니다. 프로덕션 빌드보다 훨씬 빠릅니다.
+# Detail
+vue_report는 CardLayout과 공통 컴포넌트들의 조합으로 구성되어 있으며,
 
-그러나 배포하기 전(예: CI 환경)에 `test:e2e`로 프로덕션 빌드를 테스트하는 것이 좋습니다:
+# Component
+vue_report는 카드 레이아웃과 공통 컴포넌트를 통합하고 있어, 사용자에게 깔끔한 인터페이스를 제공합니다.\
+각 컴포넌트는 3가지 종류로 구성되어 있습니다\
+- [Common(공통 컴포넌트)](https://651c102a27756b1f8a3bf1ab-oxrlkwwuiy.chromatic.com/?path=/docs/stories-components-common-buttongroup--docs)
+- [Mixed(확장된 공통 컴포넌트)](https://651c102a27756b1f8a3bf1ab-oxrlkwwuiy.chromatic.com/?path=/docs/stories-components-mixed-titlelineprogress--docs)
+- [`Views`(View에서 사용되는 컴포넌트)](https://651c102a27756b1f8a3bf1ab-oxrlkwwuiy.chromatic.com/?path=/docs/stories-components-dashboard-cardcounter--docs)
 
-```sh
-pnpm run build
-pnpm run test:e2e
+공통 컴포넌트는 다양한 확장 가능성을 갖추고 있어, 여러 환경과 조건에서 유연하게 활용할 수 있습니다.\
+[Views] 디렉토리의 명칭을 사용한 별도 컴포넌트는 특정 뷰에서만 필요한 독특한 기능을 제공합니다.
 
-yarn run build
-yarn run test:e2e
+chart.js 라이브러리를 활용하여, 다양한 차트 컴포넌트를 구현하였고,\
+luxon 라이브러리를 이용하여, 지난 7일에서 91일 간의 데이터를 선택하고 비교할 수 있는 달력 기능도 추가하였습니다.\
+[Chart](https://651c102a27756b1f8a3bf1ab-oxrlkwwuiy.chromatic.com/?path=/docs/stories-components-common-chart-barchart--docs)\
+[Calendar](https://651c102a27756b1f8a3bf1ab-oxrlkwwuiy.chromatic.com/?path=/docs/stories-components-common-comparecalendar--docs)
 
-npm run test:e2e
-npm run build
-```
+화면 구성은 관심사의 분리 원칙을 따르고 있습니다.\
+vue 파일에서는 scss를 활용하여 UI에 집중하고, 데이터 관리는 pinia에서 책임지고 있습니다.\
+[components](https://github.com/city-kim/vue_report/tree/main/src/components/Common)\
+[stores](https://github.com/city-kim/vue_report/tree/main/src/stores)
 
-### Lint with [ESLint](https://eslint.org/)
+util 디렉토리에서는 UI와 데이터를 연결하며, 데이터 변형과 조작을 담당하고 있습니다.\
+여기에는 UI의 텍스트나 값의 표현을 변경하거나 pinia의 데이터의 그룹화, 합산, 재귀 연산을 하는 공통 함수들이 포함되어 있습니다.\
+[utils](https://github.com/city-kim/vue_report/tree/main/src/util)
 
-```sh
-pnpm run lint
+테스트는 vitest를 사용하여 유닛 테스트를, cypress를 활용하여 기능 테스트, storybook의 chromatic을 통해 시각화 테스트를 진행하였습니다.\
+이렇게 테스트의 관심사를 분리하여, 더 효율적이고 집중된 테스트 환경을 구축하였습니다.
 
-yarn run lint
-npm run lint
-```
+unit test\
+![image](public/readme/unit_test.png)
+
+cypress\
+https://github.com/city-kim/vue_report/assets/26377698/915634d1-3ebf-4e0d-a678-67871379aeba
+https://github.com/city-kim/vue_report/assets/26377698/4ab243e0-468e-4204-baba-352d6d26b995
+
+시각화 테스트\
+![image](public/readme/chromatic.png)
+![image](public/readme/chromatic_accepted.png)
+
+flex와 grid 기반의 반응형 디자인이 적용되어 있어, 모바일에서 데스크톱까지 다양한 화면 크기에 최적화되어 사용자에게 일관된 경험을 제공합니다.
+![sample0](https://github.com/city-kim/vue_report/assets/26377698/b5a61cca-e904-4df0-8434-46833a6eef0f)
+
