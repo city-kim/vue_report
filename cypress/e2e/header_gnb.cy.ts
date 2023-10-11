@@ -62,7 +62,8 @@ describe('헤더와 달력 테스트', () => {
       const dateArray = [7, 14, 21, 28, 91]
   
       for (const n of dateArray) {
-        cy.get('.headergnb-calendar-selector select').eq(0).select(`${n}`).should('have.value', `${n}`)
+        cy.get('.headergnb-calendar-selector select').eq(0).select(`${n}`)
+        cy.get('.headergnb-calendar-selector select').should('have.value', `${n}`)
         cy.get('.headergnb-preview p')
           .first()
           .should('contain', `기준일자: ${now.minus({day: n - 1}).toFormat('yyyy-LL-dd')} ~ ${now.toFormat('yyyy-LL-dd')}`)
@@ -74,7 +75,8 @@ describe('헤더와 달력 테스트', () => {
   
   describe('선택 범위가 이전연도로 되어있는 경우', () => {
     it('달력의 특정 날짜를 클릭하면 해당일로 세팅되며 헤더 기준일자도 변경된다', () => {
-      cy.get('.headergnb-calendar-selector select').eq(1).select('year').should('have.value', 'year')
+      cy.get('.headergnb-calendar-selector select').eq(1).select('year')
+      cy.get('.headergnb-calendar-selector select').should('have.value', 'year')
 
       cy.get('@month').eq(1).contains('.calendar-body p', 4).click()
       cy.get('@month').eq(1).contains('.calendar-body p', 6).click()
@@ -91,12 +93,14 @@ describe('헤더와 달력 테스트', () => {
     })
     
     it('기간 selectbox를 변경하면 해당하는 기간으로 바뀌는지 확인', () => {
-      cy.get('.headergnb-calendar-selector select').eq(1).select('year').should('have.value', 'year')
+      cy.get('.headergnb-calendar-selector select').eq(1).select('year')
+      cy.get('.headergnb-calendar-selector select').should('have.value', 'year')
       
       const dateArray = [7, 14, 21, 28, 91]
   
       for (const n of dateArray) {
-        cy.get('.headergnb-calendar-selector select').eq(0).select(`${n}`).should('have.value', `${n}`)
+        cy.get('.headergnb-calendar-selector select').eq(0).select(`${n}`)
+        cy.get('.headergnb-calendar-selector select').should('have.value', `${n}`)
         cy.get('.headergnb-preview p')
           .first()
           .should('contain', `기준일자: ${now.minus({day: n - 1}).toFormat('yyyy-LL-dd')} ~ ${now.toFormat('yyyy-LL-dd')}`)
@@ -122,7 +126,8 @@ describe('헤더와 달력 테스트', () => {
     cy.get('@panel').eq(3).find('input').eq(1).should('have.value', now.set({day: 3}).toFormat('yyyy-LL-dd'))
 
     // 이전연도로 바꾼다면
-    cy.get('.headergnb-calendar-selector select').eq(1).select('year').should('have.value', 'year')
+    cy.get('.headergnb-calendar-selector select').eq(1).select('year')
+    cy.get('.headergnb-calendar-selector select').should('have.value', 'year')
     cy.get('@month').eq(1).contains('.calendar-body p', 4).click()
     cy.get('@month').eq(1).contains('.calendar-body p', 6).click()
     cy.get('.headergnb-preview p')
@@ -137,7 +142,8 @@ describe('헤더와 달력 테스트', () => {
     cy.get('@panel').eq(3).find('input').eq(1).should('have.value', now.minus({year: 1}).set({day: 6}).toFormat('yyyy-LL-dd'))
 
     // 다시 이전기간으로 바꾼다면
-    cy.get('.headergnb-calendar-selector select').eq(1).select('periods').should('have.value', 'periods')
+    cy.get('.headergnb-calendar-selector select').eq(1).select('periods')
+    cy.get('.headergnb-calendar-selector select').should('have.value', 'periods')
     cy.get('@month').eq(1).contains('.calendar-body p', 4).click()
     cy.get('@month').eq(1).contains('.calendar-body p', 6).click()
     cy.get('.headergnb-preview p')

@@ -23,6 +23,7 @@ describe('UserInflow', () => {
     describe('dashboard-userinflow-body-left 테스트', () => {
       beforeEach(() => {
         cy.visit('/')
+        /* eslint-disable cypress/no-unnecessary-waiting */
         cy.wait(1500)
       })
       it('전체방문자 컴포넌트 확인', () => {
@@ -31,7 +32,8 @@ describe('UserInflow', () => {
           .within(() => {
             // 전체방문자 데이터가 존재하는지 확인
             cy.get('.mixed-title-percent section h3').should('exist')
-            cy.get('.component-percentage').trigger('mouseover').should('have.attr', 'title')
+            cy.get('.component-percentage').trigger('mouseover')
+            cy.get('.component-percentage').should('have.attr', 'title')
             cy.get('.component-percentage p').should('exist')
             cy.get('.mixed-title-percent > p').should('have.text', '전체방문자')
 
@@ -53,7 +55,8 @@ describe('UserInflow', () => {
           .within(() => {
             // 방문자 가입률 데이터가 존재하는지 확인
             cy.get('.mixed-title-percent section h3').should('exist')
-            cy.get('.component-percentage').trigger('mouseover').should('have.attr', 'title')
+            cy.get('.component-percentage').trigger('mouseover')
+            cy.get('.component-percentage').should('have.attr', 'title')
             cy.get('.component-percentage p').should('exist')
             cy.get('.mixed-title-percent > p').should('have.text', '방문자 가입률')
 
@@ -65,12 +68,14 @@ describe('UserInflow', () => {
     describe('dashboard-userinflow-body-center 테스트', () => {
       it('신규가입자 컴포넌트 확인', () => {
         cy.visit('/')
+        /* eslint-disable cypress/no-unnecessary-waiting */
         cy.wait(1500)
         cy.get('.dashboard-userinflow-body-center')
         .should('exist')
         .within(() => {
           cy.get('.mixed-title-percent section h3').should('exist')
-          cy.get('.component-percentage').trigger('mouseover').should('have.attr', 'title')
+          cy.get('.component-percentage').trigger('mouseover')
+          cy.get('.component-percentage').should('have.attr', 'title')
           cy.get('.component-percentage p').should('exist')
           cy.get('.mixed-title-percent > p').should('have.text', '신규가입자')
           
@@ -87,6 +92,7 @@ describe('UserInflow', () => {
     describe('dashboard-userinflow-body-right 테스트', () => {
       it('가입자 추이 컴포넌트 확인', () => {
         cy.visit('/')
+        /* eslint-disable cypress/no-unnecessary-waiting */
         cy.wait(1500)
         cy.get('.dashboard-userinflow-body-right')
         .should('exist')
@@ -94,7 +100,9 @@ describe('UserInflow', () => {
           cy.get('article h2').should('have.text', '가입자 추이')
 
           cy.get('.button-group button').each(($el) => {
-            cy.wrap($el).click().should('have.class', 'active')
+            cy.wrap($el).click()
+            cy.wrap($el)
+            cy.wrap($el).should('have.class', 'active')
           })
 
           cy.get('.chart-container canvas').should('exist')
@@ -125,6 +133,7 @@ describe('PaymentInfo', () => {
     describe('결제 테스트', () => {
       beforeEach(() => {
         cy.visit('/')
+        /* eslint-disable cypress/no-unnecessary-waiting */
         cy.wait(1500)
       })
       const cards = ['결제자수', '결제액', '결제율', '평균결제액']
@@ -133,7 +142,8 @@ describe('PaymentInfo', () => {
           cy.get('.dashboard-paymentinfo-pay-body .dashboard-card-counter').as('paymentCard')
     
           cy.get('@paymentCard').eq(i).find('h3').should('have.text', cards[i])
-          cy.get('@paymentCard').eq(i).find('.component-percentage').trigger('mouseover').should('have.attr', 'title')
+          cy.get('@paymentCard').eq(i).find('.component-percentage').trigger('mouseover')
+          cy.get('@paymentCard').eq(i).find('.component-percentage').should('have.attr', 'title')
           cy.get('@paymentCard').eq(i).find('.component-percentage p').should('exist')
         })
       }
@@ -141,7 +151,8 @@ describe('PaymentInfo', () => {
       it('결제 및 환불 차트 테스트', () => {
         cy.get('.dashboard-paymentinfo-pay-body .dashboard-paymentinfo-pay-chart').as('paymentChart')
         cy.get('@paymentChart').find('.button-group button').each(($el) => {
-          cy.wrap($el).click().should('have.class', 'active')
+          cy.wrap($el).click()
+          cy.wrap($el).should('have.class', 'active')
         })
         cy.get('@paymentChart').find('.chart-container canvas').should('exist')
       })
@@ -150,6 +161,7 @@ describe('PaymentInfo', () => {
     describe('환불 탈퇴 테스트', () => {
       beforeEach(() => {
         cy.visit('/')
+        /* eslint-disable cypress/no-unnecessary-waiting */
         cy.wait(1500)
       })
   
@@ -192,6 +204,7 @@ describe('ProductInfo', () => {
     describe('제품 테스트', () => {
       beforeEach(() => {
         cy.visit('/')
+        /* eslint-disable cypress/no-unnecessary-waiting */
         cy.wait(1500)
         cy.get('.dashboard-productinfo-body article').as('product')
       })
@@ -201,10 +214,14 @@ describe('ProductInfo', () => {
       })
   
       it('판매순위', () => {
-        cy.get('@product').eq(1).find('select').select(0).should('have.value', '')
-        cy.get('@product').eq(1).find('select').select(1).should('have.value', 'payments')
-        cy.get('@product').eq(1).find('select').select(2).should('have.value', 'revenue')
-        cy.get('@product').eq(1).find('select').select(3).should('have.value', 'sales')
+        cy.get('@product').eq(1).find('select').select(0)
+        cy.get('@product').eq(1).should('have.value', '')
+        cy.get('@product').eq(1).find('select').select(1)
+        cy.get('@product').eq(1).should('have.value', 'payments')
+        cy.get('@product').eq(1).find('select').select(2)
+        cy.get('@product').eq(1).should('have.value', 'revenue')
+        cy.get('@product').eq(1).find('select').select(3)
+        cy.get('@product').eq(1).should('have.value', 'sales')
   
         cy.get('@product').eq(1).find('.data-table table').should('exist')
       })
