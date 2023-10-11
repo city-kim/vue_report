@@ -2,7 +2,7 @@ name: unit_test
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ codesandbox-test ]
 
 jobs:
   test:
