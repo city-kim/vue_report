@@ -6,9 +6,9 @@ import { DATE_TYPE } from '@/constants/FILTER'
 
 import ButtonGroup from '@/components/Common/ButtonGroup.vue'
 import BarChart from '@/components/Common/Chart/BarChart.vue'
-import ContainerHeading from '@/components/DashBoard/ContainerHeading.vue'
-import CardCounter from '@/components/DashBoard/CardCounter.vue'
-import CircleCounter from '@/components/DashBoard/CircleCounter.vue'
+import ContainerHeading from '@/components/DashBoards/ContainerHeading.vue'
+import CardCounter from '@/components/DashBoards/CardCounter.vue'
+import CircleCounter from '@/components/DashBoards/CircleCounter.vue'
 
 import SkeletonContainer from '@/components/Common/Skeleton/SkeletonContainer.vue'
 

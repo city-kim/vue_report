@@ -1,4 +1,4 @@
-import ProgressCounter from '@/components/DashBoard/ProgressCounter.vue'
+import ProgressCounter from '@/components/DashBoards/ProgressCounter.vue'
 import { getCssVar } from '@/util/color'
 
 import type { Meta, StoryObj } from '@storybook/vue3'

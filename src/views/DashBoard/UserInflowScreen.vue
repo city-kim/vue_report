@@ -6,8 +6,8 @@ import { JOIN_SNS } from '@/constants/STORES'
 import type { UserFlow, InflowCalculator } from '@/types/store'
 import type { PropType } from 'vue'
 
-import ContainerHeading from '@/components/DashBoard/ContainerHeading.vue'
-import ProgressCounter from '@/components/DashBoard/ProgressCounter.vue'
+import ContainerHeading from '@/components/DashBoards/ContainerHeading.vue'
+import ProgressCounter from '@/components/DashBoards/ProgressCounter.vue'
 
 import TitlePercent from '@/components/Mixed/TitlePercent.vue'
 import TitleLineProgress from '@/components/Mixed/TitleLineProgress.vue'
