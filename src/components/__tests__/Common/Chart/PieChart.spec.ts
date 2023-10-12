@@ -1,10 +1,9 @@
-import { nextTick } from 'vue'
 import { describe, it, expect, vi } from 'vitest'
-import { shallowMount, VueWrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import PieChart from '@/components/Common/Chart/PieChart.vue'
-
-import type { ComponentPublicInstance } from 'vue'
-type ChartWrapper<T> = VueWrapper<ComponentPublicInstance & T>
+interface ComponentVm {
+  chartOptions: () => void
+}
 
 vi.mock('vue-chartjs', () => ({
   Chart: () => null
@@ -20,15 +19,16 @@ describe('PieChart', () => {
     }]
   }
 
-  it('guide가 false라면 가이드라인을 모두 삭제한다', async () => {
-    const wrapper: ChartWrapper<Partial<{ chartOptions: () => void}>> = shallowMount(PieChart, {
+  it('guide가 false라면 가이드라인을 모두 삭제한다', () => {
+    const wrapper = shallowMount(PieChart, {
       props: {
         data: chartData,
         guide: false,
       },
     })
-    await nextTick()
-    expect(wrapper.vm.chartOptions).toMatchObject({
+    const vm = wrapper.vm as unknown as ComponentVm
+    const options = vm.chartOptions
+    expect(options).toMatchObject({
       scales: {
         x: { ticks: { display: false } },
         y: { ticks: { display: false } }
@@ -36,53 +36,53 @@ describe('PieChart', () => {
     })
   })
 
-  it('legend prop에 따라 범례 표시 설정을 확인한다', async () => {
-    const wrapper: ChartWrapper<Partial<{ chartOptions: () => void }>> = shallowMount(PieChart, {
+  it('legend prop에 따라 범례 표시 설정을 확인한다', () => {
+    const wrapper = shallowMount(PieChart, {
       props: {
         data: chartData,
         legend: true,
       },
     })
-    await nextTick()
-    const options = wrapper.vm.chartOptions
+    const vm = wrapper.vm as unknown as ComponentVm
+    const options = vm.chartOptions
     expect(options).toHaveProperty('plugins.legend.display', true)
   })
 
-  it('legendPosition prop이 없다면 bottom을 출력한다', async () => {
-    const wrapper: ChartWrapper<Partial<{ chartOptions: () => void }>> = shallowMount(PieChart, {
+  it('legendPosition prop이 없다면 bottom을 출력한다', () => {
+    const wrapper = shallowMount(PieChart, {
       props: {
         data: chartData,
         legend: true,
         legendPosition: 'bottom',
       },
     })
-    await nextTick()
-    const options = wrapper.vm.chartOptions
+    const vm = wrapper.vm as unknown as ComponentVm
+    const options = vm.chartOptions
     expect(options).toHaveProperty('plugins.legend.position', 'bottom')
   })
 
-  it('legendPosition prop에 따라 범례 위치 설정을 확인한다', async () => {
-    const wrapper: ChartWrapper<Partial<{ chartOptions: () => void }>> = shallowMount(PieChart, {
+  it('legendPosition prop에 따라 범례 위치 설정을 확인한다', () => {
+    const wrapper = shallowMount(PieChart, {
       props: {
         data: chartData,
         legend: true,
         legendPosition: 'right',
       },
     })
-    await nextTick()
-    const options = wrapper.vm.chartOptions
+    const vm = wrapper.vm as unknown as ComponentVm
+    const options = vm.chartOptions
     expect(options).toHaveProperty('plugins.legend.position', 'right')
   })
 
-  it('label prop이 true일 때 데이터 라벨이 표시되는지 확인', async() => {
-    const wrapper: ChartWrapper<Partial<{ chartOptions: () => void }>> = shallowMount(PieChart, {
+  it('label prop이 true일 때 데이터 라벨이 표시되는지 확인', () => {
+    const wrapper = shallowMount(PieChart, {
       props: {
         data: chartData,
         label: true
       },
     })
-    await nextTick()
-    const options = wrapper.vm.chartOptions
+    const vm = wrapper.vm as unknown as ComponentVm
+    const options = vm.chartOptions
     expect(options).toHaveProperty('plugins.datalabels.display', true)
   })
 

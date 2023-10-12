@@ -1,10 +1,9 @@
-import { nextTick } from 'vue'
 import { describe, it, expect, vi } from 'vitest'
-import { shallowMount, VueWrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import LineChartVue from '@/components/Common/Chart/LineChart.vue'
-
-import type { ComponentPublicInstance } from 'vue'
-type ChartWrapper<T> = VueWrapper<ComponentPublicInstance & T>
+interface ComponentVm {
+  chartOptions: () => void
+}
 
 vi.mock('vue-chartjs', () => ({
   Chart: () => null
@@ -24,15 +23,15 @@ describe('LineChartVue', () => {
     }]
   }
 
-  it('legend prop에 따라 범례 표시 설정을 확인한다', async () => {
-    const wrapper: ChartWrapper<Partial<{ chartOptions: () => void }>> = shallowMount(LineChartVue, {
+  it('legend prop에 따라 범례 표시 설정을 확인한다', () => {
+    const wrapper = shallowMount(LineChartVue, {
       props: {
         data: chartData,
         legend: true,
       },
     })
-    await nextTick()
-    const options = wrapper.vm.chartOptions
+    const vm = wrapper.vm as unknown as ComponentVm
+    const options = vm.chartOptions
     expect(options).toHaveProperty('plugins.legend.display', true)
   })
 
