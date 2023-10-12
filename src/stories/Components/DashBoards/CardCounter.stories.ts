@@ -1,4 +1,4 @@
-import CardCounter from '@/components/DashBoard/CardCounter.vue'
+import CardCounter from '@/Components/DashBoards/CardCounter.vue'
 
 import type { Meta, StoryObj } from '@storybook/vue3'
 

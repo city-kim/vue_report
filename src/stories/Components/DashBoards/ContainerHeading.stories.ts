@@ -1,5 +1,5 @@
-import ContainerHeading from '@/components/DashBoard/ContainerHeading.vue'
-import CardCounter from '@/components/DashBoard/CardCounter.vue'
+import ContainerHeading from '@/Components/DashBoards/ContainerHeading.vue'
+import CardCounter from '@/Components/DashBoards/CardCounter.vue'
 
 import type { Meta, StoryObj } from '@storybook/vue3'
 
