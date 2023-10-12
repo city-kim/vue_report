@@ -1,4 +1,4 @@
-import CircleCounter from '@/Components/DashBoards/CircleCounter.vue'
+import CircleCounter from '@/components/DashBoards/CircleCounter.vue'
 
 import type { Meta, StoryObj } from '@storybook/vue3'
 

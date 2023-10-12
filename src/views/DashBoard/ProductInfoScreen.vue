@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 
-import ContainerHeading from '@/Components/DashBoards/ContainerHeading.vue'
+import ContainerHeading from '@/components/DashBoards/ContainerHeading.vue'
 
 import DataTable from '@/components/Common/DataTable.vue'
 import BarChart from '@/components/Common/Chart/BarChart.vue'
