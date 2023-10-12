@@ -22,7 +22,7 @@ const meta: Meta<typeof DoughnutChart> = {
     },
     legend: {
       control: 'boolean',
-      description: '범례 표시 여부',
+      description: '범례 표시 여부(guide가 true일 때만 표시)',
     },
     legendPosition: {
       control: 'select',
@@ -45,6 +45,12 @@ const meta: Meta<typeof DoughnutChart> = {
 }
 export default meta
 
+const data = {
+  labels: ['product1', 'product2', 'product3', 'product4'],
+  datasets: [
+    { data: [ 612, 545, 430, 727 ], backgroundColor: ['#009ef6', '#f1416c', '#7239ea', '#ffc700'] },
+  ]
+}
 type Story = StoryObj<typeof DoughnutChart>
 export const Primary: Story = {
   render: (args) => {
@@ -57,16 +63,51 @@ export const Primary: Story = {
     }
   },
   args: {
-    data: {
-      labels: ['product1', 'product2', 'product3', 'product4'],
-      datasets: [
-        { data: [ 612, 545, 430, 727 ], backgroundColor: ['#009ef6', '#f1416c', '#7239ea', '#ffc700'] },
-      ]
-    },
+    data: data,
     guide: true,
     legend: false,
     legendPosition: 'bottom',
     label: false,
+    height: 300,
+  },
+}
+
+export const Legend: Story = {
+  render: (args) => {
+    return {
+      components: { DoughnutChart },
+      setup() {
+        return { args }
+      },
+      template: `<DoughnutChart v-bind="args" />`,
+    }
+  },
+  args: {
+    data: data,
+    guide: true,
+    legend: true,
+    legendPosition: 'bottom',
+    label: false,
+    height: 300,
+  },
+}
+
+export const Label: Story = {
+  render: (args) => {
+    return {
+      components: { DoughnutChart },
+      setup() {
+        return { args }
+      },
+      template: `<DoughnutChart v-bind="args" />`,
+    }
+  },
+  args: {
+    data: data,
+    guide: true,
+    legend: false,
+    legendPosition: 'bottom',
+    label: true,
     height: 300,
   },
 }

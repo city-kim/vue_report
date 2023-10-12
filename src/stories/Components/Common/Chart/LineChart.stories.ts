@@ -22,7 +22,7 @@ const meta: Meta<typeof LineChart> = {
     },
     legend: {
       control: 'boolean',
-      description: '범례 표시 여부',
+      description: '범례 표시 여부(guide가 true일 때만 표시)',
     },
     gradient: {
       control: 'boolean',
@@ -57,8 +57,81 @@ export const Primary: Story = {
       datasets: [
         { label: 'product1', data: [ 612, 545, 430, 727, 185, 575, 287 ], backgroundColor: '#009ef6', borderColor: '#009ef6' },
         { label: 'product2', data: [ 912, 105, 369, 153, 926, 310, 95 ], backgroundColor: '#f1416c', borderColor: '#f1416c' },
-        { label: 'product3', data: [ 333, 417, 145, 118, 269, 974, 229 ], backgroundColor: '#7239ea', borderColor: '#7239ea', fill: true },
-        { label: 'product4', data: [ 915, 344, 273, 949, 627, 511, 233 ], backgroundColor: '#ffc700', borderColor: '#ffc700', borderDash: [5, 5] },
+      ]
+    },
+    guide: true,
+    legend: false,
+    gradient: false,
+    height: 300,
+  },
+}
+
+export const Legend: Story = {
+  render: (args) => {
+    return {
+      components: { LineChart },
+      setup() {
+        return { args }
+      },
+      template: `<LineChart v-bind="args" />`,
+    }
+  },
+  args: {
+    data: {
+      labels: [ '2023-08-01', '2023-08-02', '2023-08-03', '2023-08-04', '2023-08-05', '2023-08-06', '2023-08-07' ],
+      datasets: [
+        { label: 'product1', data: [ 612, 545, 430, 727, 185, 575, 287 ], backgroundColor: '#009ef6', borderColor: '#009ef6' },
+        { label: 'product2', data: [ 912, 105, 369, 153, 926, 310, 95 ], backgroundColor: '#f1416c', borderColor: '#f1416c' },
+      ]
+    },
+    guide: true,
+    legend: true,
+    gradient: true,
+    height: 300,
+  },
+}
+
+export const Gradient: Story = {
+  render: (args) => {
+    return {
+      components: { LineChart },
+      setup() {
+        return { args }
+      },
+      template: `<LineChart v-bind="args" />`,
+    }
+  },
+  args: {
+    data: {
+      labels: [ '2023-08-01', '2023-08-02', '2023-08-03', '2023-08-04', '2023-08-05', '2023-08-06', '2023-08-07' ],
+      datasets: [
+        { label: 'product1', data: [ 612, 545, 430, 727, 185, 575, 287 ], backgroundColor: '#009ef6', borderColor: '#009ef6' },
+        { label: 'product2', data: [ 912, 105, 369, 153, 926, 310, 95 ], backgroundColor: '#f1416c', borderColor: '#f1416c', fill: true },
+      ]
+    },
+    guide: true,
+    legend: false,
+    gradient: true,
+    height: 300,
+  },
+}
+
+export const Dashed: Story = {
+  render: (args) => {
+    return {
+      components: { LineChart },
+      setup() {
+        return { args }
+      },
+      template: `<LineChart v-bind="args" />`,
+    }
+  },
+  args: {
+    data: {
+      labels: [ '2023-08-01', '2023-08-02', '2023-08-03', '2023-08-04', '2023-08-05', '2023-08-06', '2023-08-07' ],
+      datasets: [
+        { label: 'product1', data: [ 612, 545, 430, 727, 185, 575, 287 ], backgroundColor: '#009ef6', borderColor: '#009ef6' },
+        { label: 'product2', data: [ 912, 105, 369, 153, 926, 310, 95 ], backgroundColor: '#f1416c', borderColor: '#f1416c', borderDash: [5, 5] },
       ]
     },
     guide: true,
