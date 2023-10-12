@@ -2,10 +2,9 @@
 import { computed } from 'vue'
 import { Chart as ChartJS, registerables} from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
-import type { BarChartData } from '@/types/components/chart'
+import type { BarChartData, ChartPlugins } from '@/types/components/chart'
 
 ChartJS.register(...registerables)
 
@@ -46,25 +45,45 @@ const props = defineProps({
   unit: String, // 단위
 })
 
-const barchartOption = { // barchart 공통 옵션
-  indexAxis: 'x' as 'x' | 'y', // 축정렬
-  scales: {
-    x: {
-      stacked: false, // 스택여부
-    },
-    y: {
-      stacked: false,
-    }
-  },
-  categoryPercentage: 0.8
-}
-
-const WITH_GUIDEOption = Object.assign(structuredClone(barchartOption), structuredClone(WITH_GUIDE))
-const WITHOUT_GUIDEOption = Object.assign(structuredClone(barchartOption), structuredClone(WITHOUT_GUIDE))
-
 const data = computed(() => props.data)
 const chartOptions = computed(() => {
-  const result = props.guide ? WITH_GUIDEOption : WITHOUT_GUIDEOption
+  const result = {
+    indexAxis: 'x' as 'x' | 'y', // 축정렬
+    categoryPercentage: 0.8,
+    responsive: true, // 반응형
+    maintainAspectRatio: false, // 종횡비 유지여부
+    plugins: {
+      legend: {
+        display: false, // 기본값은 false
+        position: 'top',
+        align: 'end',
+        labels: {
+          boxWidth: 15,
+        }
+      },
+      datalabels: {
+        display: false,
+        color: '#ffffff',
+      },
+      tooltip: {
+        callbacks: {}
+      }
+    } as ChartPlugins,
+    scales: { //  축 삭제
+      x: {
+        stacked: false, // 스택여부
+        ticks: { display: false }, // 라벨 삭제
+        grid: { display: false }, // 그리드 삭제
+        border: { display: false, dash: [5, 5] }, // border 삭제
+      },
+      y: {
+        stacked: false,
+        ticks: { display: false },
+        grid: { display: false, drawTicks: false },
+        border: { display: false, dash: [5, 5] }
+      },
+    }
+  }
   if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     props.legend ? result.plugins.legend.display = true : result.plugins.legend.display = false // 범례 표시여부
@@ -75,9 +94,18 @@ const chartOptions = computed(() => {
       result.scales.x.stacked = false
       result.scales.y.stacked = false
     }
-    props.horizontal ? result.indexAxis = 'y' : result.indexAxis = 'x' // 축정렬
-  }
 
+    if (props.horizontal) {
+      // horizontal일 경우 축정렬을 바꾸고 grid도 x축으로 바꿔줌
+      result.indexAxis = 'y'
+      result.scales.x.grid.display = true
+    } else {
+      result.indexAxis = 'x'
+      result.scales.y.grid.display = true
+    }
+    result.scales.x.ticks.display = true
+    result.scales.y.ticks.display = true
+  }
   if (props.barPercent) result.categoryPercentage = props.barPercent // 바 너비
   
   result.plugins.tooltip.callbacks.label = (model) => {

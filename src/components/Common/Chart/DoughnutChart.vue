@@ -3,10 +3,9 @@ import { computed } from 'vue'
 import { Chart as ChartJS, registerables } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
-import type { PieChartData } from '@/types/components/chart'
+import type { PieChartData, ChartPlugins } from '@/types/components/chart'
 
 ChartJS.register(...registerables, ChartDataLabels)
 
@@ -43,33 +42,46 @@ const props = defineProps({
   unit: String, // 단위
 })
 
-// pie chart는 ticks, grid, border를 삭제
-const WITH_GUIDEOption = Object.assign(structuredClone(WITH_GUIDE),
-{
-  scales: {
-    x: {
-      ticks: { display: false }, // 라벨 삭제
-      grid: { display: false }, // 그리드 삭제
-      border: { display: false }, // border 삭제
-    },
-    y: {
-      ticks: { display: false }, // 라벨 삭제
-      grid: { display: false }, // 그리드 삭제
-      border: { display: false }, // border 삭제
-    }
-  },
-  elements: {
-    arc: {
-      borderWidth: 0.5
-    }
-  },
-})
-
-const WITHOUT_GUIDEOption = Object.assign({}, structuredClone(WITHOUT_GUIDE))
-
 const data = computed(() => props.data)
 const chartOptions = computed(() => {
-  const result = props.guide ? WITH_GUIDEOption : WITHOUT_GUIDEOption
+  const result = {
+    responsive: true, // 반응형
+    maintainAspectRatio: false, // 종횡비 유지여부
+    elements: {
+      arc: {
+        borderWidth: 0.5
+      }
+    },
+    plugins: {
+      legend: {
+        display: false, // 기본값은 false
+        position: 'top',
+        align: 'end',
+        labels: {
+          boxWidth: 15,
+        }
+      },
+      datalabels: {
+        display: false,
+        color: '#ffffff',
+      },
+      tooltip: {
+        callbacks: {}
+      }
+    } as ChartPlugins,
+    scales: { //  축 삭제
+      x: {
+        ticks: { display: false }, // 라벨 삭제
+        grid: { display: false }, // 그리드 삭제
+        border: { display: false }, // border 삭제
+      },
+      y: {
+        ticks: { display: false },
+        grid: { display: false },
+        border: { display: false },
+      },
+    }
+  }
   if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
@@ -104,7 +116,7 @@ const chartOptions = computed(() => {
   <div class="chart-container">
     <Chart
       type="doughnut"
-      :style="`max-width: 100%; height: ${props.height}px;`"
+      :style="`max-width: 100%; height: ${height}px;`"
       :options="chartOptions"
       :data="data"
     />

@@ -3,12 +3,11 @@ import { ref, onMounted, computed } from 'vue'
 import { Chart as ChartJS, registerables } from 'chart.js'
 import { Chart } from 'vue-chartjs'
 import { hexToRGBA } from '@/util/text_converter'
-import { WITH_GUIDE, WITHOUT_GUIDE } from '@/constants/components/CHART_OPTIONS'
 
 import type { PropType } from 'vue'
 import type { InteractionMode } from 'chart.js'
 import type { ChartComponentRef } from 'vue-chartjs'
-import type { LineChartData } from '@/types/components/chart'
+import type { LineChartData, ChartPlugins } from '@/types/components/chart'
 
 ChartJS.register(...registerables)
 
@@ -45,22 +44,6 @@ const props = defineProps({
   },
   unit: String, // 단위
 })
-
-const WITH_GUIDEOption = Object.assign(
-{
-  interaction: {
-    mode: 'index' as InteractionMode,
-    intersect: false,
-  },
-}, structuredClone(WITH_GUIDE))
-
-const WITHOUT_GUIDEOption = Object.assign(
-{
-  interaction: {
-    mode: 'index' as InteractionMode,
-    intersect: false,
-  },
-}, structuredClone(WITHOUT_GUIDE))
 
 const chartRef = ref<ChartComponentRef|null>(null) // chart component의 ref
 const canvas = ref<HTMLCanvasElement|undefined>(undefined) // canvas element
@@ -109,7 +92,43 @@ const data = computed(() => {
 })
 
 const chartOptions = computed(() => {
-  const result = props.guide ? WITH_GUIDEOption : WITHOUT_GUIDEOption
+  const result = {
+    interaction: { // 커서 위치에 따른 툴팁 표시
+      mode: 'index' as InteractionMode,
+      intersect: false,
+    },
+    responsive: true, // 반응형
+    maintainAspectRatio: false, // 종횡비 유지여부
+    plugins: {
+      legend: {
+        display: false, // 기본값은 false
+        position: 'top',
+        align: 'end',
+        labels: {
+          boxWidth: 15,
+        }
+      },
+      datalabels: {
+        display: false,
+        color: '#ffffff',
+      },
+      tooltip: {
+        callbacks: {}
+      }
+    } as ChartPlugins,
+    scales: { //  축 삭제
+      x: {
+        ticks: { display: false }, // 라벨 삭제
+        grid: { display: false }, // 그리드 삭제
+        border: { display: false }, // border 삭제
+      },
+      y: {
+        ticks: { display: false },
+        grid: { display: false },
+        border: { display: false,  dash: [5, 5] },
+      },
+    }
+  }
   if (props.guide) {
     // 활성화가 가능할때만 다른 나머지 속성이 적용된다
     if (props.legend) { // 범례 표시여부
@@ -117,6 +136,9 @@ const chartOptions = computed(() => {
     } else {
       result.plugins.legend.display = false
     }
+    result.scales.y.grid.display = true
+    result.scales.x.ticks.display = true
+    result.scales.y.ticks.display = true
   }
 
   result.plugins.tooltip.callbacks.label = (model) => {
@@ -133,7 +155,7 @@ const chartOptions = computed(() => {
     <Chart
       ref="chartRef"
       type="line"
-      :style="`max-width: 100%; height: ${props.height}px;`"
+      :style="`max-width: 100%; height: ${height}px;`"
       :data="data"
       :options="chartOptions"
     />
