@@ -1,4 +1,3 @@
-import { nextTick } from 'vue'
 import { describe, it, expect, vi } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
 import BarChart from '@/components/Common/Chart/BarChart.vue'

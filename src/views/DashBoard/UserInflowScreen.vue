@@ -54,7 +54,8 @@ const props = defineProps({
     }>,
     required: true
   },
-  isLoading: Boolean
+  isLoading: Boolean,
+  isError: Boolean
 })
 
 const emit = defineEmits<{
@@ -142,6 +143,7 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
         <SkeletonContainer
           target="contents"
           :isLoading="isLoading"
+          :isError="isError"
         >
           <div>
             <ProgressCounter
@@ -155,6 +157,7 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
         <SkeletonContainer
           target="chart"
           :isLoading="isLoading"
+          :isError="isError"
         >
           <div>
             <TitlePercent
@@ -181,6 +184,7 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
         <SkeletonContainer
           target="contents"
           :isLoading="isLoading"
+          :isError="isError"
         >
           <TitlePercent
             title="신규가입자"
@@ -204,6 +208,7 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
         <SkeletonContainer
           target="chart"
           :isLoading="isLoading"
+          :isError="isError"
         >
           <article>
             <h2>가입자 추이</h2>

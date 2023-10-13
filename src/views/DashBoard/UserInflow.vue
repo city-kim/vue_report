@@ -42,6 +42,7 @@ onMounted(() => {
     :joinVisitCountChart="joinVisitCountChart"
     :joinRateBarChart="joinRateBarChart"
     :isLoading="userFlow.isLoading"
+    :isError="userFlow.isError"
     @joinTrendTargetChange="changeTrendTarget"
   />
 </template>

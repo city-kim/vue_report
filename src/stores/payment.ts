@@ -20,10 +20,12 @@ export const paymentStore = defineStore('payment', () => {
   const data = reactive<{ value: Array<Payment> }>({ value: [] })
 
   const isLoading = ref<boolean>(false)
+  const isError = ref<boolean>(false) // 에러발생시 내용을 저장한다
   function fetechPaymentData () {
     // 서버 데이터를 가져온다
     data.value = []
     isLoading.value = true
+    isError.value = false
     setTimeout(() => {
       updatePaymentData(paymentByDate({beforeDate, afterDate}))
     }, Math.random() * 1000)
@@ -107,6 +109,7 @@ export const paymentStore = defineStore('payment', () => {
   
   return {
     isLoading,
+    isError,
     fetechPaymentData,
     updatePaymentData,
     baseCount,
