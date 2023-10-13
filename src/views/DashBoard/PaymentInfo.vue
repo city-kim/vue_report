@@ -23,6 +23,8 @@ onMounted(() => {
     :paymentCalculator="payment.calculator"
     :amountChart="payment.amountChart"
     :userFlowLoading="userFlow.isLoading"
+    :userFlowError="userFlow.isError"
     :paymentLoading="payment.isLoading"
+    :paymentError="payment.isError"
   ></PaymentInfoScreen>
 </template>

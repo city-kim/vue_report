@@ -17,10 +17,12 @@ export const userFlowStore = defineStore('userFlow', () => {
   const data = reactive<{ value: Array<UserFlow> }>({ value: [] })
 
   const isLoading = ref<boolean>(false)
+  const isError = ref<boolean>(false)
   function fetechUserFlowData () {
     // 서버 데이터를 가져온다
     data.value = []
     isLoading.value = true
+    isError.value = false
     setTimeout(() => {
       updateUserFlowData(userFlowByDate({beforeDate, afterDate}))
     }, Math.random() * 1000)
@@ -133,6 +135,7 @@ export const userFlowStore = defineStore('userFlow', () => {
   
   return {
     isLoading,
+    isError,
     fetechUserFlowData,
     updateUserFlowData,
     baseCount,

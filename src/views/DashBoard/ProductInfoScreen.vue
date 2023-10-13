@@ -62,7 +62,9 @@ const props = defineProps({
     required: true
   },
   isProductLoading: Boolean,
+  isProductError: Boolean,
   isPurchaseLoading: Boolean,
+  isPurchaseError: Boolean
 })
 
 // 정렬대상
@@ -81,6 +83,7 @@ const PieChartDataset = computed(() => props.categoryChart.dataset.map(x => ({
 })))
 
 const isLoading = computed(() => props.isProductLoading || props.isPurchaseLoading)
+const isError = computed(() => props.isProductError || props.isPurchaseError)
 
 </script>
 
@@ -94,6 +97,7 @@ const isLoading = computed(() => props.isProductLoading || props.isPurchaseLoadi
         <SkeletonContainer
           target="chart"
           :isLoading="isProductLoading"
+          :isError="isProductError"
         >
           <h3>판매량</h3>
           <BarChart
@@ -112,6 +116,7 @@ const isLoading = computed(() => props.isProductLoading || props.isPurchaseLoadi
         <SkeletonContainer
           target="chart"
           :isLoading="isLoading"
+          :isError="isError"
         >
           <section>
             <h3>판매순위</h3>
@@ -139,6 +144,7 @@ const isLoading = computed(() => props.isProductLoading || props.isPurchaseLoadi
         <SkeletonContainer
           target="chart"
           :isLoading="isProductLoading"
+          :isError="isProductError"
         >
           <h3>종류별 비율</h3>
           <PieChart

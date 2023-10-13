@@ -26,6 +26,10 @@ const meta: Meta<typeof SkeletonContainer> = {
     isLoading: {
       control: 'boolean',
       description: '로딩중인지 여부'
+    },
+    isError: {
+      control: 'boolean',
+      description: '에러 여부'
     }
   }
 }
@@ -45,6 +49,25 @@ export const Primary: Story = {
   args: {
     target: 'contents',
     isLoading: true,
-    default: '로딩이 false가 되면 slot이 출력된다'
+    default: '로딩이 false가 되면 slot이 출력된다',
+    isError: false,
+  },
+}
+
+export const Error: Story = {
+  render: (args) => {
+    return {
+      components: { SkeletonContainer },
+      setup() {
+        return { args }
+      },
+      template: `<SkeletonContainer v-bind="args"></SkeletonContainer>`,
+    }
+  },
+  args: {
+    target: 'contents',
+    isLoading: false,
+    default: '로딩이 false가 되면 slot이 출력된다',
+    isError: true,
   },
 }

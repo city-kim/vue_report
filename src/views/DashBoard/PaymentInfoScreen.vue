@@ -38,7 +38,9 @@ const props = defineProps({
     required: true
   },
   userFlowLoading: Boolean,
-  paymentLoading: Boolean
+  userFlowError: Boolean,
+  paymentLoading: Boolean,
+  paymentError: Boolean
 })
 
 const inflow = computed(() => ([
@@ -62,6 +64,7 @@ function updateActive (dayType: string) {
 }
 
 const isLoading = computed(() => props.userFlowLoading || props.paymentLoading)
+const isError = computed(() => props.userFlowError || props.paymentError)
 
 </script>
 
@@ -79,6 +82,7 @@ const isLoading = computed(() => props.userFlowLoading || props.paymentLoading)
             :key="index"
             target="chart"
             :isLoading="isLoading"
+            :isError="isError"
           >
             <CardCounter
               :title="item.title"
@@ -92,6 +96,7 @@ const isLoading = computed(() => props.userFlowLoading || props.paymentLoading)
           <SkeletonContainer
             target="chart"
             :isLoading="paymentLoading"
+            :isError="paymentError"
           >
             <article>
               <h2>결제 및 환불</h2>
@@ -122,6 +127,7 @@ const isLoading = computed(() => props.userFlowLoading || props.paymentLoading)
       class="dashboard-userinfo-refund"
       h2="환불 | 탈퇴"
       :isLoading="isLoading"
+      :isError="isError"
     >
     <div>
       
@@ -130,6 +136,7 @@ const isLoading = computed(() => props.userFlowLoading || props.paymentLoading)
         :key="index"
         target="chart"
         :isLoading="isLoading"
+        :isError="isError"
       >
         <CircleCounter
           :title="item.title"

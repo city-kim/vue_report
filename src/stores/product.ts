@@ -18,10 +18,12 @@ export const productStore = defineStore('product', () => {
   const purchase = reactive<{ value: Purchase }>({ value: { data: [], filters: [] } })
 
   const isProductLoading = ref<boolean>(false)
+  const isProductError = ref<boolean>(false)
   function fetechProductData () {
     // 서버 데이터를 가져온다
     product.value = []
     isProductLoading.value = true
+    isProductError.value = false
     setTimeout(() => {
       updateProductData(productByDate({beforeDate, afterDate}))
     }, Math.random() * 1000)
@@ -33,10 +35,12 @@ export const productStore = defineStore('product', () => {
   }
   
   const isPurchaseLoading = ref<boolean>(false)
+  const isPurchaseError = ref<boolean>(false)
   function fetechPurchaseData () {
     // 서버 데이터를 가져온다
     purchase.value = { data: [], filters: [] }
     isPurchaseLoading.value = true
+    isPurchaseError.value = false
     setTimeout(() => {
       updatePurchaseData(purchaseByDate({beforeDate, afterDate}))
     }, 1000)
@@ -158,6 +162,8 @@ export const productStore = defineStore('product', () => {
   return {
     isProductLoading,
     isPurchaseLoading,
+    isProductError,
+    isPurchaseError,
     fetechProductData,
     updateProductData,
     fetechPurchaseData,

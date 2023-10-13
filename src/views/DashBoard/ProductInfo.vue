@@ -24,6 +24,8 @@ onMounted(() => {
     :tableSortTarget="product.tableSortTarget"
     :tableData="product.tableData"
     :isProductLoading="product.isProductLoading"
+    :isProductError="product.isProductError"
     :isPurchaseLoading="product.isPurchaseLoading"
+    :isPurchaseError="product.isPurchaseError"
   ></ProductInfoScreen>
 </template>
