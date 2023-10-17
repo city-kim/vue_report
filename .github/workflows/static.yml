@@ -1,12 +1,11 @@
 # 정적 콘텐츠를 GitHub Pages에 배포
 name: Deploy static content to Pages
 
+# main 브랜치에 push가 일어나면 실행
 on:
-  # unit_test가 성공시에 실행
-  workflow_run:
-    workflows: [unit_test]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 # GITHUB_TOKEN 권한설정
 permissions:
