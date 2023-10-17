@@ -45,17 +45,17 @@ pnpm run test:e2e:dev
 # Detail
 vue_report는 카드 레이아웃과 공통 컴포넌트를 통합하고 있어, 사용자에게 깔끔한 인터페이스를 제공합니다.\
 각 컴포넌트는 3가지 종류로 구성되어 있습니다
-- [Common(공통 컴포넌트) - storybook](https://651c102a27756b1f8a3bf1ab-wosxerbzkv.chromatic.com/?path=/docs/stories-components-common-buttongroup--docs)
-- [Mixed(확장된 공통 컴포넌트) - storybook](https://651c102a27756b1f8a3bf1ab-wosxerbzkv.chromatic.com/?path=/docs/stories-components-mixed-titlelineprogress--docs)
-- [`Views`(View에서 사용되는 컴포넌트) - storybook](https://651c102a27756b1f8a3bf1ab-wosxerbzkv.chromatic.com/?path=/docs/stories-components-dashboard-cardcounter--docs)
+- [Common(공통 컴포넌트) - storybook](https://651c102a27756b1f8a3bf1ab-rhfnfwtclw.chromatic.com/?path=/docs/stories-components-common-buttongroup--docs)
+- [Mixed(확장된 공통 컴포넌트) - storybook](https://651c102a27756b1f8a3bf1ab-rhfnfwtclw.chromatic.com/?path=/docs/stories-components-mixed-titlelineprogress--docs)
+- [`Views`(View에서 사용되는 컴포넌트) - storybook](https://651c102a27756b1f8a3bf1ab-rhfnfwtclw.chromatic.com/?path=/docs/stories-components-dashboard-cardcounter--docs)
 
 공통 컴포넌트는 다양한 확장 가능성을 갖추고 있어, 여러 환경과 조건에서 유연하게 활용할 수 있습니다.\
 [Views] 디렉토리의 명칭을 사용한 별도 컴포넌트는 특정 뷰에서만 필요한 독특한 기능을 제공합니다.
 
 chart.js 라이브러리를 활용하여, 다양한 차트 컴포넌트를 구현하였고,\
 luxon 라이브러리를 이용하여, 지난 7일에서 91일 간의 데이터를 선택하고 비교할 수 있는 달력 기능도 추가하였습니다.\
-[Chart - storybook](https://651c102a27756b1f8a3bf1ab-wosxerbzkv.chromatic.com/?path=/docs/stories-components-common-chart-barchart--docs)\
-[Calendar - storybook](https://651c102a27756b1f8a3bf1ab-wosxerbzkv.chromatic.com/?path=/docs/stories-components-common-comparecalendar--docs)
+[Chart - storybook](https://651c102a27756b1f8a3bf1ab-rhfnfwtclw.chromatic.com/?path=/docs/stories-components-common-chart-barchart--docs)\
+[Calendar - storybook](https://651c102a27756b1f8a3bf1ab-rhfnfwtclw.chromatic.com/?path=/docs/stories-components-common-comparecalendar--docs)
 
 화면 구성은 관심사의 분리 원칙을 따르고 있습니다.\
 vue 파일에서는 scss를 활용하여 UI에 집중하고, 데이터 관리는 pinia에서 책임지고 있습니다.\
@@ -85,11 +85,20 @@ https://github.com/city-kim/vue_report/assets/26377698/4ab243e0-468e-4204-baba-3
 ---
 
 ### 시각화 테스트
+
+[ui test - chromatic](https://www.chromatic.com/build?appId=651c102a27756b1f8a3bf1ab&number=6)
+
 ![image](public/readme/chromatic.png)
+
+[diff Changes - chromatic](https://www.chromatic.com/test?appId=651c102a27756b1f8a3bf1ab&id=6523652aa4835d68bb018474)
+
 ![image](public/readme/chromatic_accepted.png)
 
 ---
 
 ### Responsive
+
+[demo - github pages](https://city-kim.github.io/vue_report/)
+
 flex와 grid 기반의 반응형 디자인이 적용되어 있어, 모바일에서 데스크톱까지 다양한 화면 크기에 최적화되어 사용자에게 일관된 경험을 제공합니다.
 ![sample0](https://github.com/city-kim/vue_report/assets/26377698/b5a61cca-e904-4df0-8434-46833a6eef0f)
