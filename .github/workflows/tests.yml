@@ -1,0 +1,74 @@
+name: tests
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  unit_test:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'pnpm'
+    - run: pnpm install
+    - run: pnpm test:unit
+    - name: Add comment to PR
+      uses: actions/github-script@v6
+      if: always()
+      with:
+        github-token: ${{ secrets.TOKEN }}
+        script: |
+          const name = '${{ github.workflow   }}';
+          const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+          const success = '${{ job.status }}' === 'success';
+          const body = `${name}: ${success ? '✅ 유닛테스트 통과' : '❌ 유닛테스트 실패'}\n${url}`;
+
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: body
+          })
+  # e2e 테스트를 실행한다
+  e2e_test:
+    needs: unit_test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: pnpm build
+          start: pnpm preview
+      - name: Add comment to PR
+        uses: actions/github-script@v6
+        if: always()
+        with:
+          github-token: ${{ secrets.TOKEN }}
+          script: |
+            const name = '${{ github.workflow   }}';
+            const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+            const success = '${{ job.status }}' === 'success';
+            const body = `${name}: ${success ? '✅ e2e TEST 통과' : '❌ e2e TEST 실패'}\n${url}`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
