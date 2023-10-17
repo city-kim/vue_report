@@ -1,14 +1,13 @@
-name: tests
+name: job
 
 on:
   pull_request:
     branches: [ main ]
 
 jobs:
+  # unit test를 실행한다
   unit_test:
-  
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - uses: pnpm/action-setup@v2
@@ -72,3 +71,19 @@ jobs:
               repo: context.repo.repo,
               body: body
             })
+  chromatic-deployment:
+    needs: [unit_test, e2e_test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Install dependencies
+        run: pnpm install
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
