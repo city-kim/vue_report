@@ -7,7 +7,7 @@ const meta: Meta<typeof SkeletonChart> = {
   parameters: {
     docs: {
       description: {
-        component: 'loading중일때 사용하는 skeleton 컴포넌트'
+        component: 'loading중일때 사용하는 skeleton 컴포넌트\n\ntitle과 chart를 가지고 있는 형태에 매칭된가'
       },
     },
   },

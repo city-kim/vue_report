@@ -7,7 +7,7 @@ const meta: Meta<typeof SkeletonContainer> = {
   parameters: {
     docs: {
       description: {
-        component: 'loading중일때 사용하는 skeleton 컴포넌트'
+        component: '특정 영역을 container로 감싸 loading을 표시한다\n\ntarget에 로딩 skeleton의 형태가 변경된다\n\n데이터 로드 에러도 표현한다'
       },
     },
     slots: {
