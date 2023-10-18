@@ -7,7 +7,7 @@ const meta: Meta<typeof SkeletonContents> = {
   parameters: {
     docs: {
       description: {
-        component: '제목과 컨텐츠로 구분되는 skeleton 컴포넌트'
+        component: '제목과 컨텐츠로 구분되는 skeleton 컴포넌트\n\n제목과 컨텐츠를 가지고 있는 dashboard의 card레이아웃과 매칭된다'
       },
     },
   },

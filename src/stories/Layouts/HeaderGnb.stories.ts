@@ -6,7 +6,7 @@ const meta: Meta<typeof HeaderGnb> = {
   parameters: {
     docs: {
       description: {
-        component: '버튼을 표시하고 onClcik 이벤트를 전달하는 컴포넌트'
+        component: '그룹화된 버튼을 표시하고 active로 활성화된 버튼을 표현하는 컴포넌트\n\nTablet과 Mobile은 항목 내에서 확인가능'
       },
     },
   },
