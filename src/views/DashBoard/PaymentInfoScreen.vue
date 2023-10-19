@@ -4,7 +4,7 @@ import { computed, ref } from 'vue'
 import { getCssVar } from '@/util/color'
 import { DATE_TYPE } from '@/constants/FILTER'
 
-import ButtonGroup from '@/components/Common/ButtonGroup.vue'
+import ResponsiveChoice from '@/components/Mixed/ResponsiveChoice.vue'
 import BarChart from '@/components/Common/Chart/BarChart.vue'
 import ContainerHeading from '@/components/DashBoards/ContainerHeading.vue'
 import CardCounter from '@/components/DashBoards/CardCounter.vue'
@@ -100,9 +100,9 @@ const isError = computed(() => props.userFlowError || props.paymentError)
           >
             <article>
               <h2>결제 및 환불</h2>
-              <ButtonGroup
+              <ResponsiveChoice
                 :active="barChartDateType"
-                :buttons="DATE_TYPE"
+                :items="DATE_TYPE"
                 @updateActive="updateActive"
               />
             </article>

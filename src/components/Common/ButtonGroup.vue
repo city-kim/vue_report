@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import type { PropType } from 'vue'
 
 const props = defineProps({
@@ -22,59 +22,31 @@ function updateActive (key: string|undefined) {
   emit('updateActive', selected.value)
 }
 
-function selectUpdate () {
-  // device가 작으면 select 업데이트
-  updateActive(undefined)
-}
-
-onMounted(() => {
+onMounted(async () => {
+  await nextTick()
   if (props.active) selected.value = props.active
+})
+
+// props.active 값이 변경되면 selected 값도 변경
+watch(() => props.active, (val) => {
+  if (val) selected.value = val
 })
 </script>
 
 <template>
-  <div class="button-group-container">
-    <div class="button-group-select">
-      <select
-        v-model="selected"
-        @change="selectUpdate"
-      >
-        <option v-show="false" value="">전체</option>
-        <option
-          v-for="(item, index) in buttons"
-          :key="index"
-          :value="item.key"
-        >{{ item.text }}</option>
-      </select>
-    </div>
-    <div class="button-group">
-      <button
-        v-for="(item, index) in buttons"
-        :key="index"
-        :class="{active: item.key === selected}"
-        @click="updateActive(item.key)"
-      >
-        {{ item.text }}
-      </button>
-    </div>
+  <div class="button-group">
+    <button
+      v-for="(item, index) in buttons"
+      :key="index"
+      :class="{active: item.key === selected}"
+      @click="updateActive(item.key)"
+    >
+      {{ item.text }}
+    </button>
   </div>
 </template>
 <style lang="scss">
-.button-group-container {
-  .button-group-select {
-    @include mobile {
-      display: block;
-    }
-    display: none;
-    select {
-      padding: 0.25rem 0.5rem;
-      border: 1px solid var(--color-border);
-    }
-  }
   .button-group {
-    @include mobile {
-      display: none;
-    }
     display: flex;
     button {
       padding: 0.25rem 0.5rem;
@@ -103,5 +75,4 @@ onMounted(() => {
       }
     }
   }
-}
 </style>
