@@ -12,7 +12,7 @@ import ProgressCounter from '@/components/DashBoards/ProgressCounter.vue'
 import TitlePercent from '@/components/Mixed/TitlePercent.vue'
 import TitleLineProgress from '@/components/Mixed/TitleLineProgress.vue'
 
-import ButtonGroup from '@/components/Common/ButtonGroup.vue'
+import ResponsiveChoice from '@/components/Mixed/ResponsiveChoice.vue'
 import BarChart from '@/components/Common/Chart/BarChart.vue'
 import LineChart from '@/components/Common/Chart/LineChart.vue'
 
@@ -212,8 +212,9 @@ const joinRateBarChart = computed(() => ({ // 방문자 가입률 barChart 데�
         >
           <article>
             <h2>가입자 추이</h2>
-            <ButtonGroup
-              :buttons="JOIN_SNS"
+            <ResponsiveChoice
+              selectDefault="전체"
+              :items="JOIN_SNS"
               @updateActive="updateActive"
             />
           </article>
