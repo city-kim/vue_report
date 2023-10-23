@@ -8,7 +8,7 @@ import type { PropType } from 'vue'
 import type { SelectItem } from '@/types/components/mixed'
 
 const props = defineProps({
-  active: String,
+  active: [String, Number],
   selectDefault: String,
   items: {
     type: Array as PropType<Array<SelectItem>>,

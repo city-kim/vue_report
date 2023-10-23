@@ -7,7 +7,7 @@ import UserInflowScreen from '@/views/DashBoard/UserInflowScreen.vue'
 
 const userFlow = userFlowStore()
 
-function changeTrendTarget (jointype: string) { // 가입자 추이 lineChart 버튼 클릭시 sns filter
+function changeTrendTarget (jointype: string|number) { // 가입자 추이 lineChart 버튼 클릭시 sns filter
   userFlow.updateJoinTrendTarget(jointype)
 }
 
