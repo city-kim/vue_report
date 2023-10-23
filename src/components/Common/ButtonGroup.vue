@@ -1,22 +1,24 @@
 <script lang="ts" setup>
 import { nextTick, onMounted, ref, watch } from 'vue'
+
 import type { PropType } from 'vue'
+import type { SelectItem } from '@/types/components/mixed'
 
 const props = defineProps({
-  active: String,
+  active: [String, Number],
   buttons: {
-    type: Array as PropType<Array<{key: string, text: string}>>,
+    type: Array as PropType<Array<SelectItem>>,
     required: true
   },
 })
 
 const emit = defineEmits<{
-  (e: 'updateActive', key: string): void
+  (e: 'updateActive', key: string|number): void
 }>()
 
-const selected = ref('')
+const selected = ref<string|number>('')
 
-function updateActive (key: string|undefined) {
+function updateActive (key: string|number) {
   // button 클릭시 active 업데이트
   if (key) selected.value = key
   emit('updateActive', selected.value)

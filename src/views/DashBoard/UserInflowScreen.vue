@@ -59,7 +59,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'joinTrendTargetChange', key: string): void
+  (e: 'joinTrendTargetChange', key: string|number): void
 }>()
 
 const inflow = computed(() => ([ // 전체방문자 progress 데이터
@@ -117,7 +117,7 @@ const sns = computed(() => { // 신규가입자 sns progress 데이터
   ]
 })
 
-function updateActive (jointype: string) { // 가입자 추이 lineChart 버튼 클릭시 sns filter
+function updateActive (jointype: string|number) { // 가입자 추이 lineChart 버튼 클릭시 sns filter
   emit('joinTrendTargetChange', jointype)
 }
 

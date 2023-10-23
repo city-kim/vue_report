@@ -57,9 +57,9 @@ const refund = computed(() => ([
   { title: '탈퇴율', percent: props.paymentCalculator.refund.churnRate, color: '--c-blue' },
 ]))
 
-const barChartDateType = ref<string>('day')
+const barChartDateType = ref<string|number>('day')
 
-function updateActive (dayType: string) {
+function updateActive (dayType: string|number) {
   barChartDateType.value = dayType
 }
 

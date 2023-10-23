@@ -1,9 +1,9 @@
-interface SelectBoxItem { 
-  key: string
-  text: string
+interface SelectItem { 
+  key: string|number
+  text: string|number
   isHidden?: boolean
 }
 
 export type {
-  SelectBoxItem
+  SelectItem
 }

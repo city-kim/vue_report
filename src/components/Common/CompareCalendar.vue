@@ -37,6 +37,7 @@ const baseMonth = ref(DateTime.now().toFormat('yyyy-MM-dd'))
 
 onMounted(() => {
   // 마운트시 달력을 생성한다
+  baseMonth.value = props.beforeDate.from.toFormat('yyyy-MM-dd') // beforeDate의 from을 기준으로 달력을 생성한다
   setCalendar(baseMonth.value)
 })
 

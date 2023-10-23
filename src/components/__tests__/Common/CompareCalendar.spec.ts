@@ -34,15 +34,15 @@ describe('마운트시 올바르게 날짜를 생성하는지 확인', () => {
     props: date
   })
   const vm = wrapper.vm as unknown as ComponentVm
-  const now = DateTime.now()
+  const now = date.beforeDate.from
   const before = now.minus({ month: 1 })
   const after = now.plus({ month: 1 })
 
-  it ('baseMonth는 오늘자 기준으로 생성되어야 한다', () => {
+  it ('baseMonth는 beforeDate의 from을 기준으로 생성되어야 한다', () => {
     expect(vm.baseMonth).toEqual(now.toFormat('yyyy-LL-dd'))
   })
   
-  it ('dayObject는 오늘자 기준으로 앞 뒤 1개월씩 생성된다', () => {
+  it ('dayObject는 beforeDate의 from을 기준으로 앞 뒤 1개월씩 생성된다', () => {
     expect(vm.dayObject).toHaveProperty(before.toFormat('yyyy-LL'))
     expect(vm.dayObject).toHaveProperty(now.toFormat('yyyy-LL'))
     expect(vm.dayObject).toHaveProperty(after.toFormat('yyyy-LL'))
@@ -74,7 +74,7 @@ describe('마운트시 날짜가 생성된 경우 changeMonth함수가 호출되
       props: date
     })
     const vm = wrapper.vm as unknown as ComponentVm
-    const now = DateTime.now()
+    const now = date.beforeDate.from
     vm.changeMonth(1)
 
     expect(vm.dayObject).toHaveProperty(now.toFormat('yyyy-LL'))
@@ -87,7 +87,7 @@ describe('마운트시 날짜가 생성된 경우 changeMonth함수가 호출되
       props: date
     })
     const vm = wrapper.vm as unknown as ComponentVm
-    const now = DateTime.now()
+    const now = date.beforeDate.from
     vm.changeMonth(-1)
 
     expect(vm.dayObject).toHaveProperty(now.minus({ month: 2 }).toFormat('yyyy-LL'))
@@ -132,7 +132,7 @@ describe('changeSelectDate가 호출되었을때 selectDate의 값을 올바르�
     props: date
   })
   const vm = wrapper.vm as unknown as ComponentVm
-  const now = DateTime.now()
+  const now = date.beforeDate.from
 
   it ('changeSelectDate에 DateTime이 전달되면 selectDate의 from이 반영된다', () => {
     vm.changeSelectDate(now)
@@ -158,7 +158,7 @@ describe('activeTypeCheck 함수가 beforeInterval와 afterInterval에 맞춰 �
     props: date
   })
   const vm = wrapper.vm as unknown as ComponentVm
-  const now = DateTime.now()
+  const now = date.beforeDate.from
 
   it ('beforeInterval에 포함되는 날짜가 전달되면 before를 반환한다', () => {
     expect(vm.activeTypeCheck(date.beforeDate.from)).toBe('before')
@@ -182,7 +182,7 @@ describe('activeTypeCheck 함수가 beforeInterval와 afterInterval에 맞춰 �
   })
 
   it ('selectDate의 from값이 정의된다면 나머지 모든값은 빈값으로 전달된다', () => {
-    expect(vm.activeTypeCheck(date.beforeDate.from)).toBe('')
+    expect(vm.activeTypeCheck(DateTime.now())).toBe('')
   })
 
 })
