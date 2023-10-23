@@ -2,21 +2,21 @@
 import { nextTick, onMounted, ref, watch } from 'vue'
 
 import type { PropType } from 'vue'
-import type { SelectBoxItem } from '@/types/components/mixed'
+import type { SelectItem } from '@/types/components/mixed'
 
 const props = defineProps({
-  active: String,
+  active: [String, Number],
   options: {
-    type: Array as PropType<Array<SelectBoxItem>>,
+    type: Array as PropType<Array<SelectItem>>,
     required: true
   }
 })
 
 const emit = defineEmits<{
-  (e: 'updateSelected', key: string): void
+  (e: 'updateSelected', key: string|number): void
 }>()
 
-const selected = ref('')
+const selected = ref<string|number>('')
 
 function updateSelected() {
   emit('updateSelected', selected.value)

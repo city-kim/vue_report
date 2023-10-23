@@ -5,6 +5,8 @@ import { dateSort } from '@/util/data_converter'
 import CompareCalendar from '@/components/Common/CompareCalendar.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
+const now = DateTime.fromISO('2023-09-01').startOf('day')
+
 const meta: Meta<typeof CompareCalendar> = {
   component: CompareCalendar,
   parameters: {
@@ -65,12 +67,12 @@ export const Primary: Story = {
   },
   args: {
     beforeDate: {
-      from: DateTime.now().minus({day: 13}),
-      to: DateTime.now().minus({day: 7}),
+      from: now.minus({day: 13}),
+      to: now.minus({day: 7}),
     },
     afterDate: {
-      from: DateTime.now().minus({day: 6}),
-      to: DateTime.now(),
+      from: now.minus({day: 6}),
+      to: now,
     },
   },
 }
@@ -105,12 +107,12 @@ export const Mobile: Story = {
   },
   args: {
     beforeDate: {
-      from: DateTime.now().minus({day: 13}),
-      to: DateTime.now().minus({day: 7}),
+      from: now.minus({day: 13}),
+      to: now.minus({day: 7}),
     },
     afterDate: {
-      from: DateTime.now().minus({day: 6}),
-      to: DateTime.now(),
+      from: now.minus({day: 6}),
+      to: now,
     },
   },
 }
